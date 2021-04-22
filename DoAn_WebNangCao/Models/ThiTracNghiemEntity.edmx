@@ -1,0 +1,476 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="THITRACNGHIEMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CAUHOI">
+          <Key>
+            <PropertyRef Name="IDCauHoi" />
+          </Key>
+          <Property Name="IDCauHoi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoiDung" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="IDLinhVuc" Type="int" Nullable="false" />
+          <Property Name="MucDo" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CT_DETHI">
+          <Key>
+            <PropertyRef Name="IDCTDeThi" />
+          </Key>
+          <Property Name="IDCTDeThi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDDeThi" Type="int" Nullable="false" />
+          <Property Name="IDCauHoi" Type="int" Nullable="false" />
+          <Property Name="DapAnChon" Type="int" />
+        </EntityType>
+        <EntityType Name="DAPAN">
+          <Key>
+            <PropertyRef Name="IDDapAn" />
+          </Key>
+          <Property Name="IDDapAn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDCauHoi" Type="int" Nullable="false" />
+          <Property Name="NoiDung" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="TinhChat" Type="bit" />
+        </EntityType>
+        <EntityType Name="DETHI">
+          <Key>
+            <PropertyRef Name="IDDeThi" />
+          </Key>
+          <Property Name="IDDeThi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NgayThi" Type="datetime" Nullable="false" />
+          <Property Name="IDLinhVuc" Type="int" Nullable="false" />
+          <Property Name="MucDo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ThoiGianThi" Type="time" Precision="7" Nullable="false" />
+          <Property Name="IDTaiKhoan" Type="int" Nullable="false" />
+          <Property Name="TongDiem" Type="decimal" Precision="10" Scale="1" />
+        </EntityType>
+        <EntityType Name="LINHVUC">
+          <Key>
+            <PropertyRef Name="IDLinhVuc" />
+          </Key>
+          <Property Name="IDLinhVuc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLinhVuc" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TAIKHOAN">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaiKhoan" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="MatKhau" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="25" />
+          <Property Name="Quyen" Type="bit" Nullable="false" />
+          <Property Name="AnhDaiDien" Type="image" />
+        </EntityType>
+        <Association Name="FK_CAUHOICTDT">
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="1" />
+          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAUHOI">
+              <PropertyRef Name="IDCauHoi" />
+            </Principal>
+            <Dependent Role="CT_DETHI">
+              <PropertyRef Name="IDCauHoi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAUHOIDA">
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="1" />
+          <End Role="DAPAN" Type="Self.DAPAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAUHOI">
+              <PropertyRef Name="IDCauHoi" />
+            </Principal>
+            <Dependent Role="DAPAN">
+              <PropertyRef Name="IDCauHoi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DAPANCTDT">
+          <End Role="DAPAN" Type="Self.DAPAN" Multiplicity="0..1" />
+          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DAPAN">
+              <PropertyRef Name="IDDapAn" />
+            </Principal>
+            <Dependent Role="CT_DETHI">
+              <PropertyRef Name="DapAnChon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETHICTDT">
+          <End Role="DETHI" Type="Self.DETHI" Multiplicity="1" />
+          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DETHI">
+              <PropertyRef Name="IDDeThi" />
+            </Principal>
+            <Dependent Role="CT_DETHI">
+              <PropertyRef Name="IDDeThi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LINHVUCCH">
+          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="1" />
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LINHVUC">
+              <PropertyRef Name="IDLinhVuc" />
+            </Principal>
+            <Dependent Role="CAUHOI">
+              <PropertyRef Name="IDLinhVuc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LINHVUCDT">
+          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="1" />
+          <End Role="DETHI" Type="Self.DETHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LINHVUC">
+              <PropertyRef Name="IDLinhVuc" />
+            </Principal>
+            <Dependent Role="DETHI">
+              <PropertyRef Name="IDLinhVuc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAIKHOANDT">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="1" />
+          <End Role="DETHI" Type="Self.DETHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="DETHI">
+              <PropertyRef Name="IDTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="THITRACNGHIEMModelStoreContainer">
+          <EntitySet Name="CAUHOI" EntityType="Self.CAUHOI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CT_DETHI" EntityType="Self.CT_DETHI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DAPAN" EntityType="Self.DAPAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETHI" EntityType="Self.DETHI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LINHVUC" EntityType="Self.LINHVUC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CAUHOICTDT" Association="Self.FK_CAUHOICTDT">
+            <End Role="CAUHOI" EntitySet="CAUHOI" />
+            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAUHOIDA" Association="Self.FK_CAUHOIDA">
+            <End Role="CAUHOI" EntitySet="CAUHOI" />
+            <End Role="DAPAN" EntitySet="DAPAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DAPANCTDT" Association="Self.FK_DAPANCTDT">
+            <End Role="DAPAN" EntitySet="DAPAN" />
+            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETHICTDT" Association="Self.FK_DETHICTDT">
+            <End Role="DETHI" EntitySet="DETHI" />
+            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LINHVUCCH" Association="Self.FK_LINHVUCCH">
+            <End Role="LINHVUC" EntitySet="LINHVUC" />
+            <End Role="CAUHOI" EntitySet="CAUHOI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LINHVUCDT" Association="Self.FK_LINHVUCDT">
+            <End Role="LINHVUC" EntitySet="LINHVUC" />
+            <End Role="DETHI" EntitySet="DETHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAIKHOANDT" Association="Self.FK_TAIKHOANDT">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="DETHI" EntitySet="DETHI" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="THITRACNGHIEMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CAUHOI">
+          <Key>
+            <PropertyRef Name="IDCauHoi" />
+          </Key>
+          <Property Name="IDCauHoi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoiDung" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDLinhVuc" Type="Int32" Nullable="false" />
+          <Property Name="MucDo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CT_DETHI" Relationship="Self.FK_CAUHOICTDT" FromRole="CAUHOI" ToRole="CT_DETHI" />
+          <NavigationProperty Name="DAPANs" Relationship="Self.FK_CAUHOIDA" FromRole="CAUHOI" ToRole="DAPAN" />
+          <NavigationProperty Name="LINHVUC" Relationship="Self.FK_LINHVUCCH" FromRole="CAUHOI" ToRole="LINHVUC" />
+        </EntityType>
+        <EntityType Name="CT_DETHI">
+          <Key>
+            <PropertyRef Name="IDCTDeThi" />
+          </Key>
+          <Property Name="IDCTDeThi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDDeThi" Type="Int32" Nullable="false" />
+          <Property Name="IDCauHoi" Type="Int32" Nullable="false" />
+          <Property Name="DapAnChon" Type="Int32" />
+          <NavigationProperty Name="CAUHOI" Relationship="Self.FK_CAUHOICTDT" FromRole="CT_DETHI" ToRole="CAUHOI" />
+          <NavigationProperty Name="DAPAN" Relationship="Self.FK_DAPANCTDT" FromRole="CT_DETHI" ToRole="DAPAN" />
+          <NavigationProperty Name="DETHI" Relationship="Self.FK_DETHICTDT" FromRole="CT_DETHI" ToRole="DETHI" />
+        </EntityType>
+        <EntityType Name="DAPAN">
+          <Key>
+            <PropertyRef Name="IDDapAn" />
+          </Key>
+          <Property Name="IDDapAn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCauHoi" Type="Int32" Nullable="false" />
+          <Property Name="NoiDung" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TinhChat" Type="Boolean" />
+          <NavigationProperty Name="CAUHOI" Relationship="Self.FK_CAUHOIDA" FromRole="DAPAN" ToRole="CAUHOI" />
+          <NavigationProperty Name="CT_DETHI" Relationship="Self.FK_DAPANCTDT" FromRole="DAPAN" ToRole="CT_DETHI" />
+        </EntityType>
+        <EntityType Name="DETHI">
+          <Key>
+            <PropertyRef Name="IDDeThi" />
+          </Key>
+          <Property Name="IDDeThi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NgayThi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IDLinhVuc" Type="Int32" Nullable="false" />
+          <Property Name="MucDo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ThoiGianThi" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="IDTaiKhoan" Type="Int32" Nullable="false" />
+          <Property Name="TongDiem" Type="Decimal" Precision="10" Scale="1" />
+          <NavigationProperty Name="CT_DETHI" Relationship="Self.FK_DETHICTDT" FromRole="DETHI" ToRole="CT_DETHI" />
+          <NavigationProperty Name="LINHVUC" Relationship="Self.FK_LINHVUCDT" FromRole="DETHI" ToRole="LINHVUC" />
+          <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK_TAIKHOANDT" FromRole="DETHI" ToRole="TAIKHOAN" />
+        </EntityType>
+        <EntityType Name="LINHVUC">
+          <Key>
+            <PropertyRef Name="IDLinhVuc" />
+          </Key>
+          <Property Name="IDLinhVuc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLinhVuc" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CAUHOIs" Relationship="Self.FK_LINHVUCCH" FromRole="LINHVUC" ToRole="CAUHOI" />
+          <NavigationProperty Name="DETHIs" Relationship="Self.FK_LINHVUCDT" FromRole="LINHVUC" ToRole="DETHI" />
+        </EntityType>
+        <EntityType Name="TAIKHOAN">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaiKhoan1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MatKhau" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HoTen" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Quyen" Type="Boolean" Nullable="false" />
+          <Property Name="AnhDaiDien" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="DETHIs" Relationship="Self.FK_TAIKHOANDT" FromRole="TAIKHOAN" ToRole="DETHI" />
+        </EntityType>
+        <Association Name="FK_CAUHOICTDT">
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="1" />
+          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAUHOI">
+              <PropertyRef Name="IDCauHoi" />
+            </Principal>
+            <Dependent Role="CT_DETHI">
+              <PropertyRef Name="IDCauHoi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAUHOIDA">
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="1" />
+          <End Role="DAPAN" Type="Self.DAPAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAUHOI">
+              <PropertyRef Name="IDCauHoi" />
+            </Principal>
+            <Dependent Role="DAPAN">
+              <PropertyRef Name="IDCauHoi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LINHVUCCH">
+          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="1" />
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LINHVUC">
+              <PropertyRef Name="IDLinhVuc" />
+            </Principal>
+            <Dependent Role="CAUHOI">
+              <PropertyRef Name="IDLinhVuc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DAPANCTDT">
+          <End Role="DAPAN" Type="Self.DAPAN" Multiplicity="0..1" />
+          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DAPAN">
+              <PropertyRef Name="IDDapAn" />
+            </Principal>
+            <Dependent Role="CT_DETHI">
+              <PropertyRef Name="DapAnChon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETHICTDT">
+          <End Role="DETHI" Type="Self.DETHI" Multiplicity="1" />
+          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DETHI">
+              <PropertyRef Name="IDDeThi" />
+            </Principal>
+            <Dependent Role="CT_DETHI">
+              <PropertyRef Name="IDDeThi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LINHVUCDT">
+          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="1" />
+          <End Role="DETHI" Type="Self.DETHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LINHVUC">
+              <PropertyRef Name="IDLinhVuc" />
+            </Principal>
+            <Dependent Role="DETHI">
+              <PropertyRef Name="IDLinhVuc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAIKHOANDT">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="1" />
+          <End Role="DETHI" Type="Self.DETHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="DETHI">
+              <PropertyRef Name="IDTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="THITRACNGHIEMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CAUHOIs" EntityType="Self.CAUHOI" />
+          <EntitySet Name="CT_DETHI" EntityType="Self.CT_DETHI" />
+          <EntitySet Name="DAPANs" EntityType="Self.DAPAN" />
+          <EntitySet Name="DETHIs" EntityType="Self.DETHI" />
+          <EntitySet Name="LINHVUCs" EntityType="Self.LINHVUC" />
+          <EntitySet Name="TAIKHOANs" EntityType="Self.TAIKHOAN" />
+          <AssociationSet Name="FK_CAUHOICTDT" Association="Self.FK_CAUHOICTDT">
+            <End Role="CAUHOI" EntitySet="CAUHOIs" />
+            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAUHOIDA" Association="Self.FK_CAUHOIDA">
+            <End Role="CAUHOI" EntitySet="CAUHOIs" />
+            <End Role="DAPAN" EntitySet="DAPANs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LINHVUCCH" Association="Self.FK_LINHVUCCH">
+            <End Role="LINHVUC" EntitySet="LINHVUCs" />
+            <End Role="CAUHOI" EntitySet="CAUHOIs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DAPANCTDT" Association="Self.FK_DAPANCTDT">
+            <End Role="DAPAN" EntitySet="DAPANs" />
+            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETHICTDT" Association="Self.FK_DETHICTDT">
+            <End Role="DETHI" EntitySet="DETHIs" />
+            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LINHVUCDT" Association="Self.FK_LINHVUCDT">
+            <End Role="LINHVUC" EntitySet="LINHVUCs" />
+            <End Role="DETHI" EntitySet="DETHIs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAIKHOANDT" Association="Self.FK_TAIKHOANDT">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
+            <End Role="DETHI" EntitySet="DETHIs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="THITRACNGHIEMModelStoreContainer" CdmEntityContainer="THITRACNGHIEMEntities">
+          <EntitySetMapping Name="CAUHOIs">
+            <EntityTypeMapping TypeName="THITRACNGHIEMModel.CAUHOI">
+              <MappingFragment StoreEntitySet="CAUHOI">
+                <ScalarProperty Name="IDCauHoi" ColumnName="IDCauHoi" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="IDLinhVuc" ColumnName="IDLinhVuc" />
+                <ScalarProperty Name="MucDo" ColumnName="MucDo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CT_DETHI">
+            <EntityTypeMapping TypeName="THITRACNGHIEMModel.CT_DETHI">
+              <MappingFragment StoreEntitySet="CT_DETHI">
+                <ScalarProperty Name="IDCTDeThi" ColumnName="IDCTDeThi" />
+                <ScalarProperty Name="IDDeThi" ColumnName="IDDeThi" />
+                <ScalarProperty Name="IDCauHoi" ColumnName="IDCauHoi" />
+                <ScalarProperty Name="DapAnChon" ColumnName="DapAnChon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DAPANs">
+            <EntityTypeMapping TypeName="THITRACNGHIEMModel.DAPAN">
+              <MappingFragment StoreEntitySet="DAPAN">
+                <ScalarProperty Name="IDDapAn" ColumnName="IDDapAn" />
+                <ScalarProperty Name="IDCauHoi" ColumnName="IDCauHoi" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="TinhChat" ColumnName="TinhChat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETHIs">
+            <EntityTypeMapping TypeName="THITRACNGHIEMModel.DETHI">
+              <MappingFragment StoreEntitySet="DETHI">
+                <ScalarProperty Name="IDDeThi" ColumnName="IDDeThi" />
+                <ScalarProperty Name="NgayThi" ColumnName="NgayThi" />
+                <ScalarProperty Name="IDLinhVuc" ColumnName="IDLinhVuc" />
+                <ScalarProperty Name="MucDo" ColumnName="MucDo" />
+                <ScalarProperty Name="ThoiGianThi" ColumnName="ThoiGianThi" />
+                <ScalarProperty Name="IDTaiKhoan" ColumnName="IDTaiKhoan" />
+                <ScalarProperty Name="TongDiem" ColumnName="TongDiem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LINHVUCs">
+            <EntityTypeMapping TypeName="THITRACNGHIEMModel.LINHVUC">
+              <MappingFragment StoreEntitySet="LINHVUC">
+                <ScalarProperty Name="IDLinhVuc" ColumnName="IDLinhVuc" />
+                <ScalarProperty Name="TenLinhVuc" ColumnName="TenLinhVuc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAIKHOANs">
+            <EntityTypeMapping TypeName="THITRACNGHIEMModel.TAIKHOAN">
+              <MappingFragment StoreEntitySet="TAIKHOAN">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="TaiKhoan1" ColumnName="TaiKhoan" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Quyen" ColumnName="Quyen" />
+                <ScalarProperty Name="AnhDaiDien" ColumnName="AnhDaiDien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
