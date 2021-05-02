@@ -131,6 +131,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ResultController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -146,9 +148,12 @@
     <Compile Include="Models\DETHI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\LINHVUC.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Quiz.cs" />
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\TAIKHOAN.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
@@ -174,6 +179,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\question.css" />
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="Content\sb-admin-2.min.css" />
     <Content Include="favicon.ico" />
@@ -2045,6 +2051,9 @@
     <Content Include="vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="vendor\jquery\jquery.min.map" />
     <Content Include="vendor\jquery\jquery.slim.min.map" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\GetQuestion.cshtml" />
+    <Content Include="Views\Result\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
