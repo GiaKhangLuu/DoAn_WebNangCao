@@ -11,16 +11,21 @@ namespace DoAn_WebNangCao.Controllers
     public class ResultController : Controller
     {
         THITRACNGHIEMEntities db = new THITRACNGHIEMEntities();
-        Result rs = new Result();
         
         [HttpPost]
         public ActionResult Index()
         {
+            Result rs = new Result();
             Exam exam = Session["Exam"] as Exam;
             Process_user_choice(exam);
             rs.Num_of_correct_answers = Count_correct_answers(exam);
-            rs.Num_of_quizs = exam.Quizs.Count();
-            return View();
+            rs.Num_of_quizs = exam.Quizs.Count();        
+            return View(rs);
+        }
+
+        public PartialViewResult Render_result(Result rs)
+        {
+            return PartialView(rs);
         }
 
         public void Process_user_choice(Exam exam)
@@ -52,7 +57,7 @@ namespace DoAn_WebNangCao.Controllers
         public int Get_correct_answer_id(CAUHOI cau_hoi)
         {
             DAPAN corr_answer = cau_hoi.DAPANs.FirstOrDefault(dapan => dapan.TinhChat == true);
-            return cau_hoi.IDCauHoi;
+            return corr_answer.IDDapAn;
         }
 
         public int Count_correct_answers(Exam exam)
@@ -67,7 +72,5 @@ namespace DoAn_WebNangCao.Controllers
             }
             return count;
         }
-
-
     }
 }

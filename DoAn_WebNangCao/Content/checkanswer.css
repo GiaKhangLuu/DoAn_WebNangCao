@@ -1,0 +1,41 @@
+.radiocontainer {
+    position: relative;
+    padding: 10px 10px 10px 40px;
+    margin-bottom: 1px;
+    background-color: #f1f1f1;
+    font-size: 18px;
+}
+
+.radiocontainer.wrong {
+    background-color: #f8d7da;
+}
+
+.radiocontainer.correct {
+    background-color: #ddd;
+}
+
+.radiocontainer.correct.selected {
+    background-color: #d4edda;
+}
+
+.markcontainer {
+    position: absolute;
+    left: 15px;
+}
+
+i.fa-times {
+    color: red;
+}
+
+i.fa-check {
+    color: green;
+}
+
+.answercomment {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    white-space: nowrap;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

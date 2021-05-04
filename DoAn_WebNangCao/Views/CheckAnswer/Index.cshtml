@@ -1,6 +1,6 @@
-﻿@model DoAn_WebNangCao.Models.Result
+﻿@model IEnumerable<DoAn_WebNangCao.Models.Quiz>
 
-@{ 
+@{
     Layout = null;
 }
 
@@ -20,6 +20,8 @@
 
     <!-- Custom styles for this template-->
     <link href="~/Content/sb-admin-2.min.css" rel="stylesheet">
+    <link href="~/Content/question.css" rel="stylesheet" />
+    <link href="~/Content/checkanswer.css" rel="stylesheet" />
 </head>
 <body id="page-top">
 
@@ -372,8 +374,8 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-2"></div>
-                            <div class="col-8">  
-                                @{ Html.RenderPartial("Render_result", Model); }
+                            <div class="col-8">
+                                @{ Html.RenderPartial("Render_quizs", Model); }
                             </div>
                             <div class="right col">
                             </div>
