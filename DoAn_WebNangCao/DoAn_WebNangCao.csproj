@@ -132,6 +132,7 @@
     <Compile Include="Controllers\CheckAnswerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\QuizCategoryController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
@@ -182,6 +183,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\checkanswer.css" />
     <Content Include="Content\question.css" />
+    <Content Include="Content\quiz_category.css" />
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="Content\sb-admin-2.min.css" />
     <Content Include="favicon.ico" />
@@ -2059,6 +2061,8 @@
     <Content Include="Views\Result\Render_result.cshtml" />
     <Content Include="Views\CheckAnswer\Index.cshtml" />
     <Content Include="Views\CheckAnswer\Render_quizs.cshtml" />
+    <Content Include="Views\QuizCategory\Index.cshtml" />
+    <Content Include="Views\QuizCategory\Render_quiz_category.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

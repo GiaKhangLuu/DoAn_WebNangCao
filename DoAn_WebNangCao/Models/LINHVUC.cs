@@ -23,6 +23,8 @@ namespace DoAn_WebNangCao.Models
     
         public int IDLinhVuc { get; set; }
         public string TenLinhVuc { get; set; }
+
+        public string GhiChu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CAUHOI> CAUHOIs { get; set; }
