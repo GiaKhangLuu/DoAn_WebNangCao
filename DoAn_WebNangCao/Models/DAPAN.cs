@@ -23,7 +23,7 @@ namespace DoAn_WebNangCao.Models
         public int IDDapAn { get; set; }
         public int IDCauHoi { get; set; }
         public string NoiDung { get; set; }
-        public Nullable<bool> TinhChat { get; set; }
+        public bool TinhChat { get; set; }
     
         public virtual CAUHOI CAUHOI { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

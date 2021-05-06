@@ -4,15 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="THITRACNGHIEMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="THITRACNGHIEMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CAUHOI">
           <Key>
             <PropertyRef Name="IDCauHoi" />
           </Key>
           <Property Name="IDCauHoi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NoiDung" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="IDLinhVuc" Type="int" Nullable="false" />
-          <Property Name="MucDo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="IDLinhVuc" Type="int" />
         </EntityType>
         <EntityType Name="CT_DETHI">
           <Key>
@@ -30,7 +29,7 @@
           <Property Name="IDDapAn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDCauHoi" Type="int" Nullable="false" />
           <Property Name="NoiDung" Type="varchar" MaxLength="300" Nullable="false" />
-          <Property Name="TinhChat" Type="bit" />
+          <Property Name="TinhChat" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DETHI">
           <Key>
@@ -38,10 +37,9 @@
           </Key>
           <Property Name="IDDeThi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NgayThi" Type="datetime" Nullable="false" />
-          <Property Name="IDLinhVuc" Type="int" Nullable="false" />
           <Property Name="MucDo" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="ThoiGianThi" Type="time" Precision="7" Nullable="false" />
-          <Property Name="IDTaiKhoan" Type="int" Nullable="false" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
           <Property Name="TongDiem" Type="decimal" Precision="10" Scale="1" />
         </EntityType>
         <EntityType Name="LINHVUC">
@@ -50,20 +48,32 @@
           </Key>
           <Property Name="IDLinhVuc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenLinhVuc" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="TAIKHOAN">
           <Key>
             <PropertyRef Name="IDUser" />
           </Key>
           <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TaiKhoan" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="MatKhau" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="HoTen" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="25" />
           <Property Name="Quyen" Type="bit" Nullable="false" />
-          <Property Name="AnhDaiDien" Type="image" />
+          <Property Name="AnhDaiDien" Type="varchar" MaxLength="150" />
         </EntityType>
+        <Association Name="FK__CAUHOI__IDLinhVu__398D8EEE">
+          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="0..1" />
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LINHVUC">
+              <PropertyRef Name="IDLinhVuc" />
+            </Principal>
+            <Dependent Role="CAUHOI">
+              <PropertyRef Name="IDLinhVuc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CAUHOICTDT">
           <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="1" />
           <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
@@ -112,30 +122,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LINHVUCCH">
-          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="1" />
-          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LINHVUC">
-              <PropertyRef Name="IDLinhVuc" />
-            </Principal>
-            <Dependent Role="CAUHOI">
-              <PropertyRef Name="IDLinhVuc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LINHVUCDT">
-          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="1" />
-          <End Role="DETHI" Type="Self.DETHI" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LINHVUC">
-              <PropertyRef Name="IDLinhVuc" />
-            </Principal>
-            <Dependent Role="DETHI">
-              <PropertyRef Name="IDLinhVuc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TAIKHOANDT">
           <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="1" />
           <End Role="DETHI" Type="Self.DETHI" Multiplicity="*" />
@@ -144,7 +130,7 @@
               <PropertyRef Name="IDUser" />
             </Principal>
             <Dependent Role="DETHI">
-              <PropertyRef Name="IDTaiKhoan" />
+              <PropertyRef Name="IDUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -155,6 +141,10 @@
           <EntitySet Name="DETHI" EntityType="Self.DETHI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LINHVUC" EntityType="Self.LINHVUC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CAUHOI__IDLinhVu__398D8EEE" Association="Self.FK__CAUHOI__IDLinhVu__398D8EEE">
+            <End Role="LINHVUC" EntitySet="LINHVUC" />
+            <End Role="CAUHOI" EntitySet="CAUHOI" />
+          </AssociationSet>
           <AssociationSet Name="FK_CAUHOICTDT" Association="Self.FK_CAUHOICTDT">
             <End Role="CAUHOI" EntitySet="CAUHOI" />
             <End Role="CT_DETHI" EntitySet="CT_DETHI" />
@@ -171,20 +161,13 @@
             <End Role="DETHI" EntitySet="DETHI" />
             <End Role="CT_DETHI" EntitySet="CT_DETHI" />
           </AssociationSet>
-          <AssociationSet Name="FK_LINHVUCCH" Association="Self.FK_LINHVUCCH">
-            <End Role="LINHVUC" EntitySet="LINHVUC" />
-            <End Role="CAUHOI" EntitySet="CAUHOI" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LINHVUCDT" Association="Self.FK_LINHVUCDT">
-            <End Role="LINHVUC" EntitySet="LINHVUC" />
-            <End Role="DETHI" EntitySet="DETHI" />
-          </AssociationSet>
           <AssociationSet Name="FK_TAIKHOANDT" Association="Self.FK_TAIKHOANDT">
             <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
             <End Role="DETHI" EntitySet="DETHI" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="THITRACNGHIEMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -194,11 +177,10 @@
           </Key>
           <Property Name="IDCauHoi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NoiDung" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IDLinhVuc" Type="Int32" Nullable="false" />
-          <Property Name="MucDo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IDLinhVuc" Type="Int32" />
+          <NavigationProperty Name="LINHVUC" Relationship="Self.FK__CAUHOI__IDLinhVu__398D8EEE" FromRole="CAUHOI" ToRole="LINHVUC" />
           <NavigationProperty Name="CT_DETHI" Relationship="Self.FK_CAUHOICTDT" FromRole="CAUHOI" ToRole="CT_DETHI" />
           <NavigationProperty Name="DAPANs" Relationship="Self.FK_CAUHOIDA" FromRole="CAUHOI" ToRole="DAPAN" />
-          <NavigationProperty Name="LINHVUC" Relationship="Self.FK_LINHVUCCH" FromRole="CAUHOI" ToRole="LINHVUC" />
         </EntityType>
         <EntityType Name="CT_DETHI">
           <Key>
@@ -219,7 +201,7 @@
           <Property Name="IDDapAn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDCauHoi" Type="Int32" Nullable="false" />
           <Property Name="NoiDung" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TinhChat" Type="Boolean" />
+          <Property Name="TinhChat" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CAUHOI" Relationship="Self.FK_CAUHOIDA" FromRole="DAPAN" ToRole="CAUHOI" />
           <NavigationProperty Name="CT_DETHI" Relationship="Self.FK_DAPANCTDT" FromRole="DAPAN" ToRole="CT_DETHI" />
         </EntityType>
@@ -229,13 +211,11 @@
           </Key>
           <Property Name="IDDeThi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NgayThi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IDLinhVuc" Type="Int32" Nullable="false" />
           <Property Name="MucDo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ThoiGianThi" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="IDTaiKhoan" Type="Int32" Nullable="false" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
           <Property Name="TongDiem" Type="Decimal" Precision="10" Scale="1" />
           <NavigationProperty Name="CT_DETHI" Relationship="Self.FK_DETHICTDT" FromRole="DETHI" ToRole="CT_DETHI" />
-          <NavigationProperty Name="LINHVUC" Relationship="Self.FK_LINHVUCDT" FromRole="DETHI" ToRole="LINHVUC" />
           <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK_TAIKHOANDT" FromRole="DETHI" ToRole="TAIKHOAN" />
         </EntityType>
         <EntityType Name="LINHVUC">
@@ -244,23 +224,34 @@
           </Key>
           <Property Name="IDLinhVuc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLinhVuc" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="CAUHOIs" Relationship="Self.FK_LINHVUCCH" FromRole="LINHVUC" ToRole="CAUHOI" />
-          <NavigationProperty Name="DETHIs" Relationship="Self.FK_LINHVUCDT" FromRole="LINHVUC" ToRole="DETHI" />
-          <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CAUHOIs" Relationship="Self.FK__CAUHOI__IDLinhVu__398D8EEE" FromRole="LINHVUC" ToRole="CAUHOI" />
         </EntityType>
         <EntityType Name="TAIKHOAN">
           <Key>
             <PropertyRef Name="IDUser" />
           </Key>
           <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TaiKhoan1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MatKhau" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="HoTen" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Quyen" Type="Boolean" Nullable="false" />
-          <Property Name="AnhDaiDien" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="AnhDaiDien" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DETHIs" Relationship="Self.FK_TAIKHOANDT" FromRole="TAIKHOAN" ToRole="DETHI" />
         </EntityType>
+        <Association Name="FK__CAUHOI__IDLinhVu__398D8EEE">
+          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="0..1" />
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LINHVUC">
+              <PropertyRef Name="IDLinhVuc" />
+            </Principal>
+            <Dependent Role="CAUHOI">
+              <PropertyRef Name="IDLinhVuc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CAUHOICTDT">
           <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="1" />
           <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
@@ -282,18 +273,6 @@
             </Principal>
             <Dependent Role="DAPAN">
               <PropertyRef Name="IDCauHoi" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LINHVUCCH">
-          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="1" />
-          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LINHVUC">
-              <PropertyRef Name="IDLinhVuc" />
-            </Principal>
-            <Dependent Role="CAUHOI">
-              <PropertyRef Name="IDLinhVuc" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -321,18 +300,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LINHVUCDT">
-          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="1" />
-          <End Role="DETHI" Type="Self.DETHI" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LINHVUC">
-              <PropertyRef Name="IDLinhVuc" />
-            </Principal>
-            <Dependent Role="DETHI">
-              <PropertyRef Name="IDLinhVuc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TAIKHOANDT">
           <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="1" />
           <End Role="DETHI" Type="Self.DETHI" Multiplicity="*" />
@@ -341,7 +308,7 @@
               <PropertyRef Name="IDUser" />
             </Principal>
             <Dependent Role="DETHI">
-              <PropertyRef Name="IDTaiKhoan" />
+              <PropertyRef Name="IDUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -352,6 +319,10 @@
           <EntitySet Name="DETHIs" EntityType="Self.DETHI" />
           <EntitySet Name="LINHVUCs" EntityType="Self.LINHVUC" />
           <EntitySet Name="TAIKHOANs" EntityType="Self.TAIKHOAN" />
+          <AssociationSet Name="FK__CAUHOI__IDLinhVu__398D8EEE" Association="Self.FK__CAUHOI__IDLinhVu__398D8EEE">
+            <End Role="LINHVUC" EntitySet="LINHVUCs" />
+            <End Role="CAUHOI" EntitySet="CAUHOIs" />
+          </AssociationSet>
           <AssociationSet Name="FK_CAUHOICTDT" Association="Self.FK_CAUHOICTDT">
             <End Role="CAUHOI" EntitySet="CAUHOIs" />
             <End Role="CT_DETHI" EntitySet="CT_DETHI" />
@@ -360,10 +331,6 @@
             <End Role="CAUHOI" EntitySet="CAUHOIs" />
             <End Role="DAPAN" EntitySet="DAPANs" />
           </AssociationSet>
-          <AssociationSet Name="FK_LINHVUCCH" Association="Self.FK_LINHVUCCH">
-            <End Role="LINHVUC" EntitySet="LINHVUCs" />
-            <End Role="CAUHOI" EntitySet="CAUHOIs" />
-          </AssociationSet>
           <AssociationSet Name="FK_DAPANCTDT" Association="Self.FK_DAPANCTDT">
             <End Role="DAPAN" EntitySet="DAPANs" />
             <End Role="CT_DETHI" EntitySet="CT_DETHI" />
@@ -371,10 +338,6 @@
           <AssociationSet Name="FK_DETHICTDT" Association="Self.FK_DETHICTDT">
             <End Role="DETHI" EntitySet="DETHIs" />
             <End Role="CT_DETHI" EntitySet="CT_DETHI" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LINHVUCDT" Association="Self.FK_LINHVUCDT">
-            <End Role="LINHVUC" EntitySet="LINHVUCs" />
-            <End Role="DETHI" EntitySet="DETHIs" />
           </AssociationSet>
           <AssociationSet Name="FK_TAIKHOANDT" Association="Self.FK_TAIKHOANDT">
             <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
@@ -393,7 +356,6 @@
                 <ScalarProperty Name="IDCauHoi" ColumnName="IDCauHoi" />
                 <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
                 <ScalarProperty Name="IDLinhVuc" ColumnName="IDLinhVuc" />
-                <ScalarProperty Name="MucDo" ColumnName="MucDo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -422,10 +384,9 @@
               <MappingFragment StoreEntitySet="DETHI">
                 <ScalarProperty Name="IDDeThi" ColumnName="IDDeThi" />
                 <ScalarProperty Name="NgayThi" ColumnName="NgayThi" />
-                <ScalarProperty Name="IDLinhVuc" ColumnName="IDLinhVuc" />
                 <ScalarProperty Name="MucDo" ColumnName="MucDo" />
                 <ScalarProperty Name="ThoiGianThi" ColumnName="ThoiGianThi" />
-                <ScalarProperty Name="IDTaiKhoan" ColumnName="IDTaiKhoan" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
                 <ScalarProperty Name="TongDiem" ColumnName="TongDiem" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -433,9 +394,9 @@
           <EntitySetMapping Name="LINHVUCs">
             <EntityTypeMapping TypeName="THITRACNGHIEMModel.LINHVUC">
               <MappingFragment StoreEntitySet="LINHVUC">
-                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
                 <ScalarProperty Name="IDLinhVuc" ColumnName="IDLinhVuc" />
                 <ScalarProperty Name="TenLinhVuc" ColumnName="TenLinhVuc" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -443,7 +404,7 @@
             <EntityTypeMapping TypeName="THITRACNGHIEMModel.TAIKHOAN">
               <MappingFragment StoreEntitySet="TAIKHOAN">
                 <ScalarProperty Name="IDUser" ColumnName="IDUser" />
-                <ScalarProperty Name="TaiKhoan1" ColumnName="TaiKhoan" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

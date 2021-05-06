@@ -21,7 +21,7 @@ namespace DoAn_WebNangCao.Controllers
             int id_tai_khoan = 1;
             IEnumerable<CAUHOI> cau_hois = Get_cau_hoi_by_linh_vuc(id_linh_vuc);
             // Create DETHI and CT_DETHI in db
-            DETHI dethi = CreateDeThi(id_linh_vuc, mucDo, id_tai_khoan);
+            DETHI dethi = CreateDeThi(mucDo, id_tai_khoan);
             Create_CT_DeThi(dethi.IDDeThi, cau_hois);
             // Get session exam
             Create_new_session_exam(dethi.IDDeThi, cau_hois);
@@ -46,13 +46,12 @@ namespace DoAn_WebNangCao.Controllers
             return PartialView(exam);
         }
        
-        private DETHI CreateDeThi(int idLinhVuc, string mucDo, int idTaiKhoan)
+        private DETHI CreateDeThi(string mucDo, int idTaiKhoan)
         {
             DETHI dethi = new DETHI();
             dethi.NgayThi = DateTime.Now;
-            dethi.IDLinhVuc = idLinhVuc;
             dethi.MucDo = mucDo;
-            dethi.IDTaiKhoan = idTaiKhoan;
+            dethi.IDUser = idTaiKhoan;
             db.DETHIs.Add(dethi);
             db.SaveChanges();
             return dethi;
