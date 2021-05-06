@@ -18,6 +18,12 @@ namespace DoAn_WebNangCao
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Test",
+                url: "{controller}/{action}/{idLinhVuc}",
+                defaults: new { controller = "Test", action = "Index", idLinhVuc = UrlParameter.Optional }
+            );
         }
     }
 }

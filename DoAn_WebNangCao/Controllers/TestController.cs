@@ -14,12 +14,12 @@ namespace DoAn_WebNangCao.Controllers
         Exam exam;
 
         // GET: Test
-        public ActionResult Index()
+        public ActionResult Index(int idLinhVuc)
         {
-            int id_linh_vuc = 1;
             string mucDo = "1";
             int id_tai_khoan = 1;
-            IEnumerable<CAUHOI> cau_hois = Get_cau_hoi_by_linh_vuc(id_linh_vuc);
+            //int id_linh_vuc = Int32.Parse(idLinhVuc);
+            IEnumerable<CAUHOI> cau_hois = Get_cau_hoi_by_linh_vuc(idLinhVuc);
             // Create DETHI and CT_DETHI in db
             DETHI dethi = CreateDeThi(mucDo, id_tai_khoan);
             Create_CT_DeThi(dethi.IDDeThi, cau_hois);
@@ -59,7 +59,7 @@ namespace DoAn_WebNangCao.Controllers
 
         private void Create_CT_DeThi(int id_de_thi, IEnumerable<CAUHOI> cau_hois)
         {
-            int so_luong_cau_hoi = 3;
+            int so_luong_cau_hoi = cau_hois.Count();
             for (int i = 0; i < so_luong_cau_hoi; i++)
             {
                 CT_DETHI ctdt = new CT_DETHI();

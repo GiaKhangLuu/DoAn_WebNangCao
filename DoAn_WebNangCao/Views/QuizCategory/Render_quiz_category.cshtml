@@ -34,7 +34,12 @@
                 <p>@linh_vuc.GhiChu</p>
             </div>
             <div class="quizfooter">
-                <a class="w3-btn w3-round ws-blue">Start Quiz</a>
+                <!--<a href="/Test/Index/@linh_vuc.IDLinhVuc" class="w3-btn w3-round ws-blue">Start Quiz</a>-->
+                @Html.ActionLink("Start Quiz",
+                     "Index",
+                     "Test",
+                     new { idLinhVuc = linh_vuc.IDLinhVuc },
+                     new { @class = "w3-btn w3-round ws-blue" })
             </div>
         </div>
     </div>
