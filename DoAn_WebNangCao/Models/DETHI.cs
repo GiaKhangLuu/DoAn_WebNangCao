@@ -25,7 +25,7 @@ namespace DoAn_WebNangCao.Models
         public int IDLinhVuc { get; set; }
         public string MucDo { get; set; }
         public System.TimeSpan ThoiGianThi { get; set; }
-        public int IDTaiKhoan { get; set; }
+        public int IDUser { get; set; }
         public Nullable<decimal> TongDiem { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

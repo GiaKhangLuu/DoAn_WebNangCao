@@ -11,7 +11,9 @@ namespace DoAn_WebNangCao.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class TAIKHOAN
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,12 +23,25 @@ namespace DoAn_WebNangCao.Models
         }
     
         public int IDUser { get; set; }
-        public string TaiKhoan1 { get; set; }
+        [Required(ErrorMessage ="User Name not empty....")]
+        [StringLength(25,MinimumLength =8)]
+        public string UserName { get; set; }
+        [Required(ErrorMessage ="Password not empty...")]
+        [DataType(DataType.Password)]
+        [StringLength(16,MinimumLength =8)]
         public string MatKhau { get; set; }
+        [NotMapped]
+        [Required(ErrorMessage ="Confirm Password please ....")]
+        [Compare("MatKhau")]
+        [DataType(DataType.Password)]
+        public string ConfirmPass { get; set; }
+        [Required(ErrorMessage = "Full Name not empty ....")]
         public string HoTen { get; set; }
+        [Required(ErrorMessage = "Email Address not empty ....")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public bool Quyen { get; set; }
-        public byte[] AnhDaiDien { get; set; }
+        public string AnhDaiDien { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DETHI> DETHIs { get; set; }
