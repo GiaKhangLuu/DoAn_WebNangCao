@@ -62,6 +62,12 @@ namespace DoAn_WebNangCao.Controllers
             }
         }
 
+        public PartialViewResult Render_list_button_quiz()
+        {
+            Exam exam = Session["Exam"] as Exam;
+            return PartialView(exam);
+        }
+
         public int Find_quiz_idx_by_id(int id_quiz)
         {
             Exam exam = Session["Exam"] as Exam;
@@ -78,16 +84,20 @@ namespace DoAn_WebNangCao.Controllers
 
         public ActionResult PreviousQuiz(int idCauHoi)
         {
-            //int quiz_idx = Add_id_dap_an_chon(idCauHoi, idDapAnChon);
             int quiz_idx = Find_quiz_idx_by_id(idCauHoi);
             return Render_pre_quiz(quiz_idx);
         }
 
         public ActionResult NextQuiz(int idCauHoi)
-        {
-            //int quiz_idx = Add_id_dap_an_chon(idCauHoi, idDapAnChon);
+        { 
             int quiz_idx = Find_quiz_idx_by_id(idCauHoi);
             return Render_next_quiz(quiz_idx);
+        }
+
+        public ActionResult PeekQuiz(int quiz_idx)
+        {
+            int quiz_id = Find_quiz_id_by_idx(quiz_idx);
+            return RedirectToAction("Index", new { idCauHoi = quiz_id });
         }
 
         public ActionResult Render_next_quiz(int quiz_idx)

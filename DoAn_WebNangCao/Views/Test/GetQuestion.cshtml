@@ -6,38 +6,31 @@
     int id_cau_hoi = quiz.IDCauHoi;
 }
 
-<div class="col-8">
-    @using (Html.BeginForm("New_quiz", "Test", new { idCauHoi = id_cau_hoi }))
-    {
-        <table class="table-quiz">
-            <tr class="quiz-title-container">
+@using (Html.BeginForm("New_quiz", "Test", new { idCauHoi = id_cau_hoi }))
+{
+    <table class="table-quiz">
+        <tr class="quiz-title-container">
 
-                <th id="@id_cau_hoi" class="quiz-title">@quiz_title</th>
+            <th id="@id_cau_hoi" class="quiz-title">@quiz_title</th>
+        </tr>
+        @foreach (var dap_an in quiz.DAPANs)
+        {
+            <tr>
+                <th class="answer-row">
+                    <label class="answer-container">
+                        @dap_an.NoiDung
+                        @{
+                            string radio_name = "answer-quiz-" + id_cau_hoi.ToString();
+                            var radio_value = dap_an.IDDapAn;
+                        }
+                        @Html.RadioButtonFor(p => Model.Id_cau_tra_loi, radio_value)
+                        <span class="checkmark"></span>
+                    </label>
+                </th>
             </tr>
-            @foreach (var dap_an in quiz.DAPANs)
-            {
-                <tr>
-                    <th class="answer-row">
-                        <label class="answer-container">
-                            @dap_an.NoiDung
-                            @{
-                                string radio_name = "answer-quiz-" + id_cau_hoi.ToString();
-                                var radio_value = dap_an.IDDapAn;
-                            }
-                            @Html.RadioButtonFor(p => Model.Id_cau_tra_loi, radio_value)
-                            <span class="checkmark"></span>
-                        </label>
-                    </th>
-                </tr>
-            }
-        </table>
-        <input type="submit" value="Pre" name="action" />
-        <input type="submit" value="Done" name="action" />
-        <input type="submit" value="Next" name="action" />
-        /*
-        @Html.ActionLink("Pre", "PreviousQuiz", new { idCauHoi = id_cau_hoi });
-        <input type="submit" value="Done" />
-        @Html.ActionLink("Next", "NextQuiz", new { idCauHoi = id_cau_hoi, idDapAnChon = Model.Id_cau_tra_loi });
-        */
-    }
-</div>
+        }
+    </table>
+    <input type="submit" value="Pre" name="action" />
+    <input type="submit" value="Done" name="action" />
+    <input type="submit" value="Next" name="action" />
+}
