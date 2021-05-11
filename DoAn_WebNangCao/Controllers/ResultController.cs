@@ -11,15 +11,19 @@ namespace DoAn_WebNangCao.Controllers
     public class ResultController : Controller
     {
         THITRACNGHIEMEntities db = new THITRACNGHIEMEntities();
-        
-        [HttpPost]
-        public ActionResult Index()
+
+        public ActionResult MarkExam()
         {
             Result rs = new Result();
             Exam exam = Session["Exam"] as Exam;
-            Process_user_choice(exam);
-            rs.Num_of_correct_answers = Count_correct_answers(exam);
-            rs.Num_of_quizs = exam.Quizs.Count();        
+            rs.Num_of_correct_answers = exam.Count_correct_answers();
+            rs.Num_of_quizs = exam.Quizs.Count;
+            Add_user_choice_to_db(exam);
+            return RedirectToAction("Index", rs);
+        }
+        
+        public ActionResult Index(Result rs)
+        {
             return View(rs);
         }
 
@@ -28,6 +32,7 @@ namespace DoAn_WebNangCao.Controllers
             return PartialView(rs);
         }
 
+        /*
         public void Process_user_choice(Exam exam)
         {
             string prefix = "answer-quiz-";
@@ -39,46 +44,26 @@ namespace DoAn_WebNangCao.Controllers
                 if(value != null)
                 {
                     quiz.Id_cau_tra_loi = Int32.Parse(value);
-                    Add_user_choice_to_db(exam.Id_de_thi, id_cau_hoi, quiz.Id_cau_tra_loi);
+                    Add_user_choice_to_db(exam.Id_de_thi, quiz.Id_cau_tra_loi);
                 }
             }
         }
-        public void Add_user_choice_to_db(int id_de_thi, int id_cau_hoi, int id_dap_an_chon)
-        {
-            /*
-            CT_DETHI ctdt = 
-                db.CT_DETHI.FirstOrDefault(m => m.IDCauHoi == id_cau_hoi && m.IDDeThi == id_de_thi);
-            if(ctdt != null)
-            {
-                ctdt.DapAnChon = id_cau_tra_loi;
-                db.SaveChanges();
-            }
-            */
-            DANHSACHDAPANCHON dap_an_chons = new DANHSACHDAPANCHON();
-            dap_an_chons.IDDethi = id_de_thi;
-            dap_an_chons.IDDapAn = id_dap_an_chon;
-            dap_an_chons.ThuTu = 0;
-            db.DANHSACHDAPANCHONs.Add(dap_an_chons);
-            db.SaveChanges();
-        }
+        */
 
-        public int Get_correct_answer_id(CAUHOI cau_hoi)
+        public void Add_user_choice_to_db(Exam exam)
         {
-            DAPAN corr_answer = cau_hoi.DAPANs.FirstOrDefault(dapan => dapan.TinhChat == true);
-            return corr_answer.IDDapAn;
-        }
-
-        public int Count_correct_answers(Exam exam)
-        {
-            int count = 0;
-            foreach(var quiz in exam.Quizs)
+            foreach (var quiz in exam.Quizs) 
             {
-                if(quiz.Id_cau_tra_loi == Get_correct_answer_id(quiz.Cau_hoi))
+                if(quiz.Id_cau_tra_loi != -1)
                 {
-                    count++;
-                }
+                    DANHSACHDAPANCHON dap_an_chon = new DANHSACHDAPANCHON();
+                    dap_an_chon.IDDethi = exam.Id_de_thi;
+                    dap_an_chon.IDDapAn = quiz.Id_cau_tra_loi;
+                    dap_an_chon.ThuTu = 0;
+                    db.DANHSACHDAPANCHONs.Add(dap_an_chon);
+                    db.SaveChanges();
+                }              
             }
-            return count;
         }
     }
 }

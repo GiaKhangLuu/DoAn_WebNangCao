@@ -40,5 +40,23 @@ namespace DoAn_WebNangCao.Models
             }
         }
 
+        public int Get_correct_answer_id(CAUHOI cau_hoi)
+        {
+            DAPAN corr_answer = cau_hoi.DAPANs.FirstOrDefault(dapan => dapan.TinhChat == true);
+            return corr_answer.IDDapAn;
+        }
+
+        public int Count_correct_answers()
+        {
+            int count = 0;
+            foreach (var quiz in Quizs)
+            {
+                if (quiz.Id_cau_tra_loi == Get_correct_answer_id(quiz.Cau_hoi))
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
     }
 }
