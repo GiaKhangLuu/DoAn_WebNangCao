@@ -1,43 +1,36 @@
-﻿@model DoAn_WebNangCao.Models.Exam
+﻿@model DoAn_WebNangCao.Models.CAUHOI
 
-@{ 
-    var quizs = Model.Quizs;
-    int quiz_idx = 1;
-}
 <div class="col-8">
-    @using (Html.BeginForm("Index", "Result", FormMethod.Post)) 
-    { 
-        foreach (var quiz in quizs)
-        {
-            <table class="table-quiz">
-                <tr class="quiz-title-container">
-                    @{ 
-                        var cau_hoi = quiz.Cau_hoi;
-                        string quiz_title = quiz_idx.ToString() + ". " + cau_hoi.NoiDung;
-                        var id_cau_hoi = cau_hoi.IDCauHoi;
-                    }
-                    <th id="@id_cau_hoi" class="quiz-title">@quiz_title</th>
-                </tr>
-                @foreach (var dap_an in cau_hoi.DAPANs)
-                {
-                    <tr>
-                        <th class="answer-row">
-                            <label class="answer-container">
-                                @dap_an.NoiDung
-                                @{
-                                    string radio_name = "answer-quiz-" + id_cau_hoi.ToString();
-                                    var radio_value = dap_an.IDDapAn;
-                                    var answer_value = id_cau_hoi + '-' + dap_an.IDDapAn;
-                                }
-                                @Html.RadioButton(radio_name, radio_value)
-                                <span class="checkmark"></span>
-                            </label>
-                        </th>
-                    </tr>
+    @using (Html.BeginForm("Index", "Result", FormMethod.Post))
+    {
+        <table class="table-quiz">
+            <tr class="quiz-title-container">
+                @{
+                    string quiz_title = Model.NoiDung;
+                    int id_cau_hoi = Model.IDCauHoi;
                 }
-            </table>
-            ++quiz_idx;
-        }
+                <th id="@id_cau_hoi" class="quiz-title">@quiz_title</th>
+            </tr>
+            @foreach (var dap_an in Model.DAPANs)
+            {
+                <tr>
+                    <th class="answer-row">
+                        <label class="answer-container">
+                            @dap_an.NoiDung
+                            @{
+                                string radio_name = "answer-quiz-" + id_cau_hoi.ToString();
+                                var radio_value = dap_an.IDDapAn;
+                                var answer_value = id_cau_hoi + '-' + dap_an.IDDapAn;
+                            }
+                            @Html.RadioButton(radio_name, radio_value)
+                            <span class="checkmark"></span>
+                        </label>
+                    </th>
+                </tr>
+            }
+        </table>
+        @Html.ActionLink("Pre", "PreviousQuiz", new { idCauHoi = id_cau_hoi });
         <input type="submit" value="Done" />
+        @Html.ActionLink("Next", "NextQuiz", new { idCauHoi = id_cau_hoi });
     }
 </div>

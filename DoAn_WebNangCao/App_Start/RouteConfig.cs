@@ -20,10 +20,17 @@ namespace DoAn_WebNangCao
             );
 
             routes.MapRoute(
-                name: "Test",
+                name: "CreateExam",
                 url: "{controller}/{action}/{idLinhVuc}",
-                defaults: new { controller = "Test", action = "Index", idLinhVuc = UrlParameter.Optional }
+                defaults: new { controller = "Test", action = "CreateExam", idLinhVuc = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Test",
+                url: "{controller}/{action}/{idCauHoi}",
+                defaults: new { controller = "Test", action = "Index", idCauHoi = UrlParameter.Optional }
+            );
+
         }
     }
 }

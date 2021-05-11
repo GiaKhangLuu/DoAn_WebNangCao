@@ -43,8 +43,9 @@ namespace DoAn_WebNangCao.Controllers
                 }
             }
         }
-        public void Add_user_choice_to_db(int id_de_thi, int id_cau_hoi, int id_cau_tra_loi)
+        public void Add_user_choice_to_db(int id_de_thi, int id_cau_hoi, int id_dap_an_chon)
         {
+            /*
             CT_DETHI ctdt = 
                 db.CT_DETHI.FirstOrDefault(m => m.IDCauHoi == id_cau_hoi && m.IDDeThi == id_de_thi);
             if(ctdt != null)
@@ -52,6 +53,13 @@ namespace DoAn_WebNangCao.Controllers
                 ctdt.DapAnChon = id_cau_tra_loi;
                 db.SaveChanges();
             }
+            */
+            DANHSACHDAPANCHON dap_an_chons = new DANHSACHDAPANCHON();
+            dap_an_chons.IDDethi = id_de_thi;
+            dap_an_chons.IDDapAn = id_dap_an_chon;
+            dap_an_chons.ThuTu = 0;
+            db.DANHSACHDAPANCHONs.Add(dap_an_chons);
+            db.SaveChanges();
         }
 
         public int Get_correct_answer_id(CAUHOI cau_hoi)

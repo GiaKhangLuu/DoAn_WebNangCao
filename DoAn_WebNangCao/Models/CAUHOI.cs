@@ -17,18 +17,20 @@ namespace DoAn_WebNangCao.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CAUHOI()
         {
-            this.CT_DETHI = new HashSet<CT_DETHI>();
             this.DAPANs = new HashSet<DAPAN>();
+            this.DETHIs = new HashSet<DETHI>();
         }
     
         public int IDCauHoi { get; set; }
         public string NoiDung { get; set; }
         public Nullable<int> IDLinhVuc { get; set; }
+        public Nullable<int> IDLoaiCauHoi { get; set; }
     
         public virtual LINHVUC LINHVUC { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CT_DETHI> CT_DETHI { get; set; }
+        public virtual LOAICAUHOI LOAICAUHOI { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DAPAN> DAPANs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DETHI> DETHIs { get; set; }
     }
 }

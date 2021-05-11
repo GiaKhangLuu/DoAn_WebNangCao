@@ -141,7 +141,7 @@
     <Compile Include="Models\CAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CT_DETHI.cs">
+    <Compile Include="Models\DANHSACHDAPANCHON.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAPAN.cs">
@@ -152,6 +152,9 @@
     </Compile>
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\LINHVUC.cs">
+      <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOAICAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Quiz.cs" />

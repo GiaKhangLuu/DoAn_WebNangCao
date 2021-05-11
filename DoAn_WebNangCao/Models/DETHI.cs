@@ -17,7 +17,8 @@ namespace DoAn_WebNangCao.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DETHI()
         {
-            this.CT_DETHI = new HashSet<CT_DETHI>();
+            this.DANHSACHDAPANCHONs = new HashSet<DANHSACHDAPANCHON>();
+            this.CAUHOIs = new HashSet<CAUHOI>();
         }
     
         public int IDDeThi { get; set; }
@@ -28,7 +29,9 @@ namespace DoAn_WebNangCao.Models
         public Nullable<decimal> TongDiem { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CT_DETHI> CT_DETHI { get; set; }
+        public virtual ICollection<DANHSACHDAPANCHON> DANHSACHDAPANCHONs { get; set; }
         public virtual TAIKHOAN TAIKHOAN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CAUHOI> CAUHOIs { get; set; }
     }
 }

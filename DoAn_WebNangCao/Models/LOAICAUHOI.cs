@@ -12,22 +12,18 @@ namespace DoAn_WebNangCao.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DAPAN
+    public partial class LOAICAUHOI
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DAPAN()
+        public LOAICAUHOI()
         {
-            this.DANHSACHDAPANCHONs = new HashSet<DANHSACHDAPANCHON>();
+            this.CAUHOIs = new HashSet<CAUHOI>();
         }
     
-        public int IDDapAn { get; set; }
-        public int IDCauHoi { get; set; }
-        public string NoiDung { get; set; }
-        public bool TinhChat { get; set; }
-        public Nullable<int> ThuTu { get; set; }
+        public int IDLoaiCauHoi { get; set; }
+        public string TenLoaiCauHoi { get; set; }
     
-        public virtual CAUHOI CAUHOI { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DANHSACHDAPANCHON> DANHSACHDAPANCHONs { get; set; }
+        public virtual ICollection<CAUHOI> CAUHOIs { get; set; }
     }
 }
