@@ -1,0 +1,18 @@
+﻿@model DoAn_WebNangCao.Models.Quiz
+
+<div class="row">
+    <div class="col-12 quiz-title-container">
+        <span class="quiz-title">@Model.Cau_hoi.NoiDung</span>
+    </div>
+</div>
+<div class="row">
+    <form action="">
+        <ul id="sortable" class="connectedSortable">
+            @foreach (var dap_an in Model.Cau_hoi.DAPANs)
+            {
+                <li class="ui-state-default" id=@dap_an.IDDapAn>@dap_an.NoiDung</li>
+            }
+        </ul>
+        <input type="submit">
+    </form>
+</div>

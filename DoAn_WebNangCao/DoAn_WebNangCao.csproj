@@ -134,6 +134,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\QuizCategoryController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
+    <Compile Include="Controllers\Sorted_QuizController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -141,6 +142,7 @@
     <Compile Include="Models\CAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\DANHSACHDAPANCHON.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
@@ -190,6 +192,7 @@
     <Content Include="Content\quiz_category.css" />
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="Content\sb-admin-2.min.css" />
+    <Content Include="Content\sorted_quiz.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2068,6 +2071,8 @@
     <Content Include="Views\QuizCategory\Index.cshtml" />
     <Content Include="Views\QuizCategory\Render_quiz_category.cshtml" />
     <Content Include="Views\Test\Render_list_button_quiz.cshtml" />
+    <Content Include="Views\Sorted_Quiz\Index.cshtml" />
+    <Content Include="Views\Sorted_Quiz\Render_quiz.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -29,10 +29,12 @@ namespace DoAn_WebNangCao.Controllers
 
         public ActionResult Index(int idCauHoi)
         {
-            //CAUHOI cau_hoi = db.CAUHOIs.FirstOrDefault(ch => ch.IDCauHoi == idCauHoi);
             Exam exam = Session["Exam"] as Exam;
-            Quiz quiz = exam.Quizs.Find(p => p.Cau_hoi.IDCauHoi == idCauHoi);
-            return View(quiz);
+            int quiz_idx = exam.Get_quiz_idx_by_id(idCauHoi);
+            if (exam.Quizs[quiz_idx].Cau_hoi.IDLoaiCauHoi 
+                == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+                return RedirectToAction("Index", "Sorted_Quiz", new { quiz_idx = quiz_idx });
+            return View(exam.Quizs[quiz_idx]);
         }
 
         public void Add_dap_an_chon(int idCauHoi)
@@ -71,7 +73,7 @@ namespace DoAn_WebNangCao.Controllers
         public int Find_quiz_idx_by_id(int id_quiz)
         {
             Exam exam = Session["Exam"] as Exam;
-            int quiz_idx = exam.Quizs.FindIndex(ch => ch.Cau_hoi.IDCauHoi == id_quiz);
+            int quiz_idx = exam.Get_quiz_idx_by_id(id_quiz);
             return quiz_idx;
         }
 

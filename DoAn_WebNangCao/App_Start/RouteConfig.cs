@@ -31,6 +31,11 @@ namespace DoAn_WebNangCao
                 defaults: new { controller = "Test", action = "Index", idCauHoi = UrlParameter.Optional }
             );
 
+            routes.MapRoute(
+                name: "Sorted_Quiz",
+                url: "{controller}/{action}/{quiz_idx}",
+                defaults: new { controller = "Sorted_Quiz", action = "Index", quiz_idx = UrlParameter.Optional }
+            );
         }
     }
 }

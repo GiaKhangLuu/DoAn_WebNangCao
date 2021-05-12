@@ -27,6 +27,11 @@ namespace DoAn_WebNangCao.Models
             return quizs.FirstOrDefault(quiz => quiz.Cau_hoi.IDCauHoi == id_cau_hoi);
         }
 
+        public int Get_quiz_idx_by_id(int id_cau_hoi)
+        {
+            return quizs.FindLastIndex(quiz => quiz.Cau_hoi.IDCauHoi == id_cau_hoi);
+        }
+
         public void Add_id_cau_tra_loi(int id_cau_hoi, int id_cau_tra_loi)
         {
             quizs.Find(quiz => quiz.Cau_hoi.IDCauHoi == id_cau_hoi).Id_cau_tra_loi = id_cau_tra_loi;

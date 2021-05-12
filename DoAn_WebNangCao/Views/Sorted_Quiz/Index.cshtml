@@ -23,7 +23,7 @@
 
     <!-- Custom styles for this template-->
     <link href="~/Content/sb-admin-2.min.css" rel="stylesheet" />
-    <link href="~/Content/question.css" rel="stylesheet" />
+    <link href="~/Content/sorted_quiz.css" rel="stylesheet" />
     <link href="~/Content/list_quiz.css" rel="stylesheet" />
 </head>
 <body id="page-top">
@@ -95,13 +95,10 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-8">
-                                @{ 
-                                    
-                                }
-                                @{ Html.RenderPartial("GetQuestion", Model); }
+                                @{ Html.RenderPartial("Render_quiz"); }
                             </div>
                             <div class="col-4 list-quiz-container">
-                                @{ Html.RenderAction("Render_list_button_quiz"); }                
+                                @{ Html.RenderAction("Render_list_button_quiz", "Test"); }
                             </div>
                         </div>
                     </div>
@@ -156,8 +153,24 @@
 
     <!-- Core plugin JavaScript-->
     <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="~/Scripts/sb-admin-2.min.js"></script>
+    <script>
+        $('#sortedable, #sortable li').disableSelection()
+
+        $('#sortable').sortable({
+            revert: true,
+            cursor: 'move',
+            opacity: 0.5
+        })
+
+        $('button').click(() => {
+            var sortedIDs = $('#sortable').sortable('toArray')
+            console.log(sortedIDs)
+        })
+    </script>
 </body>
 </html>
