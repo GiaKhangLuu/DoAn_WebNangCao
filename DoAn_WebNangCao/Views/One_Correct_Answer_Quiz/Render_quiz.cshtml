@@ -8,7 +8,7 @@
     var quiz_type_id = Model.Cau_hoi.IDLoaiCauHoi;
 }
 
-@using (Html.BeginForm("New_quiz", "Test"))
+@using (Html.BeginForm("Go", "One_Correct_Answer_Quiz"))
 {
     <table class="table-quiz">
         <tr class="quiz-title-container">
@@ -22,9 +22,10 @@
                     <label class="answer-container">
                         @dap_an.NoiDung
                         @{
+                            var radio_name = "answer_id";
                             var radio_value = dap_an.IDDapAn;
                         }
-                        @Html.RadioButtonFor(p => Model.Id_cau_tra_loi, radio_value)
+                        @Html.RadioButton(radio_name, radio_value)
                         <span class="checkmark"></span>
                     </label>
                 </th>
@@ -32,9 +33,8 @@
         }
 
     </table>
-    <input type="hidden" value="@quiz_type_id" name="idLoaiCauHoi" />
-    <input type="hidden" value="@quiz_idx" name="quiz_idx"/>
-    <input type="submit" value="Pre" name="action" />
-    <input type="submit" value="Done" name="action" />
-    <input type="submit" value="Next" name="action" />
+    <input type="hidden" value="@quiz_idx" name="quiz_idx" />
+    <input type="submit" value="Pre" name="type" />
+    <input type="submit" value="Done" name="type" />
+    <input type="submit" value="Next" name="type" />
 }

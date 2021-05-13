@@ -7,9 +7,9 @@ using DoAn_WebNangCao.Models;
 
 namespace DoAn_WebNangCao.Controllers
 {
-    public class Sorted_QuizController : Controller
+    public class One_Correct_Answer_QuizController : Controller
     {
-        THITRACNGHIEMEntities db = new THITRACNGHIEMEntities();
+        // GET: One_Correct_Answer_Quiz
         public ActionResult Index(int quiz_idx)
         {
             Exam exam = Session["Exam"] as Exam;
@@ -22,19 +22,19 @@ namespace DoAn_WebNangCao.Controllers
             return PartialView(quiz);
         }
 
-        public void Add_answer_for_sorted_quiz(int quiz_idx)
+        public void Save_answer_to_session(int quiz_idx)
         {
-            string raw_answer = Request["raw_answer"];
-            if (raw_answer != null && raw_answer.Length != 0)
+            if (Request["answer_id"] != null)
             {
-                (Session["Exam"] as Exam).Add_answer_by_id_quiz(quiz_idx, raw_answer);
+                int id_dap_an_chon = Int32.Parse(Request["answer_id"]);
+                (Session["Exam"] as Exam).Save_answer_of_one_correct_answer_quiz(quiz_idx, id_dap_an_chon);
             }
         }
 
         [HttpPost]
         public ActionResult Go(string type, int quiz_idx)
         {
-            Add_answer_for_sorted_quiz(quiz_idx);
+            Save_answer_to_session(quiz_idx);
             return RedirectToAction("NewQuiz", "Test", new { type = type, quiz_idx = quiz_idx });
         }
     }

@@ -34,9 +34,14 @@ namespace DoAn_WebNangCao.Controllers
             {
                 return RedirectToAction("Index", "Sorted_Quiz", new { quiz_idx = quiz_idx });
             }
+            else if(quiz_type_id == Constant.ID_CAU_HOI_1_DAP_AN)
+            {
+                return RedirectToAction("Index", "One_Correct_Answer_Quiz", new { quiz_idx = quiz_idx });
+            }
             return View(exam.Quizs[quiz_idx]);
         }
 
+        /*
         public void Add_dap_an_chon(int quiz_idx)
         {
             if (Request["Id_cau_tra_loi"] != null)
@@ -45,7 +50,9 @@ namespace DoAn_WebNangCao.Controllers
                 (Session["Exam"] as Exam).Add_id_cau_tra_loi(quiz_idx, id_dap_an_chon);
             }
         }
+        */
 
+        /*
         public void Add_answer_for_sorted_quiz(int quiz_idx)
         {
             string raw_answer = Request["raw_answer"];
@@ -54,30 +61,23 @@ namespace DoAn_WebNangCao.Controllers
                 (Session["Exam"] as Exam).Add_answer_by_id_quiz(quiz_idx, raw_answer);
             }
         }
+        */
 
-        [HttpPost]
-        public ActionResult New_quiz(string action, int idLoaiCauHoi, int quiz_idx)
+        public ActionResult NewQuiz(string type, int quiz_idx)
         {
-            if(idLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
-            {
-                Add_answer_for_sorted_quiz(quiz_idx);
-            }
-            else
-            {
-                Add_dap_an_chon(quiz_idx);
-            }
-            if (action == "Next")
+            if(type == "Next")
             {
                 return RedirectToAction("NextQuiz", new { current_quiz_idx = quiz_idx });
             }
-            else if (action == "Pre")
+            if (type == "Pre")
             {
                 return RedirectToAction("PreviousQuiz", new { current_quiz_idx = quiz_idx });
             }
-            else
+            if (type == "Done")
             {
                 return RedirectToAction("MarkExam", "Result");
             }
+            return null;
         }
 
         public PartialViewResult Render_list_button_quiz()
@@ -112,11 +112,6 @@ namespace DoAn_WebNangCao.Controllers
         {
             var cau_hois = db.CAUHOIs.Where(ch => ch.IDLinhVuc == idLinhVuc);
             return cau_hois.AsEnumerable<CAUHOI>();
-        }
-
-        public PartialViewResult GetQuestion(Quiz quiz)
-        {
-            return PartialView(quiz);
         }
        
         private DETHI CreateDeThi(string mucDo, int idTaiKhoan)

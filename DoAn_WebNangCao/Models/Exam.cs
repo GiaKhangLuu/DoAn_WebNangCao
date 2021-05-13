@@ -41,7 +41,7 @@ namespace DoAn_WebNangCao.Models
         public void Add_id_cau_tra_loi(int quiz_idx, int id_cau_tra_loi)
         {
             //quizs.Find(quiz => quiz.Cau_hoi.IDCauHoi == id_cau_hoi).Id_cau_tra_loi = id_cau_tra_loi;
-            quizs[quiz_idx].Id_cau_tra_loi = id_cau_tra_loi;
+            //quizs[quiz_idx].Id_cau_tra_loi = id_cau_tra_loi;
         }
 
         private void Add_cau_hoi(IEnumerable<CAUHOI> cau_hois)
@@ -61,6 +61,7 @@ namespace DoAn_WebNangCao.Models
 
         public int Count_correct_answers()
         {
+            /*
             int count = 0;
             foreach (var quiz in Quizs)
             {
@@ -70,12 +71,19 @@ namespace DoAn_WebNangCao.Models
                 }
             }
             return count;
+            */
+            return -1;
         }
 
         public void Add_answer_by_id_quiz(int quiz_idx, string raw_answer)
         {
             Quiz quiz = quizs[quiz_idx];
             quiz.Convert_raw_answer_to_list_answers(raw_answer);
+        }
+
+        public void Save_answer_of_one_correct_answer_quiz(int quiz_idx, int answer_id)
+        {
+            quizs[quiz_idx].Save_answer_of_one_correct_answer_quiz(answer_id);
         }
 
         public void Mark_exam(THITRACNGHIEMEntities db)
@@ -111,6 +119,7 @@ namespace DoAn_WebNangCao.Models
                 {
                     Add_user_answer(quiz, db);
                 }
+                /*
                 else if (quiz.Id_cau_tra_loi != -1)
                 {
                     DANHSACHDAPANCHON dap_an_chon = new DANHSACHDAPANCHON();
@@ -120,6 +129,7 @@ namespace DoAn_WebNangCao.Models
                     db.DANHSACHDAPANCHONs.Add(dap_an_chon);
                     db.SaveChanges();
                 }
+                */
                 else
                 {
                     continue;

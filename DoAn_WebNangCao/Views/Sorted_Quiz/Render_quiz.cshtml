@@ -13,7 +13,7 @@
     </div>
 </div>
 <div class="row">
-    @using (Html.BeginForm("New_quiz", "Test", new { idCauHoi = id_cau_hoi }))
+    @using (Html.BeginForm("Go", "Sorted_Quiz"))
     {
         <ul id="sortable" class="connectedSortable">
         @foreach (var dap_an in Model.Cau_hoi.DAPANs)
@@ -22,11 +22,10 @@
         }
         </ul>
         <input type="hidden" name="raw_answer" id="user_choice_order" />
-        <input type="hidden" name="idLoaiCauHoi" value="@id_loai_cau_hoi"/>
         <input type="hidden" name="quiz_idx" value="@quiz_type_id" />
-        <input type="submit" value="Pre" name="action" />
-        <input type="submit" value="Done" name="action" />
-        <input type="submit" value="Next" name="action" />
+        <input type="submit" value="Pre" name="type" />
+        <input type="submit" value="Done" name="type" />
+        <input type="submit" value="Next" name="type" />
     }
 </div>
 

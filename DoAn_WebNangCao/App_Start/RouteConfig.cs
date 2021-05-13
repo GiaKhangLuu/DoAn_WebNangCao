@@ -26,16 +26,10 @@ namespace DoAn_WebNangCao
             );
 
             routes.MapRoute(
-                name: "Test",
-                url: "{controller}/{action}/{idCauHoi}",
-                defaults: new { controller = "Test", action = "Index", idCauHoi = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                name: "Sorted_Quiz",
-                url: "{controller}/{action}/{quiz_idx}",
-                defaults: new { controller = "Sorted_Quiz", action = "Index", quiz_idx = UrlParameter.Optional }
-            );
+                name: "NewQuiz",
+                url: "{controller}/{action}/{type}/{quiz_idx}",
+                defaults: new { controller = "Test", action = "NewQuiz", type = UrlParameter.Optional, quiz_idx = UrlParameter.Optional }
+           );
         }
     }
 }

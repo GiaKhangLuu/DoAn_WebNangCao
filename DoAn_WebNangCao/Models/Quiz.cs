@@ -8,7 +8,6 @@ namespace DoAn_WebNangCao.Models
     public class Quiz
     {
         private CAUHOI cau_hoi;
-        private int id_cau_tra_loi;
         private List<int> id_dap_an_chons;
         private List<bool> ket_quas;
         private string id_dap_an_chons_raw;
@@ -17,7 +16,6 @@ namespace DoAn_WebNangCao.Models
         public Quiz(CAUHOI cau_hoi, int quiz_idx)
         {
             this.Cau_hoi = cau_hoi;
-            id_cau_tra_loi = -1;
             Id_dap_an_chons = new List<int>();
             Id_dap_an_chons_raw = "";
             this.quiz_idx = quiz_idx;
@@ -26,13 +24,11 @@ namespace DoAn_WebNangCao.Models
 
         public Quiz(CAUHOI cau_hoi) {
             this.Cau_hoi = cau_hoi;
-            id_cau_tra_loi = -1;
             Id_dap_an_chons = new List<int>();
             Id_dap_an_chons_raw = "";
             ket_quas = new List<bool>();
         }
         
-        public int Id_cau_tra_loi { get => id_cau_tra_loi; set => id_cau_tra_loi = value; }
         public CAUHOI Cau_hoi { get => cau_hoi; set => cau_hoi = value; }
         public string Id_dap_an_chons_raw { get => id_dap_an_chons_raw; set => id_dap_an_chons_raw = value; }
         public int Quiz_idx { get => quiz_idx; set => quiz_idx = value; }
@@ -45,6 +41,18 @@ namespace DoAn_WebNangCao.Models
             foreach(string answer_id in answer_ids)
             {
                 Id_dap_an_chons.Add(Int32.Parse(answer_id));
+            }
+        }
+
+        public void Save_answer_of_one_correct_answer_quiz(int answer_id)
+        {
+            if(id_dap_an_chons.Count == 0)
+            {
+                id_dap_an_chons.Add(answer_id);
+            }
+            else
+            {
+                id_dap_an_chons[0] = answer_id;
             }
         }
     }
