@@ -23,40 +23,56 @@ namespace DoAn_WebNangCao.Controllers
             Create_danh_sach_cau_hoi(dethi, cau_hois);
             // Get session exam
             Create_new_session_exam(dethi.IDDeThi, cau_hois);
-            int first_quiz_id = Find_quiz_id_by_idx(0);
-            return RedirectToAction("Index", new { idCauHoi = first_quiz_id });
+            return RedirectToAction("Index", new { quiz_idx = 0 });
         }
 
-        public ActionResult Index(int idCauHoi)
+        public ActionResult Index(int quiz_idx)
         {
             Exam exam = Session["Exam"] as Exam;
-            int quiz_idx = exam.Get_quiz_idx_by_id(idCauHoi);
-            if (exam.Quizs[quiz_idx].Cau_hoi.IDLoaiCauHoi 
-                == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+            var quiz_type_id = exam.Quizs[quiz_idx].Cau_hoi.IDLoaiCauHoi;
+            if (quiz_type_id == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+            {
                 return RedirectToAction("Index", "Sorted_Quiz", new { quiz_idx = quiz_idx });
+            }
             return View(exam.Quizs[quiz_idx]);
         }
 
-        public void Add_dap_an_chon(int idCauHoi)
+        public void Add_dap_an_chon(int quiz_idx)
         {
             if (Request["Id_cau_tra_loi"] != null)
             {
                 int id_dap_an_chon = Int32.Parse(Request["Id_cau_tra_loi"]);
-                (Session["Exam"] as Exam).Add_id_cau_tra_loi(idCauHoi, id_dap_an_chon);
+                (Session["Exam"] as Exam).Add_id_cau_tra_loi(quiz_idx, id_dap_an_chon);
+            }
+        }
+
+        public void Add_answer_for_sorted_quiz(int quiz_idx)
+        {
+            string raw_answer = Request["raw_answer"];
+            if(raw_answer != null && raw_answer.Length != 0)
+            {
+                (Session["Exam"] as Exam).Add_answer_by_id_quiz(quiz_idx, raw_answer);
             }
         }
 
         [HttpPost]
-        public ActionResult New_quiz(string action, int idCauHoi)
+        public ActionResult New_quiz(string action, int idLoaiCauHoi, int quiz_idx)
         {
-            Add_dap_an_chon(idCauHoi);
+            if(idLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+            {
+                Add_answer_for_sorted_quiz(quiz_idx);
+            }
+            else
+            {
+                Add_dap_an_chon(quiz_idx);
+            }
             if (action == "Next")
             {
-                return RedirectToAction("NextQuiz", new { idCauHoi = idCauHoi });
+                return RedirectToAction("NextQuiz", new { current_quiz_idx = quiz_idx });
             }
             else if (action == "Pre")
             {
-                return RedirectToAction("PreviousQuiz", new { idCauHoi = idCauHoi });
+                return RedirectToAction("PreviousQuiz", new { current_quiz_idx = quiz_idx });
             }
             else
             {
@@ -70,55 +86,26 @@ namespace DoAn_WebNangCao.Controllers
             return PartialView(exam);
         }
 
-        public int Find_quiz_idx_by_id(int id_quiz)
+        public ActionResult PreviousQuiz(int current_quiz_idx)
         {
-            Exam exam = Session["Exam"] as Exam;
-            int quiz_idx = exam.Get_quiz_idx_by_id(id_quiz);
-            return quiz_idx;
+            int pre_quiz_idx = current_quiz_idx - 1;
+            return RedirectToAction("Index", new { quiz_idx = pre_quiz_idx });
         }
 
-        public int Find_quiz_id_by_idx(int idx_quiz)
+        public ActionResult NextQuiz(int current_quiz_idx)
         {
-            Exam exam = Session["Exam"] as Exam;
-            int quiz_id = exam.Quizs[idx_quiz].Cau_hoi.IDCauHoi;
-            return quiz_id;
+            int next_quiz_idx = current_quiz_idx + 1;
+            return RedirectToAction("Index", new { quiz_idx = next_quiz_idx });
         }
 
-        public ActionResult PreviousQuiz(int idCauHoi)
+        public ActionResult PeekQuiz(int peek_quiz_idx)
         {
-            int quiz_idx = Find_quiz_idx_by_id(idCauHoi);
-            return Render_pre_quiz(quiz_idx);
-        }
-
-        public ActionResult NextQuiz(int idCauHoi)
-        { 
-            int quiz_idx = Find_quiz_idx_by_id(idCauHoi);
-            return Render_next_quiz(quiz_idx);
-        }
-
-        public ActionResult PeekQuiz(int quiz_idx)
-        {
-            int quiz_id = Find_quiz_id_by_idx(quiz_idx);
-            return RedirectToAction("Index", new { idCauHoi = quiz_id });
-        }
-
-        public ActionResult Render_next_quiz(int quiz_idx)
-        {
-            int next_quiz_id = Find_quiz_id_by_idx(quiz_idx + 1);
-            return RedirectToAction("Index", new { idCauHoi = next_quiz_id });
-        }
-
-        public ActionResult Render_pre_quiz(int quiz_idx)
-        {
-            int pre_quiz_id = Find_quiz_id_by_idx(quiz_idx - 1);
-            return RedirectToAction("Index", new { idCauHoi = pre_quiz_id });
+            return RedirectToAction("Index", new { quiz_idx = peek_quiz_idx });
         }
 
         public void Create_new_session_exam(int id_de_thi, IEnumerable<CAUHOI> cau_hois)
         {
-            Session["Exam"] = new Exam();
-            ((Exam)Session["Exam"]).Id_de_thi = id_de_thi;
-            ((Exam)Session["Exam"]).Add_cau_hoi(cau_hois);
+            Session["Exam"] = new Exam(id_de_thi, cau_hois);
         }
 
         public IEnumerable<CAUHOI> Get_cau_hoi_by_linh_vuc(int idLinhVuc)
@@ -148,7 +135,6 @@ namespace DoAn_WebNangCao.Controllers
             int so_luong_cau_hoi = cau_hois.Count();
             for (int i = 0; i < so_luong_cau_hoi; i++)
             {
-                //DETHI dethi = db.DETHIs.FirstOrDefault(dt => dt.IDDeThi == id_de_thi);
                 CAUHOI cau_hoi = cau_hois.ElementAt(i);
                 de_thi.CAUHOIs.Add(cau_hoi);
                 db.SaveChanges();

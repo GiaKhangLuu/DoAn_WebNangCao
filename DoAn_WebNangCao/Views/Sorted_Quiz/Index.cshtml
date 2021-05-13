@@ -158,19 +158,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="~/Scripts/sb-admin-2.min.js"></script>
-    <script>
-        $('#sortedable, #sortable li').disableSelection()
-
-        $('#sortable').sortable({
-            revert: true,
-            cursor: 'move',
-            opacity: 0.5
-        })
-
-        $('button').click(() => {
-            var sortedIDs = $('#sortable').sortable('toArray')
-            console.log(sortedIDs)
-        })
-    </script>
+    <script src="~/Scripts/custom_script/sorted_quiz.js"></script>
 </body>
 </html>

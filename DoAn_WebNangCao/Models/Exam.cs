@@ -17,6 +17,12 @@ namespace DoAn_WebNangCao.Models
             this.Quizs = quizs;
         }
 
+        public Exam(int exam_id, IEnumerable<CAUHOI> cau_hois)
+        {
+            this.id_de_thi = exam_id;
+            Add_cau_hoi(cau_hois);
+        }
+
         public Exam() { }
 
         public int Id_de_thi { get => id_de_thi; set => id_de_thi = value; }
@@ -32,16 +38,18 @@ namespace DoAn_WebNangCao.Models
             return quizs.FindLastIndex(quiz => quiz.Cau_hoi.IDCauHoi == id_cau_hoi);
         }
 
-        public void Add_id_cau_tra_loi(int id_cau_hoi, int id_cau_tra_loi)
+        public void Add_id_cau_tra_loi(int quiz_idx, int id_cau_tra_loi)
         {
-            quizs.Find(quiz => quiz.Cau_hoi.IDCauHoi == id_cau_hoi).Id_cau_tra_loi = id_cau_tra_loi;
+            //quizs.Find(quiz => quiz.Cau_hoi.IDCauHoi == id_cau_hoi).Id_cau_tra_loi = id_cau_tra_loi;
+            quizs[quiz_idx].Id_cau_tra_loi = id_cau_tra_loi;
         }
 
-        public void Add_cau_hoi(IEnumerable<CAUHOI> cau_hois)
+        private void Add_cau_hoi(IEnumerable<CAUHOI> cau_hois)
         {
-            foreach(var cau_hoi in cau_hois)
+            for(int idx = 0; idx < cau_hois.Count(); idx++)
             {
-                quizs.Add(new Quiz(cau_hoi));
+                Quiz quiz = new Quiz(cau_hois.ElementAt(idx), idx);
+                quizs.Add(quiz);
             }
         }
 
@@ -62,6 +70,38 @@ namespace DoAn_WebNangCao.Models
                 }
             }
             return count;
+        }
+
+        public void Add_answer_by_id_quiz(int quiz_idx, string raw_answer)
+        {
+            Quiz quiz = quizs[quiz_idx];
+            quiz.Convert_raw_answer_to_list_answers(raw_answer);
+        }
+
+        public void Add_user_answer_to_db(THITRACNGHIEMEntities db)
+        {
+            foreach(var quiz in quizs)
+            {
+                // Check whether quiz has answer or not
+                if(quiz.Id_dap_an_chons.Count > 0 && 
+                    quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+                {
+                    DANHSACHDAPANCHON.Add_dap_an_chon_to_db(quiz, id_de_thi, db);
+                }
+                else if (quiz.Id_cau_tra_loi != -1)
+                {
+                    DANHSACHDAPANCHON dap_an_chon = new DANHSACHDAPANCHON();
+                    dap_an_chon.IDDethi = Id_de_thi;
+                    dap_an_chon.IDDapAn = quiz.Id_cau_tra_loi;
+                    dap_an_chon.ThuTu = 0;
+                    db.DANHSACHDAPANCHONs.Add(dap_an_chon);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    continue;
+                }
+            }
         }
     }
 }

@@ -4,9 +4,11 @@
     var quiz = Model.Cau_hoi;
     string quiz_title = quiz.NoiDung;
     int id_cau_hoi = quiz.IDCauHoi;
+    int quiz_idx = Model.Quiz_idx;
+    var quiz_type_id = Model.Cau_hoi.IDLoaiCauHoi;
 }
 
-@using (Html.BeginForm("New_quiz", "Test", new { idCauHoi = id_cau_hoi }))
+@using (Html.BeginForm("New_quiz", "Test"))
 {
     <table class="table-quiz">
         <tr class="quiz-title-container">
@@ -20,7 +22,6 @@
                     <label class="answer-container">
                         @dap_an.NoiDung
                         @{
-                            string radio_name = "answer-quiz-" + id_cau_hoi.ToString();
                             var radio_value = dap_an.IDDapAn;
                         }
                         @Html.RadioButtonFor(p => Model.Id_cau_tra_loi, radio_value)
@@ -29,7 +30,10 @@
                 </th>
             </tr>
         }
+
     </table>
+    <input type="hidden" value="@quiz_type_id" name="idLoaiCauHoi" />
+    <input type="hidden" value="@quiz_idx" name="quiz_idx"/>
     <input type="submit" value="Pre" name="action" />
     <input type="submit" value="Done" name="action" />
     <input type="submit" value="Next" name="action" />

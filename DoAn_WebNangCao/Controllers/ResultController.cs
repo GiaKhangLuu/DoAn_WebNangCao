@@ -32,26 +32,9 @@ namespace DoAn_WebNangCao.Controllers
             return PartialView(rs);
         }
 
-        /*
-        public void Process_user_choice(Exam exam)
-        {
-            string prefix = "answer-quiz-";
-            foreach(var quiz in exam.Quizs)
-            {
-                int id_cau_hoi = quiz.Cau_hoi.IDCauHoi;
-                string key = prefix + id_cau_hoi;
-                string value = Request[key];
-                if(value != null)
-                {
-                    quiz.Id_cau_tra_loi = Int32.Parse(value);
-                    Add_user_choice_to_db(exam.Id_de_thi, quiz.Id_cau_tra_loi);
-                }
-            }
-        }
-        */
-
         public void Add_user_choice_to_db(Exam exam)
         {
+            /*
             foreach (var quiz in exam.Quizs) 
             {
                 if(quiz.Id_cau_tra_loi != -1)
@@ -64,6 +47,8 @@ namespace DoAn_WebNangCao.Controllers
                     db.SaveChanges();
                 }              
             }
+            */
+            exam.Add_user_answer_to_db(db);
         }
     }
 }

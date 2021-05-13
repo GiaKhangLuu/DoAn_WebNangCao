@@ -1,18 +1,32 @@
 ﻿@model DoAn_WebNangCao.Models.Quiz
 
+@{
+    string noi_dung_cau_hoi = Model.Cau_hoi.NoiDung;
+    int id_cau_hoi = Model.Cau_hoi.IDCauHoi;
+    var id_loai_cau_hoi = Model.Cau_hoi.IDLoaiCauHoi;
+    var quiz_type_id = Model.Quiz_idx;
+}
+
 <div class="row">
     <div class="col-12 quiz-title-container">
-        <span class="quiz-title">@Model.Cau_hoi.NoiDung</span>
+        <span class="quiz-title">@noi_dung_cau_hoi</span>
     </div>
 </div>
 <div class="row">
-    <form action="">
+    @using (Html.BeginForm("New_quiz", "Test", new { idCauHoi = id_cau_hoi }))
+    {
         <ul id="sortable" class="connectedSortable">
-            @foreach (var dap_an in Model.Cau_hoi.DAPANs)
-            {
-                <li class="ui-state-default" id=@dap_an.IDDapAn>@dap_an.NoiDung</li>
-            }
+        @foreach (var dap_an in Model.Cau_hoi.DAPANs)
+        {
+            <li class="ui-state-default" id=@dap_an.IDDapAn>@dap_an.NoiDung</li>
+        }
         </ul>
-        <input type="submit">
-    </form>
+        <input type="hidden" name="raw_answer" id="user_choice_order" />
+        <input type="hidden" name="idLoaiCauHoi" value="@id_loai_cau_hoi"/>
+        <input type="hidden" name="quiz_idx" value="@quiz_type_id" />
+        <input type="submit" value="Pre" name="action" />
+        <input type="submit" value="Done" name="action" />
+        <input type="submit" value="Next" name="action" />
+    }
 </div>
+
