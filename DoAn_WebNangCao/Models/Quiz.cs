@@ -10,6 +10,7 @@ namespace DoAn_WebNangCao.Models
         private CAUHOI cau_hoi;
         private int id_cau_tra_loi;
         private List<int> id_dap_an_chons;
+        private List<bool> ket_quas;
         private string id_dap_an_chons_raw;
         private int quiz_idx;
 
@@ -20,6 +21,7 @@ namespace DoAn_WebNangCao.Models
             Id_dap_an_chons = new List<int>();
             Id_dap_an_chons_raw = "";
             this.quiz_idx = quiz_idx;
+            ket_quas = new List<bool>();
         }
 
         public Quiz(CAUHOI cau_hoi) {
@@ -27,6 +29,7 @@ namespace DoAn_WebNangCao.Models
             id_cau_tra_loi = -1;
             Id_dap_an_chons = new List<int>();
             Id_dap_an_chons_raw = "";
+            ket_quas = new List<bool>();
         }
         
         public int Id_cau_tra_loi { get => id_cau_tra_loi; set => id_cau_tra_loi = value; }
@@ -34,6 +37,7 @@ namespace DoAn_WebNangCao.Models
         public string Id_dap_an_chons_raw { get => id_dap_an_chons_raw; set => id_dap_an_chons_raw = value; }
         public int Quiz_idx { get => quiz_idx; set => quiz_idx = value; }
         public List<int> Id_dap_an_chons { get => id_dap_an_chons; set => id_dap_an_chons = value; }
+        public List<bool> Ket_quas { get => ket_quas; set => ket_quas = value; }
 
         public void Convert_raw_answer_to_list_answers(string raw_answer)
         {

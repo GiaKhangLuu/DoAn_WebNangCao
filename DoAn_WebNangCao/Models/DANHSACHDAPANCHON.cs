@@ -17,22 +17,11 @@ namespace DoAn_WebNangCao.Models
         public int IDDethi { get; set; }
         public int IDDapAn { get; set; }
         public Nullable<int> ThuTu { get; set; }
+        public Nullable<bool> KetQua { get; set; }
     
         public virtual DAPAN DAPAN { get; set; }
         public virtual DETHI DETHI { get; set; }
 
-        public static void Add_dap_an_chon_to_db(Quiz quiz, int id_de_thi, THITRACNGHIEMEntities db)
-        {
-            for(int order = 0; order < quiz.Id_dap_an_chons.Count; order++)
-            {
-                DANHSACHDAPANCHON dap_an_chon = new DANHSACHDAPANCHON();
-                dap_an_chon.IDDethi = id_de_thi;
-                dap_an_chon.IDDapAn = quiz.Id_dap_an_chons[order];
-                dap_an_chon.ThuTu = order + 1;
-                db.DANHSACHDAPANCHONs.Add(dap_an_chon);
-                db.SaveChanges();
-            }
-        }
-        
+
     }
 }

@@ -1,0 +1,50 @@
+﻿@model DoAn_WebNangCao.Models.Quiz
+
+@{ 
+    var list_correct_answers = Model.Cau_hoi.DAPANs.OrderBy(p => p.ThuTu);
+    var list_user_answer_ids = Model.Id_dap_an_chons;
+    string class_name = "";
+    string mark_container = "";
+}
+
+<div class="row">
+    <div class="col-8 offset-2">
+        <div class="row">
+            <div class="col-6 correct-answer">
+                <p>Correct answer</p>
+                <ul class="sorted_quiz">
+                    @foreach (var crt_answer in list_correct_answers)
+                    {
+                        <li class="radiocontainer">@crt_answer.NoiDung</li>
+                    }
+                </ul>
+            </div>
+            <div class="col-6">
+                <p>Your answer</p>
+                <ul class="sorted_quiz">
+                    @for (int idx = 0; idx < Model.Id_dap_an_chons.Count; idx++)
+                    {
+                        int answer_id = Model.Id_dap_an_chons[idx];
+                        bool answer_result = Model.Ket_quas[idx];
+                        var answer = Model.Cau_hoi.DAPANs.FirstOrDefault(p => p.IDDapAn == answer_id);
+                        string answer_content = answer.NoiDung;
+                        if (answer_result)
+                        {
+                            class_name = "radiocontainer correct selected";
+                            mark_container = "<div class='markcontainer'><i class='fa fa-check'></i></div>";
+                        }
+                        else
+                        {
+                            class_name = "radiocontainer wrong";
+                            mark_container = "<div class='markcontainer'><i class='fa fa-times'></i></div>";
+                        }
+                        <li class="@class_name">
+                            @Html.Raw(mark_container)
+                            @answer_content
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -78,7 +78,30 @@ namespace DoAn_WebNangCao.Models
             quiz.Convert_raw_answer_to_list_answers(raw_answer);
         }
 
-        public void Add_user_answer_to_db(THITRACNGHIEMEntities db)
+        public void Mark_exam(THITRACNGHIEMEntities db)
+        {
+            foreach(var quiz in quizs)
+            {
+                if(quiz.Id_dap_an_chons.Count > 0
+                    && quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+                {
+                    Mark_sorted_quiz(quiz, db);
+                }
+            }
+            Add_user_answers_to_db(db);
+        }
+
+        public void Mark_sorted_quiz(Quiz quiz, THITRACNGHIEMEntities db)
+        {
+            for (int order = 0; order < quiz.Id_dap_an_chons.Count; order++)
+            {
+                int answer_id = quiz.Id_dap_an_chons[order];
+                int answer_order = order + 1;
+                quiz.Ket_quas.Add(Is_sorted_quiz_answer_correct(answer_id, answer_order, db));
+            }
+        }
+
+        public void Add_user_answers_to_db(THITRACNGHIEMEntities db)
         {
             foreach(var quiz in quizs)
             {
@@ -86,7 +109,7 @@ namespace DoAn_WebNangCao.Models
                 if(quiz.Id_dap_an_chons.Count > 0 && 
                     quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
                 {
-                    DANHSACHDAPANCHON.Add_dap_an_chon_to_db(quiz, id_de_thi, db);
+                    Add_user_answer(quiz, db);
                 }
                 else if (quiz.Id_cau_tra_loi != -1)
                 {
@@ -102,6 +125,35 @@ namespace DoAn_WebNangCao.Models
                     continue;
                 }
             }
+        }
+
+        private void Add_user_answer(Quiz quiz, THITRACNGHIEMEntities db)
+        {
+            for (int order = 0; order < quiz.Id_dap_an_chons.Count; order++)
+            {
+                int answer_id = quiz.Id_dap_an_chons[order];
+                bool answer_result = quiz.Ket_quas[order];
+                int answer_order = order + 1;
+                DANHSACHDAPANCHON dap_an_chon = new DANHSACHDAPANCHON();
+                dap_an_chon.IDDethi = id_de_thi;
+                dap_an_chon.IDDapAn = answer_id;
+                dap_an_chon.ThuTu = answer_order;
+                dap_an_chon.KetQua = answer_result;
+                db.DANHSACHDAPANCHONs.Add(dap_an_chon);
+                db.SaveChanges();
+            }
+
+        }
+
+        private bool Is_sorted_quiz_answer_correct(int answer_id, int answer_order, THITRACNGHIEMEntities db)
+        {
+            DAPAN answer_ground_truth = db.DAPANs.FirstOrDefault(p => p.IDDapAn == answer_id);
+            if(answer_ground_truth.TinhChat 
+                && answer_ground_truth.ThuTu == answer_order)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

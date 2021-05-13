@@ -30,6 +30,7 @@
           <Property Name="IDDethi" Type="int" Nullable="false" />
           <Property Name="IDDapAn" Type="int" Nullable="false" />
           <Property Name="ThuTu" Type="int" />
+          <Property Name="KetQua" Type="bit" />
         </EntityType>
         <EntityType Name="DAPAN">
           <Key>
@@ -244,6 +245,7 @@
           <Property Name="ThuTu" Type="Int32" />
           <NavigationProperty Name="DAPAN" Relationship="Self.fk_dsdapanchon_iddapan" FromRole="DANHSACHDAPANCHON" ToRole="DAPAN" />
           <NavigationProperty Name="DETHI" Relationship="Self.fk_dsdapanchon_iddethi" FromRole="DANHSACHDAPANCHON" ToRole="DETHI" />
+          <Property Name="KetQua" Type="Boolean" />
         </EntityType>
         <EntityType Name="DAPAN">
           <Key>
@@ -433,6 +435,7 @@
           <EntitySetMapping Name="DANHSACHDAPANCHONs">
             <EntityTypeMapping TypeName="THITRACNGHIEMModel.DANHSACHDAPANCHON">
               <MappingFragment StoreEntitySet="DANHSACHDAPANCHON">
+                <ScalarProperty Name="KetQua" ColumnName="KetQua" />
                 <ScalarProperty Name="IDDethi" ColumnName="IDDethi" />
                 <ScalarProperty Name="IDDapAn" ColumnName="IDDapAn" />
                 <ScalarProperty Name="ThuTu" ColumnName="ThuTu" />

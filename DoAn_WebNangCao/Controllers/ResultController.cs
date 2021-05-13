@@ -18,7 +18,7 @@ namespace DoAn_WebNangCao.Controllers
             Exam exam = Session["Exam"] as Exam;
             rs.Num_of_correct_answers = exam.Count_correct_answers();
             rs.Num_of_quizs = exam.Quizs.Count;
-            Add_user_choice_to_db(exam);
+            exam.Mark_exam(db);
             return RedirectToAction("Index", rs);
         }
         
@@ -30,25 +30,6 @@ namespace DoAn_WebNangCao.Controllers
         public PartialViewResult Render_result(Result rs)
         {
             return PartialView(rs);
-        }
-
-        public void Add_user_choice_to_db(Exam exam)
-        {
-            /*
-            foreach (var quiz in exam.Quizs) 
-            {
-                if(quiz.Id_cau_tra_loi != -1)
-                {
-                    DANHSACHDAPANCHON dap_an_chon = new DANHSACHDAPANCHON();
-                    dap_an_chon.IDDethi = exam.Id_de_thi;
-                    dap_an_chon.IDDapAn = quiz.Id_cau_tra_loi;
-                    dap_an_chon.ThuTu = 0;
-                    db.DANHSACHDAPANCHONs.Add(dap_an_chon);
-                    db.SaveChanges();
-                }              
-            }
-            */
-            exam.Add_user_answer_to_db(db);
         }
     }
 }

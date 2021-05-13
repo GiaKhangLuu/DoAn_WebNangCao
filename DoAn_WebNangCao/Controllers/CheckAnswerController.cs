@@ -10,8 +10,6 @@ namespace DoAn_WebNangCao.Controllers
 {
     public class CheckAnswerController : Controller
     {
-        THITRACNGHIEMEntities db = new THITRACNGHIEMEntities();
-
         // GET: CheckAnswer
         public ActionResult Index()
         {
@@ -21,6 +19,11 @@ namespace DoAn_WebNangCao.Controllers
         }
 
         public PartialViewResult Render_quizs(List<Quiz> quiz)
+        {
+            return PartialView(quiz);
+        }
+
+        public PartialViewResult Render_sorted_quiz(Quiz quiz)
         {
             return PartialView(quiz);
         }
