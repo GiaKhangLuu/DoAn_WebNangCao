@@ -21,6 +21,7 @@
           </Key>
           <Property Name="IDDeThi" Type="int" Nullable="false" />
           <Property Name="IDCauHoi" Type="int" Nullable="false" />
+          <Property Name="KetQua" Type="bit" />
         </EntityType>
         <EntityType Name="DANHSACHDAPANCHON">
           <Key>
@@ -233,7 +234,7 @@
           <NavigationProperty Name="LINHVUC" Relationship="Self.FK__CAUHOI__IDLinhVu__398D8EEE" FromRole="CAUHOI" ToRole="LINHVUC" />
           <NavigationProperty Name="LOAICAUHOI" Relationship="Self.FK_CAUHOI_IDLOAICAUHOI" FromRole="CAUHOI" ToRole="LOAICAUHOI" />
           <NavigationProperty Name="DAPANs" Relationship="Self.FK_CAUHOIDA" FromRole="CAUHOI" ToRole="DAPAN" />
-          <NavigationProperty Name="DETHIs" Relationship="Self.DANHSACHCAUHOI" FromRole="CAUHOI" ToRole="DETHI" />
+          <NavigationProperty Name="DANHSACHCAUHOIs" Relationship="THITRACNGHIEMModel.fk_ctdt_idcauhoi" FromRole="CAUHOI" ToRole="DANHSACHCAUHOI" />
         </EntityType>
         <EntityType Name="DANHSACHDAPANCHON">
           <Key>
@@ -271,7 +272,7 @@
           <Property Name="TongDiem" Type="Decimal" Precision="10" Scale="1" />
           <NavigationProperty Name="DANHSACHDAPANCHONs" Relationship="Self.fk_dsdapanchon_iddethi" FromRole="DETHI" ToRole="DANHSACHDAPANCHON" />
           <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK_TAIKHOANDT" FromRole="DETHI" ToRole="TAIKHOAN" />
-          <NavigationProperty Name="CAUHOIs" Relationship="Self.DANHSACHCAUHOI" FromRole="DETHI" ToRole="CAUHOI" />
+          <NavigationProperty Name="DANHSACHCAUHOIs" Relationship="THITRACNGHIEMModel.fk_ctdt_iddethi" FromRole="DETHI" ToRole="DANHSACHCAUHOI" />
         </EntityType>
         <EntityType Name="LINHVUC">
           <Key>
@@ -375,10 +376,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="DANHSACHCAUHOI">
-          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
-          <End Role="DETHI" Type="Self.DETHI" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="THITRACNGHIEMEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CAUHOIs" EntityType="Self.CAUHOI" />
           <EntitySet Name="DANHSACHDAPANCHONs" EntityType="Self.DANHSACHDAPANCHON" />
@@ -411,11 +408,51 @@
             <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
             <End Role="DETHI" EntitySet="DETHIs" />
           </AssociationSet>
-          <AssociationSet Name="DANHSACHCAUHOI" Association="Self.DANHSACHCAUHOI">
+          <EntitySet Name="DANHSACHCAUHOIs" EntityType="THITRACNGHIEMModel.DANHSACHCAUHOI" />
+          <AssociationSet Name="fk_ctdt_idcauhoi" Association="THITRACNGHIEMModel.fk_ctdt_idcauhoi">
             <End Role="CAUHOI" EntitySet="CAUHOIs" />
+            <End Role="DANHSACHCAUHOI" EntitySet="DANHSACHCAUHOIs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ctdt_iddethi" Association="THITRACNGHIEMModel.fk_ctdt_iddethi">
             <End Role="DETHI" EntitySet="DETHIs" />
+            <End Role="DANHSACHCAUHOI" EntitySet="DANHSACHCAUHOIs" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="DANHSACHCAUHOI">
+          <Key>
+            <PropertyRef Name="IDDeThi" />
+            <PropertyRef Name="IDCauHoi" />
+          </Key>
+          <Property Name="IDDeThi" Type="Int32" Nullable="false" />
+          <Property Name="IDCauHoi" Type="Int32" Nullable="false" />
+          <Property Name="KetQua" Type="Boolean" />
+          <NavigationProperty Name="CAUHOI" Relationship="THITRACNGHIEMModel.fk_ctdt_idcauhoi" FromRole="DANHSACHCAUHOI" ToRole="CAUHOI" />
+          <NavigationProperty Name="DETHI" Relationship="THITRACNGHIEMModel.fk_ctdt_iddethi" FromRole="DANHSACHCAUHOI" ToRole="DETHI" />
+        </EntityType>
+        <Association Name="fk_ctdt_idcauhoi">
+          <End Type="THITRACNGHIEMModel.CAUHOI" Role="CAUHOI" Multiplicity="1" />
+          <End Type="THITRACNGHIEMModel.DANHSACHCAUHOI" Role="DANHSACHCAUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAUHOI">
+              <PropertyRef Name="IDCauHoi" />
+            </Principal>
+            <Dependent Role="DANHSACHCAUHOI">
+              <PropertyRef Name="IDCauHoi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ctdt_iddethi">
+          <End Type="THITRACNGHIEMModel.DETHI" Role="DETHI" Multiplicity="1" />
+          <End Type="THITRACNGHIEMModel.DANHSACHCAUHOI" Role="DANHSACHCAUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DETHI">
+              <PropertyRef Name="IDDeThi" />
+            </Principal>
+            <Dependent Role="DANHSACHCAUHOI">
+              <PropertyRef Name="IDDeThi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -495,14 +532,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="DANHSACHCAUHOI" TypeName="THITRACNGHIEMModel.DANHSACHCAUHOI" StoreEntitySet="DANHSACHCAUHOI">
-            <EndProperty Name="CAUHOI">
-              <ScalarProperty Name="IDCauHoi" ColumnName="IDCauHoi" />
-            </EndProperty>
-            <EndProperty Name="DETHI">
-              <ScalarProperty Name="IDDeThi" ColumnName="IDDeThi" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="DANHSACHCAUHOIs">
+            <EntityTypeMapping TypeName="THITRACNGHIEMModel.DANHSACHCAUHOI">
+              <MappingFragment StoreEntitySet="DANHSACHCAUHOI">
+                <ScalarProperty Name="KetQua" ColumnName="KetQua" />
+                <ScalarProperty Name="IDCauHoi" ColumnName="IDCauHoi" />
+                <ScalarProperty Name="IDDeThi" ColumnName="IDDeThi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

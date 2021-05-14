@@ -109,11 +109,13 @@ namespace DoAn_WebNangCao.Controllers
     
         private void Create_danh_sach_cau_hoi(DETHI de_thi, IEnumerable<CAUHOI> cau_hois)
         {
-            int so_luong_cau_hoi = cau_hois.Count();
-            for (int i = 0; i < so_luong_cau_hoi; i++)
+            for(int i = 0; i < cau_hois.Count(); i++)
             {
-                CAUHOI cau_hoi = cau_hois.ElementAt(i);
-                de_thi.CAUHOIs.Add(cau_hoi);
+                var cau_hoi_id = cau_hois.ElementAt(i).IDCauHoi;
+                DANHSACHCAUHOI danh_sach_cau_hoi = new DANHSACHCAUHOI();
+                danh_sach_cau_hoi.IDDeThi = de_thi.IDDeThi;
+                danh_sach_cau_hoi.IDCauHoi = cau_hoi_id;
+                db.DANHSACHCAUHOIs.Add(danh_sach_cau_hoi);
                 db.SaveChanges();
             }
         }

@@ -12,14 +12,13 @@ namespace DoAn_WebNangCao.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DANHSACHDAPANCHON
+    public partial class DANHSACHCAUHOI
     {
-        public int IDDethi { get; set; }
-        public int IDDapAn { get; set; }
-        public Nullable<int> ThuTu { get; set; }
+        public int IDDeThi { get; set; }
+        public int IDCauHoi { get; set; }
         public Nullable<bool> KetQua { get; set; }
     
-        public virtual DAPAN DAPAN { get; set; }
+        public virtual CAUHOI CAUHOI { get; set; }
         public virtual DETHI DETHI { get; set; }
     }
 }

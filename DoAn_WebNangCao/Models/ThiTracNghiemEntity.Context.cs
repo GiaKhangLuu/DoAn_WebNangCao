@@ -32,5 +32,6 @@ namespace DoAn_WebNangCao.Models
         public virtual DbSet<LINHVUC> LINHVUCs { get; set; }
         public virtual DbSet<LOAICAUHOI> LOAICAUHOIs { get; set; }
         public virtual DbSet<TAIKHOAN> TAIKHOANs { get; set; }
+        public virtual DbSet<DANHSACHCAUHOI> DANHSACHCAUHOIs { get; set; }
     }
 }

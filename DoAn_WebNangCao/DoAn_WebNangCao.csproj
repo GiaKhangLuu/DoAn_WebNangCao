@@ -145,6 +145,9 @@
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Constant.cs" />
+    <Compile Include="Models\DANHSACHCAUHOI.cs">
+      <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DANHSACHDAPANCHON.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
@@ -2082,6 +2085,7 @@
     <Content Include="Views\Sorted_Quiz\Check_answer.cshtml" />
     <Content Include="Views\Multi_Correct_Answer_Quiz\Index.cshtml" />
     <Content Include="Views\Multi_Correct_Answer_Quiz\Render_quiz.cshtml" />
+    <Content Include="Views\Multi_Correct_Answer_Quiz\Check_answer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

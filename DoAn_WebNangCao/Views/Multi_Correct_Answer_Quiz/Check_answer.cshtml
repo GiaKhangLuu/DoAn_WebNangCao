@@ -1,0 +1,131 @@
+﻿@model DoAn_WebNangCao.Models.Quiz
+
+@{
+    string class_name = "";
+    string mark_container = "";
+    string answer_comment = "";
+
+    var cau_hoi = Model.Cau_hoi;
+    string quiz_title = cau_hoi.NoiDung;
+    var id_cau_hoi = cau_hoi.IDCauHoi;
+    var answers = cau_hoi.DAPANs;
+    int num_of_answers = answers.Count;
+
+    List<int> selected_answer_ids = Model.Id_dap_an_chons;
+    List<bool> selected_answer_results = Model.Ket_quas;
+
+    int[] ground_truth_answer_features = new int[num_of_answers];
+    /*
+    Ex:
+    ground_truth_answer_features = [1, 1, 0, 0]
+    .1 is correct answer feature
+    .0 is wrong answer feature
+    */
+
+    int[] selected_answer_features = new int[num_of_answers];
+    /*
+    Ex:
+    selected_answer_features = [-1, 1, 0, -1]
+    .-1 is user didnt select answer
+    .0 is user selected answer but wrong
+    .1 is user selected answer and correct
+    */
+
+    // Generate answer_feature & selected_answer_feature
+    int idx = 0;
+    foreach(var answer in answers)
+    {
+        if(answer.TinhChat)
+        {
+            // Correct answer
+            ground_truth_answer_features[idx] = 1;
+        }
+        else
+        {
+            // Wrong answer
+            ground_truth_answer_features[idx] = 0;
+        }
+
+        int answer_id = answer.IDDapAn;
+        int idx_of_answer_in_selected_list = selected_answer_ids.FindIndex(p => p == answer_id);
+        // User didnt select that answer
+        if (idx_of_answer_in_selected_list == -1)
+        {
+            selected_answer_features[idx] = -1;
+        }
+        // User select that answer
+        else
+        {
+            // Correct answer
+            if (selected_answer_results.ElementAt(idx_of_answer_in_selected_list))
+            {
+                selected_answer_features[idx] = 1;
+            }
+            // Wrong answer
+            else
+            {
+                selected_answer_features[idx] = 0;
+            }
+        }
+        ++idx;
+    }
+}
+
+<div class="row">
+    <div class="col-8 offset-2">
+        <table class="table-quiz">
+            <tr class="quiz-title-container">
+                <th id="@id_cau_hoi" class="quiz-title">@quiz_title</th>
+            </tr>
+            @for (int i = 0; i < num_of_answers; i++)
+            {
+                var answer = answers.ElementAt(i);
+                int ground_truth_answer_feature = ground_truth_answer_features[i];
+                int selected_answer_feature = selected_answer_features[i];
+                if (ground_truth_answer_feature == 1)
+                {
+                    // 1 | -1 => Correct but didnt select => Gray
+                    if (selected_answer_feature == -1)
+                    {
+                        mark_container = "";
+                        class_name = "radiocontainer correct";
+                        answer_comment = "<span class='answercomment'>&nbsp;&nbsp;Correct answer&nbsp;&nbsp;</span>";
+                    }
+                    // 1 | 1 => Correct and selected => Green
+                    if (selected_answer_feature == 1)
+                    {
+                        mark_container = "<div class='markcontainer'><i class='fa fa-check'></i></div>";
+                        class_name = "radiocontainer correct selected";
+                        answer_comment = "<span class='answercomment'>&nbsp;&nbsp;Your answer&nbsp;&nbsp;</span>";
+                    }
+                }
+                else
+                {
+                    // 0 | -1 => Wrong and didnt select => Normal
+                    if (selected_answer_feature == -1)
+                    {
+                        mark_container = "";
+                        class_name = "radiocontainer";
+                        answer_comment = "";
+                    }
+                    // 0 | 0 => Wrong and selected => red
+                    if (selected_answer_feature == 0)
+                    {
+                        mark_container = "<div class='markcontainer'><i class='fa fa-times'></i></div>";
+                        class_name = "radiocontainer wrong";
+                        answer_comment = "<span class='answercomment'>&nbsp;&nbsp;Your answer&nbsp;&nbsp;</span>";
+                    }
+                }
+                <tr>
+                    <th class="answer-row @class_name">
+                        <div>
+                            @Html.Raw(mark_container)
+                            @answer.NoiDung
+                            @Html.Raw(answer_comment)
+                        </div>
+                    </th>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

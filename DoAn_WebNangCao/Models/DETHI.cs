@@ -18,7 +18,7 @@ namespace DoAn_WebNangCao.Models
         public DETHI()
         {
             this.DANHSACHDAPANCHONs = new HashSet<DANHSACHDAPANCHON>();
-            this.CAUHOIs = new HashSet<CAUHOI>();
+            this.DANHSACHCAUHOIs = new HashSet<DANHSACHCAUHOI>();
         }
     
         public int IDDeThi { get; set; }
@@ -32,6 +32,6 @@ namespace DoAn_WebNangCao.Models
         public virtual ICollection<DANHSACHDAPANCHON> DANHSACHDAPANCHONs { get; set; }
         public virtual TAIKHOAN TAIKHOAN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CAUHOI> CAUHOIs { get; set; }
+        public virtual ICollection<DANHSACHCAUHOI> DANHSACHCAUHOIs { get; set; }
     }
 }

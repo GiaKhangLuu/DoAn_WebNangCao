@@ -18,7 +18,7 @@ namespace DoAn_WebNangCao.Models
         public CAUHOI()
         {
             this.DAPANs = new HashSet<DAPAN>();
-            this.DETHIs = new HashSet<DETHI>();
+            this.DANHSACHCAUHOIs = new HashSet<DANHSACHCAUHOI>();
         }
     
         public int IDCauHoi { get; set; }
@@ -31,6 +31,6 @@ namespace DoAn_WebNangCao.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DAPAN> DAPANs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DETHI> DETHIs { get; set; }
+        public virtual ICollection<DANHSACHCAUHOI> DANHSACHCAUHOIs { get; set; }
     }
 }

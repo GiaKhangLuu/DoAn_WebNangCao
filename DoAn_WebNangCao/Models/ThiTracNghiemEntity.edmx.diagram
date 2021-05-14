@@ -18,11 +18,9 @@
         <AssociationConnector Association="THITRACNGHIEMModel.fk_dsdapanchon_iddapan" ManuallyRouted="false" />
         <AssociationConnector Association="THITRACNGHIEMModel.fk_dsdapanchon_iddethi" ManuallyRouted="false" />
         <AssociationConnector Association="THITRACNGHIEMModel.FK_TAIKHOANDT" ManuallyRouted="false" />
-        <AssociationConnector Association="THITRACNGHIEMModel.DANHSACHCAUHOI" ManuallyRouted="true" >
-          <ConnectorPoint PointX="4.03320515625" PointY="4.875" />
-          <ConnectorPoint PointX="4.03320515625" PointY="1.6306907177734367" />
-          <ConnectorPoint PointX="5.25" PointY="1.6306907177734367" />
-        </AssociationConnector>
+        <EntityTypeShape EntityType="THITRACNGHIEMModel.DANHSACHCAUHOI" Width="1.5" PointX="7.5" PointY="2.125" />
+        <AssociationConnector Association="THITRACNGHIEMModel.fk_ctdt_idcauhoi" />
+        <AssociationConnector Association="THITRACNGHIEMModel.fk_ctdt_iddethi" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -98,13 +98,18 @@
                     <div class="container-fluid">
                         @foreach(var quiz in Model)
                         {
-                            if (quiz.Cau_hoi.IDLoaiCauHoi == ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+                            var quiz_type_id = quiz.Cau_hoi.IDLoaiCauHoi;
+                            if (quiz_type_id == ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
                             {
                                 Html.RenderAction("Check_answer", "Sorted_Quiz", new { quiz = quiz });
                             }
-                            if(quiz.Cau_hoi.IDLoaiCauHoi == ID_CAU_HOI_1_DAP_AN) 
+                            else if(quiz_type_id == ID_CAU_HOI_1_DAP_AN) 
                             {
                                 Html.RenderAction("Check_answer", "One_Correct_Answer_Quiz", new { quiz = quiz });
+                            }
+                            else if(quiz_type_id == ID_CAU_HOI_NHIEU_DAP_AN) 
+                            {
+                                Html.RenderAction("Check_answer", "Multi_Correct_Answer_Quiz", new { quiz = quiz });
                             }
                         }
                     </div>
