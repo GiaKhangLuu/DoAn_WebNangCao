@@ -38,12 +38,6 @@ namespace DoAn_WebNangCao.Models
             return quizs.FindLastIndex(quiz => quiz.Cau_hoi.IDCauHoi == id_cau_hoi);
         }
 
-        public void Add_id_cau_tra_loi(int quiz_idx, int id_cau_tra_loi)
-        {
-            //quizs.Find(quiz => quiz.Cau_hoi.IDCauHoi == id_cau_hoi).Id_cau_tra_loi = id_cau_tra_loi;
-            //quizs[quiz_idx].Id_cau_tra_loi = id_cau_tra_loi;
-        }
-
         private void Add_cau_hoi(IEnumerable<CAUHOI> cau_hois)
         {
             for(int idx = 0; idx < cau_hois.Count(); idx++)
@@ -86,26 +80,44 @@ namespace DoAn_WebNangCao.Models
             quizs[quiz_idx].Save_answer_of_one_correct_answer_quiz(answer_id);
         }
 
-        public void Mark_exam(THITRACNGHIEMEntities db)
+        public void Mark_exam()
         {
             foreach(var quiz in quizs)
             {
                 if(quiz.Id_dap_an_chons.Count > 0
                     && quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
                 {
-                    Mark_sorted_quiz(quiz, db);
+                    Mark_sorted_quiz(quiz);
+                }
+                else if(quiz.Id_dap_an_chons.Count >0
+                    && quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_1_DAP_AN)
+                {
+                    Mark_one_correct_answer_quiz(quiz);
                 }
             }
-            Add_user_answers_to_db(db);
         }
 
-        public void Mark_sorted_quiz(Quiz quiz, THITRACNGHIEMEntities db)
+        private void Mark_one_correct_answer_quiz(Quiz quiz)
+        {
+            int correct_answer_id = quiz.Cau_hoi.DAPANs.FirstOrDefault(p => p.TinhChat).IDDapAn;
+            int selected_answer_id = quiz.Id_dap_an_chons[0];
+            if(correct_answer_id == selected_answer_id)
+            {
+                quiz.Ket_quas.Add(true);
+            }
+            else
+            {
+                quiz.Ket_quas.Add(false);
+            }
+        }
+
+        private void Mark_sorted_quiz(Quiz quiz)
         {
             for (int order = 0; order < quiz.Id_dap_an_chons.Count; order++)
             {
                 int answer_id = quiz.Id_dap_an_chons[order];
                 int answer_order = order + 1;
-                quiz.Ket_quas.Add(Is_sorted_quiz_answer_correct(answer_id, answer_order, db));
+                quiz.Ket_quas.Add(Is_sorted_quiz_answer_correct(answer_id, answer_order, quiz));
             }
         }
 
@@ -113,26 +125,9 @@ namespace DoAn_WebNangCao.Models
         {
             foreach(var quiz in quizs)
             {
-                // Check whether quiz has answer or not
-                if(quiz.Id_dap_an_chons.Count > 0 && 
-                    quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+                if(quiz.Id_dap_an_chons.Count > 0)
                 {
                     Add_user_answer(quiz, db);
-                }
-                /*
-                else if (quiz.Id_cau_tra_loi != -1)
-                {
-                    DANHSACHDAPANCHON dap_an_chon = new DANHSACHDAPANCHON();
-                    dap_an_chon.IDDethi = Id_de_thi;
-                    dap_an_chon.IDDapAn = quiz.Id_cau_tra_loi;
-                    dap_an_chon.ThuTu = 0;
-                    db.DANHSACHDAPANCHONs.Add(dap_an_chon);
-                    db.SaveChanges();
-                }
-                */
-                else
-                {
-                    continue;
                 }
             }
         }
@@ -143,7 +138,15 @@ namespace DoAn_WebNangCao.Models
             {
                 int answer_id = quiz.Id_dap_an_chons[order];
                 bool answer_result = quiz.Ket_quas[order];
-                int answer_order = order + 1;
+                int answer_order;
+                if(quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_1_DAP_AN)
+                {
+                    answer_order = 0;
+                }
+                else
+                {
+                    answer_order = order + 1;
+                }
                 DANHSACHDAPANCHON dap_an_chon = new DANHSACHDAPANCHON();
                 dap_an_chon.IDDethi = id_de_thi;
                 dap_an_chon.IDDapAn = answer_id;
@@ -155,9 +158,9 @@ namespace DoAn_WebNangCao.Models
 
         }
 
-        private bool Is_sorted_quiz_answer_correct(int answer_id, int answer_order, THITRACNGHIEMEntities db)
+        private bool Is_sorted_quiz_answer_correct(int answer_id, int answer_order, Quiz quiz)
         {
-            DAPAN answer_ground_truth = db.DAPANs.FirstOrDefault(p => p.IDDapAn == answer_id);
+            DAPAN answer_ground_truth = quiz.Cau_hoi.DAPANs.FirstOrDefault(p => p.IDDapAn == answer_id);
             if(answer_ground_truth.TinhChat 
                 && answer_ground_truth.ThuTu == answer_order)
             {

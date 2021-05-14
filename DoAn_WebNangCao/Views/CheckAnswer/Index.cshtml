@@ -96,19 +96,15 @@
                     <!-- Page Heading -->
 
                     <div class="container-fluid">
-                            <!--
-                            <div class="col-2"></div>
-                            <div class="col-8">
-                                { Html.RenderPartial("Render_quizs", Model); }
-                            </div>
-                            <div class="right col">
-                            </div>
-                                -->
                         @foreach(var quiz in Model)
                         {
                             if (quiz.Cau_hoi.IDLoaiCauHoi == ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
                             {
-                                Html.RenderAction("Render_sorted_quiz", new { quiz = quiz });
+                                Html.RenderAction("Check_answer", "Sorted_Quiz", new { quiz = quiz });
+                            }
+                            if(quiz.Cau_hoi.IDLoaiCauHoi == ID_CAU_HOI_1_DAP_AN) 
+                            {
+                                Html.RenderAction("Check_answer", "One_Correct_Answer_Quiz", new { quiz = quiz });
                             }
                         }
                     </div>

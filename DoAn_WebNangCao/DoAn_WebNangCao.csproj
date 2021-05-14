@@ -2068,15 +2068,15 @@
     <Content Include="Views\Result\Index.cshtml" />
     <Content Include="Views\Result\Render_result.cshtml" />
     <Content Include="Views\CheckAnswer\Index.cshtml" />
-    <Content Include="Views\CheckAnswer\Render_quizs.cshtml" />
     <Content Include="Views\QuizCategory\Index.cshtml" />
     <Content Include="Views\QuizCategory\Render_quiz_category.cshtml" />
     <Content Include="Views\Test\Render_list_button_quiz.cshtml" />
     <Content Include="Views\Sorted_Quiz\Index.cshtml" />
     <Content Include="Views\Sorted_Quiz\Render_quiz.cshtml" />
-    <Content Include="Views\CheckAnswer\Render_sorted_quiz.cshtml" />
     <Content Include="Views\One_Correct_Answer_Quiz\Index.cshtml" />
     <Content Include="Views\One_Correct_Answer_Quiz\Render_quiz.cshtml" />
+    <Content Include="Views\One_Correct_Answer_Quiz\Check_answer.cshtml" />
+    <Content Include="Views\Sorted_Quiz\Check_answer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,15 +17,5 @@ namespace DoAn_WebNangCao.Controllers
             List<Quiz> quizs = exam.Quizs;
             return View(quizs);
         }
-
-        public PartialViewResult Render_quizs(List<Quiz> quiz)
-        {
-            return PartialView(quiz);
-        }
-
-        public PartialViewResult Render_sorted_quiz(Quiz quiz)
-        {
-            return PartialView(quiz);
-        }
     }
 }

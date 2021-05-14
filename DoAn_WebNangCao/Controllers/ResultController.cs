@@ -18,7 +18,8 @@ namespace DoAn_WebNangCao.Controllers
             Exam exam = Session["Exam"] as Exam;
             rs.Num_of_correct_answers = exam.Count_correct_answers();
             rs.Num_of_quizs = exam.Quizs.Count;
-            exam.Mark_exam(db);
+            exam.Mark_exam();
+            exam.Add_user_answers_to_db(db);
             return RedirectToAction("Index", rs);
         }
         

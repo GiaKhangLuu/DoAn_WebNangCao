@@ -37,5 +37,10 @@ namespace DoAn_WebNangCao.Controllers
             Save_answer_to_session(quiz_idx);
             return RedirectToAction("NewQuiz", "Test", new { type = type, quiz_idx = quiz_idx });
         }
+
+        public PartialViewResult Check_answer(Quiz quiz)
+        {
+            return PartialView(quiz);
+        }
     }
 }

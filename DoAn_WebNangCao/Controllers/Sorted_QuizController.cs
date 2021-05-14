@@ -9,7 +9,6 @@ namespace DoAn_WebNangCao.Controllers
 {
     public class Sorted_QuizController : Controller
     {
-        THITRACNGHIEMEntities db = new THITRACNGHIEMEntities();
         public ActionResult Index(int quiz_idx)
         {
             Exam exam = Session["Exam"] as Exam;
@@ -37,5 +36,11 @@ namespace DoAn_WebNangCao.Controllers
             Add_answer_for_sorted_quiz(quiz_idx);
             return RedirectToAction("NewQuiz", "Test", new { type = type, quiz_idx = quiz_idx });
         }
+
+        public PartialViewResult Check_answer(Quiz quiz)
+        {
+            return PartialView(quiz);
+        }
+
     }
 }
