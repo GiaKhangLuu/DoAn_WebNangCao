@@ -38,30 +38,12 @@ namespace DoAn_WebNangCao.Controllers
             {
                 return RedirectToAction("Index", "One_Correct_Answer_Quiz", new { quiz_idx = quiz_idx });
             }
-            return View(exam.Quizs[quiz_idx]);
-        }
-
-        /*
-        public void Add_dap_an_chon(int quiz_idx)
-        {
-            if (Request["Id_cau_tra_loi"] != null)
+            else if(quiz_type_id == Constant.ID_CAU_HOI_NHIEU_DAP_AN)
             {
-                int id_dap_an_chon = Int32.Parse(Request["Id_cau_tra_loi"]);
-                (Session["Exam"] as Exam).Add_id_cau_tra_loi(quiz_idx, id_dap_an_chon);
+                return RedirectToAction("Index", "Multi_Correct_Answer_Quiz", new { quiz_idx = quiz_idx });
             }
+            return null;
         }
-        */
-
-        /*
-        public void Add_answer_for_sorted_quiz(int quiz_idx)
-        {
-            string raw_answer = Request["raw_answer"];
-            if(raw_answer != null && raw_answer.Length != 0)
-            {
-                (Session["Exam"] as Exam).Add_answer_by_id_quiz(quiz_idx, raw_answer);
-            }
-        }
-        */
 
         public ActionResult NewQuiz(string type, int quiz_idx)
         {
