@@ -28,16 +28,6 @@ namespace DoAn_WebNangCao.Models
         public int Id_de_thi { get => id_de_thi; set => id_de_thi = value; }
         public List<Quiz> Quizs { get => quizs; set => quizs = value; }
 
-        public Quiz GetQuiz(int id_cau_hoi)
-        {
-            return quizs.FirstOrDefault(quiz => quiz.Cau_hoi.IDCauHoi == id_cau_hoi);
-        }
-
-        public int Get_quiz_idx_by_id(int id_cau_hoi)
-        {
-            return quizs.FindLastIndex(quiz => quiz.Cau_hoi.IDCauHoi == id_cau_hoi);
-        }
-
         private void Add_cau_hoi(IEnumerable<CAUHOI> cau_hois)
         {
             for(int idx = 0; idx < cau_hois.Count(); idx++)
@@ -45,12 +35,6 @@ namespace DoAn_WebNangCao.Models
                 Quiz quiz = new Quiz(cau_hois.ElementAt(idx), idx);
                 quizs.Add(quiz);
             }
-        }
-
-        public int Get_correct_answer_id(CAUHOI cau_hoi)
-        {
-            DAPAN corr_answer = cau_hoi.DAPANs.FirstOrDefault(dapan => dapan.TinhChat == true);
-            return corr_answer.IDDapAn;
         }
 
         public int Count_correct_answers()
@@ -67,32 +51,27 @@ namespace DoAn_WebNangCao.Models
             return count;
             */
             return -1;
-        }
-
-        public void Add_answer_by_id_quiz(int quiz_idx, string raw_answer)
-        {
-            Quiz quiz = quizs[quiz_idx];
-            quiz.Convert_raw_answer_to_list_answers(raw_answer);
-        }
-
-        public void Save_answer_of_one_correct_answer_quiz(int quiz_idx, int answer_id)
-        {
-            quizs[quiz_idx].Save_answer_of_one_correct_answer_quiz(answer_id);
-        }
+        }  
 
         public void Mark_exam()
         {
             foreach(var quiz in quizs)
             {
-                if(quiz.Id_dap_an_chons.Count > 0
-                    && quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+                if(quiz.Id_dap_an_chons.Count > 0)
                 {
-                    Mark_sorted_quiz(quiz);
-                }
-                else if(quiz.Id_dap_an_chons.Count >0
-                    && quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_1_DAP_AN)
-                {
-                    Mark_one_correct_answer_quiz(quiz);
+                    var quiz_type_id = quiz.Cau_hoi.IDLoaiCauHoi;
+                    if(quiz_type_id == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+                    {
+                        Mark_sorted_quiz(quiz);
+                    }
+                    else if(quiz_type_id == Constant.ID_CAU_HOI_1_DAP_AN)
+                    {
+                        Mark_one_correct_answer_quiz(quiz);
+                    }
+                    else if(quiz_type_id == Constant.ID_CAU_HOI_NHIEU_DAP_AN)
+                    {
+                        Mark_multi_correct_answer_quiz(quiz);
+                    }
                 }
             }
         }
@@ -121,6 +100,23 @@ namespace DoAn_WebNangCao.Models
             }
         }
 
+        private void Mark_multi_correct_answer_quiz(Quiz quiz)
+        {
+            for(int i = 0; i < quiz.Id_dap_an_chons.Count; i++)
+            {
+                int selected_answer_id = quiz.Id_dap_an_chons[i];
+                DAPAN dap_an = quiz.Cau_hoi.DAPANs.FirstOrDefault(p => p.IDDapAn == selected_answer_id);
+                if(dap_an.TinhChat)
+                {
+                    quiz.Ket_quas.Add(true);
+                }
+                else
+                {
+                    quiz.Ket_quas.Add(false);
+                }
+            }
+        }
+
         public void Add_user_answers_to_db(THITRACNGHIEMEntities db)
         {
             foreach(var quiz in quizs)
@@ -134,23 +130,20 @@ namespace DoAn_WebNangCao.Models
 
         private void Add_user_answer(Quiz quiz, THITRACNGHIEMEntities db)
         {
-            for (int order = 0; order < quiz.Id_dap_an_chons.Count; order++)
+            for (int idx = 0; idx < quiz.Id_dap_an_chons.Count; idx++)
             {
-                int answer_id = quiz.Id_dap_an_chons[order];
-                bool answer_result = quiz.Ket_quas[order];
-                int answer_order;
-                if(quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_1_DAP_AN)
-                {
-                    answer_order = 0;
-                }
-                else
-                {
-                    answer_order = order + 1;
-                }
                 DANHSACHDAPANCHON dap_an_chon = new DANHSACHDAPANCHON();
+                int answer_id = quiz.Id_dap_an_chons[idx];
+                bool answer_result = quiz.Ket_quas[idx];
+                int answer_order;
+                if(quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+                {
+                    answer_order = idx + 1;
+                    dap_an_chon.ThuTu = answer_order;
+
+                }
                 dap_an_chon.IDDethi = id_de_thi;
                 dap_an_chon.IDDapAn = answer_id;
-                dap_an_chon.ThuTu = answer_order;
                 dap_an_chon.KetQua = answer_result;
                 db.DANHSACHDAPANCHONs.Add(dap_an_chon);
                 db.SaveChanges();

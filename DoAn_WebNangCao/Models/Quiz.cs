@@ -10,14 +10,12 @@ namespace DoAn_WebNangCao.Models
         private CAUHOI cau_hoi;
         private List<int> id_dap_an_chons;
         private List<bool> ket_quas;
-        private string id_dap_an_chons_raw;
         private int quiz_idx;
 
         public Quiz(CAUHOI cau_hoi, int quiz_idx)
         {
             this.Cau_hoi = cau_hoi;
             Id_dap_an_chons = new List<int>();
-            Id_dap_an_chons_raw = "";
             this.quiz_idx = quiz_idx;
             ket_quas = new List<bool>();
         }
@@ -25,22 +23,19 @@ namespace DoAn_WebNangCao.Models
         public Quiz(CAUHOI cau_hoi) {
             this.Cau_hoi = cau_hoi;
             Id_dap_an_chons = new List<int>();
-            Id_dap_an_chons_raw = "";
             ket_quas = new List<bool>();
         }
         
         public CAUHOI Cau_hoi { get => cau_hoi; set => cau_hoi = value; }
-        public string Id_dap_an_chons_raw { get => id_dap_an_chons_raw; set => id_dap_an_chons_raw = value; }
         public int Quiz_idx { get => quiz_idx; set => quiz_idx = value; }
         public List<int> Id_dap_an_chons { get => id_dap_an_chons; set => id_dap_an_chons = value; }
         public List<bool> Ket_quas { get => ket_quas; set => ket_quas = value; }
 
-        public void Convert_raw_answer_to_list_answers(string raw_answer)
+        public void Save_answer_of_sorted_answer_quiz(int[] answer_ids)
         {
-            string[] answer_ids = raw_answer.Split(',');
-            foreach(string answer_id in answer_ids)
+            foreach(int answer_id in answer_ids)
             {
-                Id_dap_an_chons.Add(Int32.Parse(answer_id));
+                Id_dap_an_chons.Add(answer_id);
             }
         }
 
@@ -54,6 +49,11 @@ namespace DoAn_WebNangCao.Models
             {
                 id_dap_an_chons[0] = answer_id;
             }
+        }
+
+        public void Save_answer_of_multi_correct_answer_quiz(int answer_id)
+        {
+            id_dap_an_chons.Add(answer_id);
         }
     }
 }

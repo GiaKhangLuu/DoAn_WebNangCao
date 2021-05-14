@@ -26,8 +26,10 @@ namespace DoAn_WebNangCao.Controllers
         {
             if (Request["answer_id"] != null)
             {
+                Exam exam = Session["Exam"] as Exam;
+                Quiz quiz = exam.Quizs[quiz_idx];
                 int id_dap_an_chon = Int32.Parse(Request["answer_id"]);
-                (Session["Exam"] as Exam).Save_answer_of_one_correct_answer_quiz(quiz_idx, id_dap_an_chon);
+                quiz.Save_answer_of_one_correct_answer_quiz(id_dap_an_chon);
             }
         }
 

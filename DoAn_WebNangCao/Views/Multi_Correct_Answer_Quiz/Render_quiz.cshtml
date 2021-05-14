@@ -20,15 +20,11 @@
             <tr>
                 <th class="answer-row">
                     <label class="container">
-                        
                         @dap_an.NoiDung
-                        <!--
-                            {
-                            var radio_name = "answer_id";
-                            var radio_value = dap_an.IDDapAn;
+                        @{
+                            var cb_name = dap_an.IDDapAn;
                         }
-                        -->            
-                        @Html.CheckBox("abc")
+                        <input type="checkbox" value="false" name="@cb_name.ToString()" />
                         <span class="checkmark"></span>
                     </label>
                 </th>
