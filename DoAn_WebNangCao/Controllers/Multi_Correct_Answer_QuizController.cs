@@ -26,18 +26,20 @@ namespace DoAn_WebNangCao.Controllers
         {
             Exam exam = Session["Exam"] as Exam;
             Quiz quiz = exam.Quizs[quiz_idx];
+            List<int> selected_answer_ids = new List<int>();
             foreach(DAPAN dapan in quiz.Cau_hoi.DAPANs)
             {
                 int id_dap_an = dapan.IDDapAn;
                 string isChecked = Request[id_dap_an.ToString()];
                 if (isChecked != null && isChecked.Length != 0)
                 {
-                    if (Boolean.Parse(isChecked))
-                    {
-                        quiz.Save_answer_of_multi_correct_answer_quiz(id_dap_an);
-                    }
+                    //if (Boolean.Parse(isChecked))
+                    //{
+                        selected_answer_ids.Add(id_dap_an);                       
+                    //}
                 }
             }
+            quiz.Save_answer_of_multi_correct_answer_quiz(selected_answer_ids);
         }
 
         [HttpPost]

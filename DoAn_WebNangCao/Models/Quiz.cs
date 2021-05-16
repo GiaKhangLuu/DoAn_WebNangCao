@@ -33,6 +33,7 @@ namespace DoAn_WebNangCao.Models
 
         public void Save_answer_of_sorted_answer_quiz(int[] answer_ids)
         {
+            id_dap_an_chons.Clear();
             foreach(int answer_id in answer_ids)
             {
                 Id_dap_an_chons.Add(answer_id);
@@ -51,9 +52,10 @@ namespace DoAn_WebNangCao.Models
             }
         }
 
-        public void Save_answer_of_multi_correct_answer_quiz(int answer_id)
+        public void Save_answer_of_multi_correct_answer_quiz(List<int> selected_answer_ids)
         {
-            id_dap_an_chons.Add(answer_id);
+            id_dap_an_chons.Clear();
+            id_dap_an_chons.AddRange(selected_answer_ids);
         }
     }
 }

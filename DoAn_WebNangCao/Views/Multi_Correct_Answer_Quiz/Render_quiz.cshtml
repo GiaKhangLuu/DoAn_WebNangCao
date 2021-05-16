@@ -6,6 +6,7 @@
     int id_cau_hoi = quiz.IDCauHoi;
     int quiz_idx = Model.Quiz_idx;
     var quiz_type_id = Model.Cau_hoi.IDLoaiCauHoi;
+    var selected_answer_ids = Model.Id_dap_an_chons;
 }
 
 @using (Html.BeginForm("Go", "Multi_Correct_Answer_Quiz"))
@@ -22,9 +23,17 @@
                     <label class="container">
                         @dap_an.NoiDung
                         @{
-                            var cb_name = dap_an.IDDapAn;
+                            var answer_id = dap_an.IDDapAn;
+                            var cb_name = answer_id;
+                            var isChecked = "";
+                            var value = false;
+                            if (selected_answer_ids.Contains(answer_id))
+                            {
+                                isChecked = "checked";
+                                value = true;
+                            }
                         }
-                        <input type="checkbox" value="false" name="@cb_name.ToString()" />
+                        <input type="checkbox" value=@value name="@cb_name.ToString()" @isChecked/>
                         <span class="checkmark"></span>
                     </label>
                 </th>
