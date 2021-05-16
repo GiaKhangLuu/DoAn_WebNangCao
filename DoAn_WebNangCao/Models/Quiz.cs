@@ -57,5 +57,30 @@ namespace DoAn_WebNangCao.Models
             id_dap_an_chons.Clear();
             id_dap_an_chons.AddRange(selected_answer_ids);
         }
+
+        public bool Is_correct_quiz()
+        {
+            // One quiz is correct when num of correct answer is equal and doesnt contain any wrong answer
+            if (!Did_quiz_contain_wrong_answer() && Did_user_select_enough_correct_answer())
+                return true;
+            return false;
+        }
+
+        private bool Did_user_select_enough_correct_answer()
+        {
+            int num_of_selected_correct_answer = ket_quas.Where(p => p == true).Count();
+            int num_of_correct_answer = cau_hoi.DAPANs.Where(p => p.TinhChat == true).Count();
+            return num_of_correct_answer == num_of_selected_correct_answer;
+        }
+
+        private bool Did_quiz_contain_wrong_answer()
+        {
+            if (ket_quas.Contains(false))
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

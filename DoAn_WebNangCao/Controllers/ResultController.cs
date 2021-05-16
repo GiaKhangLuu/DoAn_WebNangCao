@@ -16,10 +16,9 @@ namespace DoAn_WebNangCao.Controllers
         {
             Result rs = new Result();
             Exam exam = Session["Exam"] as Exam;
-            rs.Num_of_correct_answers = exam.Count_correct_answers();
             rs.Num_of_quizs = exam.Quizs.Count;
-            exam.Mark_exam();
-            exam.Add_user_answers_to_db(db);
+            exam.Mark_exam(db);
+            rs.Num_of_correct_answers = exam.Count_correct_answers(db);
             return RedirectToAction("Index", rs);
         }
         

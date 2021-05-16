@@ -37,23 +37,31 @@ namespace DoAn_WebNangCao.Models
             }
         }
 
-        public int Count_correct_answers()
+        public int Count_correct_answers(THITRACNGHIEMEntities db)
         {
-            /*
-            int count = 0;
-            foreach (var quiz in Quizs)
-            {
-                if (quiz.Id_cau_tra_loi == Get_correct_answer_id(quiz.Cau_hoi))
-                {
-                    count++;
-                }
-            }
-            return count;
-            */
-            return -1;
+            var ds_ch = db.DANHSACHCAUHOIs.Where(p => p.IDDeThi == id_de_thi);
+            int num_of_correct_answers = ds_ch.Where(p => p.KetQua == true).Count();
+            return num_of_correct_answers;
         }  
 
-        public void Mark_exam()
+        public void Mark_exam(THITRACNGHIEMEntities db)
+        {
+            Mark_quiz();
+            Add_user_answers_to_db(db);
+            for(int i = 0; i < quizs.Count; i++)
+            {
+                Quiz quiz = quizs[i];
+                int quiz_id = quiz.Cau_hoi.IDCauHoi;
+                DANHSACHCAUHOI ds_ch = db.DANHSACHCAUHOIs.FirstOrDefault(
+                    p => p.IDCauHoi == quiz_id &&
+                    p.IDDeThi == id_de_thi);
+                bool ket_qua = quiz.Is_correct_quiz();
+                ds_ch.KetQua = ket_qua;
+                db.SaveChanges();
+            }
+        }
+
+        private void Mark_quiz()
         {
             foreach(var quiz in quizs)
             {
@@ -117,7 +125,7 @@ namespace DoAn_WebNangCao.Models
             }
         }
 
-        public void Add_user_answers_to_db(THITRACNGHIEMEntities db)
+        private void Add_user_answers_to_db(THITRACNGHIEMEntities db)
         {
             foreach(var quiz in quizs)
             {
@@ -161,5 +169,7 @@ namespace DoAn_WebNangCao.Models
             }
             return false;
         }
+
+        
     }
 }
