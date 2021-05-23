@@ -127,7 +127,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -135,7 +135,10 @@
     <Compile Include="Models\CAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CT_DETHI.cs">
+    <Compile Include="Models\DANHSACHCAUHOI.cs">
+      <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DANHSACHDAPANCHON.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAPAN.cs">
@@ -144,7 +147,11 @@
     <Compile Include="Models\DETHI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Encryption.cs" />
     <Compile Include="Models\LINHVUC.cs">
+      <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOAICAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TAIKHOAN.cs">
@@ -2043,8 +2050,8 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Login\LoginUser.cshtml" />
     <Content Include="Views\Login\RegisterUser.cshtml" />
-    <Content Include="Views\Shared\_LayoutMainPage.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,7 +17,7 @@ namespace DoAn_WebNangCao.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LINHVUC()
         {
-            this.DETHIs = new HashSet<DETHI>();
+            this.CAUHOIs = new HashSet<CAUHOI>();
         }
     
         public int IDLinhVuc { get; set; }
@@ -25,6 +25,6 @@ namespace DoAn_WebNangCao.Models
         public string GhiChu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DETHI> DETHIs { get; set; }
+        public virtual ICollection<CAUHOI> CAUHOIs { get; set; }
     }
 }

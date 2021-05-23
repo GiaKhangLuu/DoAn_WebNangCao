@@ -23,7 +23,6 @@
                 @using (Html.BeginForm("RegisterUser", "Login", FormMethod.Post, new { enctype = "multipart/form-data",@class="user" }))
                 {
                     @Html.AntiForgeryToken()
-                    <form class="user">
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Tên đăng nhập", id = "exampleUserName" } })
@@ -56,7 +55,6 @@
                         <a href=@Url.Action("LoginUser","Login") class="btn btn-facebook btn-user btn-block">
                             <i class="fab fa-facebook-f fa-fw"></i> Đăng ký với Facebook
                         </a>
-                    </form>
                 }
                 
 

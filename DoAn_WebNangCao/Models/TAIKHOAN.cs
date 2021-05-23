@@ -24,12 +24,12 @@ namespace DoAn_WebNangCao.Models
     
         public int IDUser { get; set; }
         [Required(ErrorMessage ="Tên đăng nhập không được để trống ...")]
-        [StringLength(25,MinimumLength =8)]
+        [StringLength(25)]
         
         public string UserName { get; set; }
         [Required(ErrorMessage ="Mật khẩu không được để trống...")]
         [DataType(DataType.Password)]
-        [StringLength(16,MinimumLength =8)]
+        [StringLength(25)]
         public string MatKhau { get; set; }
         [NotMapped]
         [Required(ErrorMessage ="Vui lòng nhập lại mật khẩu ....")]
@@ -41,6 +41,7 @@ namespace DoAn_WebNangCao.Models
         [Required(ErrorMessage = "Địa chỉ Email không được trống ....")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        public bool RememberMe { get; set; }
         public bool Quyen { get; set; }
         public string AnhDaiDien { get; set; }
     

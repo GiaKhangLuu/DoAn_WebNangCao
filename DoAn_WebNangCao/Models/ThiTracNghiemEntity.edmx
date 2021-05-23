@@ -11,15 +11,27 @@
           </Key>
           <Property Name="IDCauHoi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NoiDung" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="IDLinhVuc" Type="int" />
+          <Property Name="IDLoaiCauHoi" Type="int" />
         </EntityType>
-        <EntityType Name="CT_DETHI">
+        <EntityType Name="DANHSACHCAUHOI">
           <Key>
-            <PropertyRef Name="IDCTDeThi" />
+            <PropertyRef Name="IDDeThi" />
+            <PropertyRef Name="IDCauHoi" />
           </Key>
-          <Property Name="IDCTDeThi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDDeThi" Type="int" Nullable="false" />
           <Property Name="IDCauHoi" Type="int" Nullable="false" />
-          <Property Name="DapAnChon" Type="int" />
+          <Property Name="KetQua" Type="bit" />
+        </EntityType>
+        <EntityType Name="DANHSACHDAPANCHON">
+          <Key>
+            <PropertyRef Name="IDDethi" />
+            <PropertyRef Name="IDDapAn" />
+          </Key>
+          <Property Name="IDDethi" Type="int" Nullable="false" />
+          <Property Name="IDDapAn" Type="int" Nullable="false" />
+          <Property Name="ThuTu" Type="int" />
+          <Property Name="KetQua" Type="bit" />
         </EntityType>
         <EntityType Name="DAPAN">
           <Key>
@@ -29,6 +41,7 @@
           <Property Name="IDCauHoi" Type="int" Nullable="false" />
           <Property Name="NoiDung" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="TinhChat" Type="bit" Nullable="false" />
+          <Property Name="ThuTu" Type="int" />
         </EntityType>
         <EntityType Name="DETHI">
           <Key>
@@ -36,7 +49,6 @@
           </Key>
           <Property Name="IDDeThi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NgayThi" Type="datetime" Nullable="false" />
-          <Property Name="IDLinhVuc" Type="int" Nullable="false" />
           <Property Name="MucDo" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="ThoiGianThi" Type="time" Precision="7" Nullable="false" />
           <Property Name="IDUser" Type="int" Nullable="false" />
@@ -50,6 +62,13 @@
           <Property Name="TenLinhVuc" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="GhiChu" Type="nvarchar" MaxLength="150" />
         </EntityType>
+        <EntityType Name="LOAICAUHOI">
+          <Key>
+            <PropertyRef Name="IDLoaiCauHoi" />
+          </Key>
+          <Property Name="IDLoaiCauHoi" Type="int" Nullable="false" />
+          <Property Name="TenLoaiCauHoi" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="TAIKHOAN">
           <Key>
             <PropertyRef Name="IDUser" />
@@ -62,15 +81,27 @@
           <Property Name="Quyen" Type="bit" Nullable="false" />
           <Property Name="AnhDaiDien" Type="varchar" MaxLength="150" />
         </EntityType>
-        <Association Name="FK_CAUHOICTDT">
-          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="1" />
-          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+        <Association Name="FK__CAUHOI__IDLinhVu__35BCFE0A">
+          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="0..1" />
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CAUHOI">
-              <PropertyRef Name="IDCauHoi" />
+            <Principal Role="LINHVUC">
+              <PropertyRef Name="IDLinhVuc" />
             </Principal>
-            <Dependent Role="CT_DETHI">
-              <PropertyRef Name="IDCauHoi" />
+            <Dependent Role="CAUHOI">
+              <PropertyRef Name="IDLinhVuc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAUHOI_IDLOAICAUHOI">
+          <End Role="LOAICAUHOI" Type="Self.LOAICAUHOI" Multiplicity="0..1" />
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAICAUHOI">
+              <PropertyRef Name="IDLoaiCauHoi" />
+            </Principal>
+            <Dependent Role="CAUHOI">
+              <PropertyRef Name="IDLoaiCauHoi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -86,39 +117,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DAPANCTDT">
-          <End Role="DAPAN" Type="Self.DAPAN" Multiplicity="0..1" />
-          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+        <Association Name="fk_ctdt_idcauhoi">
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="1" />
+          <End Role="DANHSACHCAUHOI" Type="Self.DANHSACHCAUHOI" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DAPAN">
-              <PropertyRef Name="IDDapAn" />
+            <Principal Role="CAUHOI">
+              <PropertyRef Name="IDCauHoi" />
             </Principal>
-            <Dependent Role="CT_DETHI">
-              <PropertyRef Name="DapAnChon" />
+            <Dependent Role="DANHSACHCAUHOI">
+              <PropertyRef Name="IDCauHoi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETHICTDT">
+        <Association Name="fk_ctdt_iddethi">
           <End Role="DETHI" Type="Self.DETHI" Multiplicity="1" />
-          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+          <End Role="DANHSACHCAUHOI" Type="Self.DANHSACHCAUHOI" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DETHI">
               <PropertyRef Name="IDDeThi" />
             </Principal>
-            <Dependent Role="CT_DETHI">
+            <Dependent Role="DANHSACHCAUHOI">
               <PropertyRef Name="IDDeThi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LINHVUCDT">
-          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="1" />
-          <End Role="DETHI" Type="Self.DETHI" Multiplicity="*" />
+        <Association Name="fk_dsdapanchon_iddapan">
+          <End Role="DAPAN" Type="Self.DAPAN" Multiplicity="1" />
+          <End Role="DANHSACHDAPANCHON" Type="Self.DANHSACHDAPANCHON" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="LINHVUC">
-              <PropertyRef Name="IDLinhVuc" />
+            <Principal Role="DAPAN">
+              <PropertyRef Name="IDDapAn" />
             </Principal>
-            <Dependent Role="DETHI">
-              <PropertyRef Name="IDLinhVuc" />
+            <Dependent Role="DANHSACHDAPANCHON">
+              <PropertyRef Name="IDDapAn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_dsdapanchon_iddethi">
+          <End Role="DETHI" Type="Self.DETHI" Multiplicity="1" />
+          <End Role="DANHSACHDAPANCHON" Type="Self.DANHSACHDAPANCHON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DETHI">
+              <PropertyRef Name="IDDeThi" />
+            </Principal>
+            <Dependent Role="DANHSACHDAPANCHON">
+              <PropertyRef Name="IDDethi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -136,30 +179,40 @@
         </Association>
         <EntityContainer Name="THITRACNGHIEMModelStoreContainer">
           <EntitySet Name="CAUHOI" EntityType="Self.CAUHOI" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CT_DETHI" EntityType="Self.CT_DETHI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DANHSACHCAUHOI" EntityType="Self.DANHSACHCAUHOI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DANHSACHDAPANCHON" EntityType="Self.DANHSACHDAPANCHON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DAPAN" EntityType="Self.DAPAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DETHI" EntityType="Self.DETHI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LINHVUC" EntityType="Self.LINHVUC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOAICAUHOI" EntityType="Self.LOAICAUHOI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_CAUHOICTDT" Association="Self.FK_CAUHOICTDT">
+          <AssociationSet Name="FK__CAUHOI__IDLinhVu__35BCFE0A" Association="Self.FK__CAUHOI__IDLinhVu__35BCFE0A">
+            <End Role="LINHVUC" EntitySet="LINHVUC" />
             <End Role="CAUHOI" EntitySet="CAUHOI" />
-            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAUHOI_IDLOAICAUHOI" Association="Self.FK_CAUHOI_IDLOAICAUHOI">
+            <End Role="LOAICAUHOI" EntitySet="LOAICAUHOI" />
+            <End Role="CAUHOI" EntitySet="CAUHOI" />
           </AssociationSet>
           <AssociationSet Name="FK_CAUHOIDA" Association="Self.FK_CAUHOIDA">
             <End Role="CAUHOI" EntitySet="CAUHOI" />
             <End Role="DAPAN" EntitySet="DAPAN" />
           </AssociationSet>
-          <AssociationSet Name="FK_DAPANCTDT" Association="Self.FK_DAPANCTDT">
+          <AssociationSet Name="fk_ctdt_idcauhoi" Association="Self.fk_ctdt_idcauhoi">
+            <End Role="CAUHOI" EntitySet="CAUHOI" />
+            <End Role="DANHSACHCAUHOI" EntitySet="DANHSACHCAUHOI" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ctdt_iddethi" Association="Self.fk_ctdt_iddethi">
+            <End Role="DETHI" EntitySet="DETHI" />
+            <End Role="DANHSACHCAUHOI" EntitySet="DANHSACHCAUHOI" />
+          </AssociationSet>
+          <AssociationSet Name="fk_dsdapanchon_iddapan" Association="Self.fk_dsdapanchon_iddapan">
             <End Role="DAPAN" EntitySet="DAPAN" />
-            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
+            <End Role="DANHSACHDAPANCHON" EntitySet="DANHSACHDAPANCHON" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETHICTDT" Association="Self.FK_DETHICTDT">
+          <AssociationSet Name="fk_dsdapanchon_iddethi" Association="Self.fk_dsdapanchon_iddethi">
             <End Role="DETHI" EntitySet="DETHI" />
-            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LINHVUCDT" Association="Self.FK_LINHVUCDT">
-            <End Role="LINHVUC" EntitySet="LINHVUC" />
-            <End Role="DETHI" EntitySet="DETHI" />
+            <End Role="DANHSACHDAPANCHON" EntitySet="DANHSACHDAPANCHON" />
           </AssociationSet>
           <AssociationSet Name="FK_TAIKHOANDT" Association="Self.FK_TAIKHOANDT">
             <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
@@ -177,20 +230,35 @@
           </Key>
           <Property Name="IDCauHoi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NoiDung" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="CT_DETHI" Relationship="Self.FK_CAUHOICTDT" FromRole="CAUHOI" ToRole="CT_DETHI" />
+          <Property Name="IDLinhVuc" Type="Int32" />
+          <Property Name="IDLoaiCauHoi" Type="Int32" />
+          <NavigationProperty Name="LINHVUC" Relationship="Self.FK__CAUHOI__IDLinhVu__35BCFE0A" FromRole="CAUHOI" ToRole="LINHVUC" />
+          <NavigationProperty Name="LOAICAUHOI" Relationship="Self.FK_CAUHOI_IDLOAICAUHOI" FromRole="CAUHOI" ToRole="LOAICAUHOI" />
           <NavigationProperty Name="DAPANs" Relationship="Self.FK_CAUHOIDA" FromRole="CAUHOI" ToRole="DAPAN" />
+          <NavigationProperty Name="DANHSACHCAUHOIs" Relationship="Self.fk_ctdt_idcauhoi" FromRole="CAUHOI" ToRole="DANHSACHCAUHOI" />
         </EntityType>
-        <EntityType Name="CT_DETHI">
+        <EntityType Name="DANHSACHCAUHOI">
           <Key>
-            <PropertyRef Name="IDCTDeThi" />
+            <PropertyRef Name="IDDeThi" />
+            <PropertyRef Name="IDCauHoi" />
           </Key>
-          <Property Name="IDCTDeThi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDDeThi" Type="Int32" Nullable="false" />
           <Property Name="IDCauHoi" Type="Int32" Nullable="false" />
-          <Property Name="DapAnChon" Type="Int32" />
-          <NavigationProperty Name="CAUHOI" Relationship="Self.FK_CAUHOICTDT" FromRole="CT_DETHI" ToRole="CAUHOI" />
-          <NavigationProperty Name="DAPAN" Relationship="Self.FK_DAPANCTDT" FromRole="CT_DETHI" ToRole="DAPAN" />
-          <NavigationProperty Name="DETHI" Relationship="Self.FK_DETHICTDT" FromRole="CT_DETHI" ToRole="DETHI" />
+          <Property Name="KetQua" Type="Boolean" />
+          <NavigationProperty Name="CAUHOI" Relationship="Self.fk_ctdt_idcauhoi" FromRole="DANHSACHCAUHOI" ToRole="CAUHOI" />
+          <NavigationProperty Name="DETHI" Relationship="Self.fk_ctdt_iddethi" FromRole="DANHSACHCAUHOI" ToRole="DETHI" />
+        </EntityType>
+        <EntityType Name="DANHSACHDAPANCHON">
+          <Key>
+            <PropertyRef Name="IDDethi" />
+            <PropertyRef Name="IDDapAn" />
+          </Key>
+          <Property Name="IDDethi" Type="Int32" Nullable="false" />
+          <Property Name="IDDapAn" Type="Int32" Nullable="false" />
+          <Property Name="ThuTu" Type="Int32" />
+          <Property Name="KetQua" Type="Boolean" />
+          <NavigationProperty Name="DAPAN" Relationship="Self.fk_dsdapanchon_iddapan" FromRole="DANHSACHDAPANCHON" ToRole="DAPAN" />
+          <NavigationProperty Name="DETHI" Relationship="Self.fk_dsdapanchon_iddethi" FromRole="DANHSACHDAPANCHON" ToRole="DETHI" />
         </EntityType>
         <EntityType Name="DAPAN">
           <Key>
@@ -200,8 +268,9 @@
           <Property Name="IDCauHoi" Type="Int32" Nullable="false" />
           <Property Name="NoiDung" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TinhChat" Type="Boolean" Nullable="false" />
+          <Property Name="ThuTu" Type="Int32" />
           <NavigationProperty Name="CAUHOI" Relationship="Self.FK_CAUHOIDA" FromRole="DAPAN" ToRole="CAUHOI" />
-          <NavigationProperty Name="CT_DETHI" Relationship="Self.FK_DAPANCTDT" FromRole="DAPAN" ToRole="CT_DETHI" />
+          <NavigationProperty Name="DANHSACHDAPANCHONs" Relationship="Self.fk_dsdapanchon_iddapan" FromRole="DAPAN" ToRole="DANHSACHDAPANCHON" />
         </EntityType>
         <EntityType Name="DETHI">
           <Key>
@@ -209,13 +278,12 @@
           </Key>
           <Property Name="IDDeThi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NgayThi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IDLinhVuc" Type="Int32" Nullable="false" />
           <Property Name="MucDo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ThoiGianThi" Type="Time" Nullable="false" Precision="7" />
           <Property Name="IDUser" Type="Int32" Nullable="false" />
           <Property Name="TongDiem" Type="Decimal" Precision="10" Scale="1" />
-          <NavigationProperty Name="CT_DETHI" Relationship="Self.FK_DETHICTDT" FromRole="DETHI" ToRole="CT_DETHI" />
-          <NavigationProperty Name="LINHVUC" Relationship="Self.FK_LINHVUCDT" FromRole="DETHI" ToRole="LINHVUC" />
+          <NavigationProperty Name="DANHSACHCAUHOIs" Relationship="Self.fk_ctdt_iddethi" FromRole="DETHI" ToRole="DANHSACHCAUHOI" />
+          <NavigationProperty Name="DANHSACHDAPANCHONs" Relationship="Self.fk_dsdapanchon_iddethi" FromRole="DETHI" ToRole="DANHSACHDAPANCHON" />
           <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK_TAIKHOANDT" FromRole="DETHI" ToRole="TAIKHOAN" />
         </EntityType>
         <EntityType Name="LINHVUC">
@@ -225,7 +293,15 @@
           <Property Name="IDLinhVuc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLinhVuc" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="GhiChu" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DETHIs" Relationship="Self.FK_LINHVUCDT" FromRole="LINHVUC" ToRole="DETHI" />
+          <NavigationProperty Name="CAUHOIs" Relationship="Self.FK__CAUHOI__IDLinhVu__35BCFE0A" FromRole="LINHVUC" ToRole="CAUHOI" />
+        </EntityType>
+        <EntityType Name="LOAICAUHOI">
+          <Key>
+            <PropertyRef Name="IDLoaiCauHoi" />
+          </Key>
+          <Property Name="IDLoaiCauHoi" Type="Int32" Nullable="false" />
+          <Property Name="TenLoaiCauHoi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CAUHOIs" Relationship="Self.FK_CAUHOI_IDLOAICAUHOI" FromRole="LOAICAUHOI" ToRole="CAUHOI" />
         </EntityType>
         <EntityType Name="TAIKHOAN">
           <Key>
@@ -240,15 +316,27 @@
           <Property Name="AnhDaiDien" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DETHIs" Relationship="Self.FK_TAIKHOANDT" FromRole="TAIKHOAN" ToRole="DETHI" />
         </EntityType>
-        <Association Name="FK_CAUHOICTDT">
-          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="1" />
-          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+        <Association Name="FK__CAUHOI__IDLinhVu__35BCFE0A">
+          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="0..1" />
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CAUHOI">
-              <PropertyRef Name="IDCauHoi" />
+            <Principal Role="LINHVUC">
+              <PropertyRef Name="IDLinhVuc" />
             </Principal>
-            <Dependent Role="CT_DETHI">
-              <PropertyRef Name="IDCauHoi" />
+            <Dependent Role="CAUHOI">
+              <PropertyRef Name="IDLinhVuc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAUHOI_IDLOAICAUHOI">
+          <End Role="LOAICAUHOI" Type="Self.LOAICAUHOI" Multiplicity="0..1" />
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAICAUHOI">
+              <PropertyRef Name="IDLoaiCauHoi" />
+            </Principal>
+            <Dependent Role="CAUHOI">
+              <PropertyRef Name="IDLoaiCauHoi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -264,39 +352,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DAPANCTDT">
-          <End Role="DAPAN" Type="Self.DAPAN" Multiplicity="0..1" />
-          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+        <Association Name="fk_ctdt_idcauhoi">
+          <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="1" />
+          <End Role="DANHSACHCAUHOI" Type="Self.DANHSACHCAUHOI" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DAPAN">
-              <PropertyRef Name="IDDapAn" />
+            <Principal Role="CAUHOI">
+              <PropertyRef Name="IDCauHoi" />
             </Principal>
-            <Dependent Role="CT_DETHI">
-              <PropertyRef Name="DapAnChon" />
+            <Dependent Role="DANHSACHCAUHOI">
+              <PropertyRef Name="IDCauHoi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETHICTDT">
+        <Association Name="fk_ctdt_iddethi">
           <End Role="DETHI" Type="Self.DETHI" Multiplicity="1" />
-          <End Role="CT_DETHI" Type="Self.CT_DETHI" Multiplicity="*" />
+          <End Role="DANHSACHCAUHOI" Type="Self.DANHSACHCAUHOI" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DETHI">
               <PropertyRef Name="IDDeThi" />
             </Principal>
-            <Dependent Role="CT_DETHI">
+            <Dependent Role="DANHSACHCAUHOI">
               <PropertyRef Name="IDDeThi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LINHVUCDT">
-          <End Role="LINHVUC" Type="Self.LINHVUC" Multiplicity="1" />
-          <End Role="DETHI" Type="Self.DETHI" Multiplicity="*" />
+        <Association Name="fk_dsdapanchon_iddapan">
+          <End Role="DAPAN" Type="Self.DAPAN" Multiplicity="1" />
+          <End Role="DANHSACHDAPANCHON" Type="Self.DANHSACHDAPANCHON" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="LINHVUC">
-              <PropertyRef Name="IDLinhVuc" />
+            <Principal Role="DAPAN">
+              <PropertyRef Name="IDDapAn" />
             </Principal>
-            <Dependent Role="DETHI">
-              <PropertyRef Name="IDLinhVuc" />
+            <Dependent Role="DANHSACHDAPANCHON">
+              <PropertyRef Name="IDDapAn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_dsdapanchon_iddethi">
+          <End Role="DETHI" Type="Self.DETHI" Multiplicity="1" />
+          <End Role="DANHSACHDAPANCHON" Type="Self.DANHSACHDAPANCHON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DETHI">
+              <PropertyRef Name="IDDeThi" />
+            </Principal>
+            <Dependent Role="DANHSACHDAPANCHON">
+              <PropertyRef Name="IDDethi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -314,30 +414,40 @@
         </Association>
         <EntityContainer Name="THITRACNGHIEMEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CAUHOIs" EntityType="Self.CAUHOI" />
-          <EntitySet Name="CT_DETHI" EntityType="Self.CT_DETHI" />
+          <EntitySet Name="DANHSACHCAUHOIs" EntityType="Self.DANHSACHCAUHOI" />
+          <EntitySet Name="DANHSACHDAPANCHONs" EntityType="Self.DANHSACHDAPANCHON" />
           <EntitySet Name="DAPANs" EntityType="Self.DAPAN" />
           <EntitySet Name="DETHIs" EntityType="Self.DETHI" />
           <EntitySet Name="LINHVUCs" EntityType="Self.LINHVUC" />
+          <EntitySet Name="LOAICAUHOIs" EntityType="Self.LOAICAUHOI" />
           <EntitySet Name="TAIKHOANs" EntityType="Self.TAIKHOAN" />
-          <AssociationSet Name="FK_CAUHOICTDT" Association="Self.FK_CAUHOICTDT">
+          <AssociationSet Name="FK__CAUHOI__IDLinhVu__35BCFE0A" Association="Self.FK__CAUHOI__IDLinhVu__35BCFE0A">
+            <End Role="LINHVUC" EntitySet="LINHVUCs" />
             <End Role="CAUHOI" EntitySet="CAUHOIs" />
-            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAUHOI_IDLOAICAUHOI" Association="Self.FK_CAUHOI_IDLOAICAUHOI">
+            <End Role="LOAICAUHOI" EntitySet="LOAICAUHOIs" />
+            <End Role="CAUHOI" EntitySet="CAUHOIs" />
           </AssociationSet>
           <AssociationSet Name="FK_CAUHOIDA" Association="Self.FK_CAUHOIDA">
             <End Role="CAUHOI" EntitySet="CAUHOIs" />
             <End Role="DAPAN" EntitySet="DAPANs" />
           </AssociationSet>
-          <AssociationSet Name="FK_DAPANCTDT" Association="Self.FK_DAPANCTDT">
+          <AssociationSet Name="fk_ctdt_idcauhoi" Association="Self.fk_ctdt_idcauhoi">
+            <End Role="CAUHOI" EntitySet="CAUHOIs" />
+            <End Role="DANHSACHCAUHOI" EntitySet="DANHSACHCAUHOIs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ctdt_iddethi" Association="Self.fk_ctdt_iddethi">
+            <End Role="DETHI" EntitySet="DETHIs" />
+            <End Role="DANHSACHCAUHOI" EntitySet="DANHSACHCAUHOIs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_dsdapanchon_iddapan" Association="Self.fk_dsdapanchon_iddapan">
             <End Role="DAPAN" EntitySet="DAPANs" />
-            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
+            <End Role="DANHSACHDAPANCHON" EntitySet="DANHSACHDAPANCHONs" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETHICTDT" Association="Self.FK_DETHICTDT">
+          <AssociationSet Name="fk_dsdapanchon_iddethi" Association="Self.fk_dsdapanchon_iddethi">
             <End Role="DETHI" EntitySet="DETHIs" />
-            <End Role="CT_DETHI" EntitySet="CT_DETHI" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LINHVUCDT" Association="Self.FK_LINHVUCDT">
-            <End Role="LINHVUC" EntitySet="LINHVUCs" />
-            <End Role="DETHI" EntitySet="DETHIs" />
+            <End Role="DANHSACHDAPANCHON" EntitySet="DANHSACHDAPANCHONs" />
           </AssociationSet>
           <AssociationSet Name="FK_TAIKHOANDT" Association="Self.FK_TAIKHOANDT">
             <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
@@ -355,16 +465,27 @@
               <MappingFragment StoreEntitySet="CAUHOI">
                 <ScalarProperty Name="IDCauHoi" ColumnName="IDCauHoi" />
                 <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="IDLinhVuc" ColumnName="IDLinhVuc" />
+                <ScalarProperty Name="IDLoaiCauHoi" ColumnName="IDLoaiCauHoi" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CT_DETHI">
-            <EntityTypeMapping TypeName="THITRACNGHIEMModel.CT_DETHI">
-              <MappingFragment StoreEntitySet="CT_DETHI">
-                <ScalarProperty Name="IDCTDeThi" ColumnName="IDCTDeThi" />
+          <EntitySetMapping Name="DANHSACHCAUHOIs">
+            <EntityTypeMapping TypeName="THITRACNGHIEMModel.DANHSACHCAUHOI">
+              <MappingFragment StoreEntitySet="DANHSACHCAUHOI">
                 <ScalarProperty Name="IDDeThi" ColumnName="IDDeThi" />
                 <ScalarProperty Name="IDCauHoi" ColumnName="IDCauHoi" />
-                <ScalarProperty Name="DapAnChon" ColumnName="DapAnChon" />
+                <ScalarProperty Name="KetQua" ColumnName="KetQua" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DANHSACHDAPANCHONs">
+            <EntityTypeMapping TypeName="THITRACNGHIEMModel.DANHSACHDAPANCHON">
+              <MappingFragment StoreEntitySet="DANHSACHDAPANCHON">
+                <ScalarProperty Name="IDDethi" ColumnName="IDDethi" />
+                <ScalarProperty Name="IDDapAn" ColumnName="IDDapAn" />
+                <ScalarProperty Name="ThuTu" ColumnName="ThuTu" />
+                <ScalarProperty Name="KetQua" ColumnName="KetQua" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -375,6 +496,7 @@
                 <ScalarProperty Name="IDCauHoi" ColumnName="IDCauHoi" />
                 <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
                 <ScalarProperty Name="TinhChat" ColumnName="TinhChat" />
+                <ScalarProperty Name="ThuTu" ColumnName="ThuTu" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -383,7 +505,6 @@
               <MappingFragment StoreEntitySet="DETHI">
                 <ScalarProperty Name="IDDeThi" ColumnName="IDDeThi" />
                 <ScalarProperty Name="NgayThi" ColumnName="NgayThi" />
-                <ScalarProperty Name="IDLinhVuc" ColumnName="IDLinhVuc" />
                 <ScalarProperty Name="MucDo" ColumnName="MucDo" />
                 <ScalarProperty Name="ThoiGianThi" ColumnName="ThoiGianThi" />
                 <ScalarProperty Name="IDUser" ColumnName="IDUser" />
@@ -397,6 +518,14 @@
                 <ScalarProperty Name="IDLinhVuc" ColumnName="IDLinhVuc" />
                 <ScalarProperty Name="TenLinhVuc" ColumnName="TenLinhVuc" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOAICAUHOIs">
+            <EntityTypeMapping TypeName="THITRACNGHIEMModel.LOAICAUHOI">
+              <MappingFragment StoreEntitySet="LOAICAUHOI">
+                <ScalarProperty Name="IDLoaiCauHoi" ColumnName="IDLoaiCauHoi" />
+                <ScalarProperty Name="TenLoaiCauHoi" ColumnName="TenLoaiCauHoi" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -26,10 +26,12 @@ namespace DoAn_WebNangCao.Models
         }
     
         public virtual DbSet<CAUHOI> CAUHOIs { get; set; }
-        public virtual DbSet<CT_DETHI> CT_DETHI { get; set; }
+        public virtual DbSet<DANHSACHCAUHOI> DANHSACHCAUHOIs { get; set; }
+        public virtual DbSet<DANHSACHDAPANCHON> DANHSACHDAPANCHONs { get; set; }
         public virtual DbSet<DAPAN> DAPANs { get; set; }
         public virtual DbSet<DETHI> DETHIs { get; set; }
         public virtual DbSet<LINHVUC> LINHVUCs { get; set; }
+        public virtual DbSet<LOAICAUHOI> LOAICAUHOIs { get; set; }
         public virtual DbSet<TAIKHOAN> TAIKHOANs { get; set; }
     }
 }
