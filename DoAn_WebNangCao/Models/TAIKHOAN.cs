@@ -11,8 +11,10 @@ namespace DoAn_WebNangCao.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
 
     public partial class TAIKHOAN
     {
@@ -23,28 +25,31 @@ namespace DoAn_WebNangCao.Models
         }
     
         public int IDUser { get; set; }
-        [Required(ErrorMessage ="Tên đăng nhập không được để trống ...")]
+        [Required(ErrorMessage ="Vui lòng nhập tên đăng nhập!")]
         [StringLength(25)]
-        
+        [DisplayName("Tên Đăng Nhập")]
         public string UserName { get; set; }
-        [Required(ErrorMessage ="Mật khẩu không được để trống...")]
+        [Required(ErrorMessage ="Vui lòng nhập mật khẩu!")]
         [DataType(DataType.Password)]
         [StringLength(25)]
+        [DisplayName("Mật Khẩu")]
         public string MatKhau { get; set; }
         [NotMapped]
-        [Required(ErrorMessage ="Vui lòng nhập lại mật khẩu ....")]
+        [Required(ErrorMessage ="Vui lòng nhập lại mật khẩu!")]
         [Compare("MatKhau")]
         [DataType(DataType.Password)]
         public string ConfirmPass { get; set; }
-        [Required(ErrorMessage = "Họ tên không được trống ....")]
+        [Required(ErrorMessage = "Vui lòng nhập họ tên!")]
+        [DisplayName("Họ tên")]
         public string HoTen { get; set; }
-        [Required(ErrorMessage = "Địa chỉ Email không được trống ....")]
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ Email!")]
         [DataType(DataType.EmailAddress)]
+        [DisplayName("Địa chỉ Email")]
         public string Email { get; set; }
         public bool RememberMe { get; set; }
         public bool Quyen { get; set; }
         public string AnhDaiDien { get; set; }
-    
+        public HttpPostedFileBase UploadImage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DETHI> DETHIs { get; set; }
     }
