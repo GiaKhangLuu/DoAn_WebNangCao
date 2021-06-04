@@ -94,14 +94,18 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-8">
-                                @{ Html.RenderPartial("Render_quiz"); }
-                            </div>
-                            <div class="col-4 list-quiz-container">
-                                @{ Html.RenderAction("Render_list_button_quiz", "Test"); }
-                            </div>
-                        </div>
+                        @using(Html.BeginForm("Go", "Sorted_Quiz", FormMethod.Get)) 
+                        {
+                            <div class="row">
+                                <div class="col-8">
+                                    @{ Html.RenderPartial("Render_quiz"); }
+                                </div>
+                                <div class="col-4 list-quiz-container">
+                                    @{ Html.RenderAction("Render_list_button_quiz", "Test"); }
+                                </div>
+                            </div>  
+                        }
+                        
                     </div>
                 </div>
                 <!-- /.container-fluid -->

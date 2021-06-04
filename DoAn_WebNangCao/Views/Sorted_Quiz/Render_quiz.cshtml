@@ -8,37 +8,36 @@
     var dap_ans = Model.Cau_hoi.DAPANs;
 }
 
-<div class="row">
-    <div class="col-12 quiz-title-container">
-        <span class="quiz-title">@noi_dung_cau_hoi</span>
-    </div>
-</div>
-<div class="row">
-    @using (Html.BeginForm("Go", "Sorted_Quiz"))
-    {
-    <ul id="sortable" class="connectedSortable">
-        <!--Render answer based on the old answer-->
-        @if (Model.Id_dap_an_chons.Count > 0)
-        {
-            foreach (int selected_answer_id in Model.Id_dap_an_chons)
-            {
-                var dap_an = dap_ans.FirstOrDefault(p => p.IDDapAn == selected_answer_id);
-                <li class="ui-state-default" id=@dap_an.IDDapAn>@dap_an.NoiDung</li>
-            }
-        }
-        else
-        {
-            foreach (var dap_an in dap_ans)
-            {
-                <li class="ui-state-default" id=@dap_an.IDDapAn>@dap_an.NoiDung</li>
-            }
-        }
-    </ul>
-        <input type="hidden" name="raw_answer" id="user_choice_order" />
-        <input type="hidden" name="quiz_idx" value="@quiz_type_id" />
-        <input type="submit" value="Pre" name="type" />
-        <input type="submit" value="Done" name="type" />
-        <input type="submit" value="Next" name="type" />
-    }
-</div>
+<table class="table-quiz">
+    <tr class="quiz-title-container">
+        <th id="@id_cau_hoi" class="quiz-title">@noi_dung_cau_hoi</th>
+    </tr>
+    <tr>
+        <th>
+            <ul id="sortable" class="connectedSortable">
+                <!--Render answer based on the old answer-->
+                @if (Model.Id_dap_an_chons.Count > 0)
+                {
+                    foreach (int selected_answer_id in Model.Id_dap_an_chons)
+                    {
+                        var dap_an = dap_ans.FirstOrDefault(p => p.IDDapAn == selected_answer_id);
+                        <li class="ui-state-default" id=@dap_an.IDDapAn>@dap_an.NoiDung</li>
+                    }
+                }
+                else
+                {
+                    foreach (var dap_an in dap_ans)
+                    {
+                        <li class="ui-state-default" id=@dap_an.IDDapAn>@dap_an.NoiDung</li>
+                    }
+                }
+            </ul>
+        </th>
+    </tr>
 
+</table>
+<input type="hidden" name="raw_answer" id="user_choice_order" />
+<input type="hidden" name="quiz_idx" value="@quiz_type_id" />
+<input type="submit" value="Pre" name="type" />
+<input type="submit" value="Done" name="type" />
+<input type="submit" value="Next" name="type" />

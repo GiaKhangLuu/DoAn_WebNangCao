@@ -13,27 +13,26 @@
         <span>Danh sách câu hỏi</span>
     </div>
 </div>
-@for(int i = 0; i < num_of_quizs; i++)
+@for (int i = 0; i < num_of_quizs; i++)
 {
-    if(quizs[i].Id_dap_an_chons.Count > 0)
+    if (quizs[i].Id_dap_an_chons.Count > 0)
     {
         btn_class = "btn-quiz-selected";
-    } else {
+    }
+    else
+    {
         btn_class = "btn-quiz";
     }
-    if(count == 1)
+    if (count == 1)
     {
         @Html.Raw(open_tag);
         ++count;
     }
-    <button type="button" 
-            class="btn btn-outline-primary @btn_class"
-            onclick="window.location.href='@Url.Action("PeekQuiz", new { peek_quiz_idx = i })'">
-            @(i+1)
-    </button>   
-    if(count == 5 || i == (num_of_quizs - 1)) 
+    <input type="submit" class="btn btn-outline-primary @btn_class" name="new_quiz_idx" value="@(i + 1)"/>
+    if (count == 5 || i == (num_of_quizs - 1))
     {
         @Html.Raw(close_tag);
         count = 1;
     }
 }
+

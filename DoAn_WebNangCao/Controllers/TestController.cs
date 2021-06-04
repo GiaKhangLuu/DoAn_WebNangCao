@@ -45,44 +45,10 @@ namespace DoAn_WebNangCao.Controllers
             return null;
         }
 
-        public ActionResult NewQuiz(string type, int quiz_idx)
-        {
-            if(type == "Next")
-            {
-                return RedirectToAction("NextQuiz", new { current_quiz_idx = quiz_idx });
-            }
-            if (type == "Pre")
-            {
-                return RedirectToAction("PreviousQuiz", new { current_quiz_idx = quiz_idx });
-            }
-            if (type == "Done")
-            {
-                return RedirectToAction("MarkExam", "Result");
-            }
-            return null;
-        }
-
         public PartialViewResult Render_list_button_quiz()
         {
             Exam exam = Session["Exam"] as Exam;
             return PartialView(exam);
-        }
-
-        public ActionResult PreviousQuiz(int current_quiz_idx)
-        {
-            int pre_quiz_idx = current_quiz_idx - 1;
-            return RedirectToAction("Index", new { quiz_idx = pre_quiz_idx });
-        }
-
-        public ActionResult NextQuiz(int current_quiz_idx)
-        {
-            int next_quiz_idx = current_quiz_idx + 1;
-            return RedirectToAction("Index", new { quiz_idx = next_quiz_idx });
-        }
-
-        public ActionResult PeekQuiz(int peek_quiz_idx)
-        {
-            return RedirectToAction("Index", new { quiz_idx = peek_quiz_idx });
         }
 
         public void Create_new_session_exam(int id_de_thi, IEnumerable<CAUHOI> cau_hois)
@@ -119,6 +85,5 @@ namespace DoAn_WebNangCao.Controllers
                 db.SaveChanges();
             }
         }
-                
     }
 }
