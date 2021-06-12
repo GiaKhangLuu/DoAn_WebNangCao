@@ -42,6 +42,10 @@ namespace DoAn_WebNangCao.Controllers
             {
                 return RedirectToAction("Index", "Multi_Correct_Answer_Quiz", new { quiz_idx = quiz_idx });
             }
+            else if(quiz_type_id == Constant.ID_CAU_HOI_DIEN_VAO_CHO_TRONG)
+            {
+                return RedirectToAction("Index", "Fill_In_Blank_Quiz", new { quiz_idx = quiz_idx });
+            }
             return null;
         }
 

@@ -80,8 +80,38 @@ namespace DoAn_WebNangCao.Models
                     {
                         Mark_multi_correct_answer_quiz(quiz);
                     }
+                    else if(quiz_type_id == Constant.ID_CAU_HOI_DIEN_VAO_CHO_TRONG)
+                    {
+                        Mark_fill_in_blank_quiz(quiz);
+                    }
                 }
             }
+        }
+
+        private void Mark_fill_in_blank_quiz(Quiz quiz)
+        {
+            var selected_answer_ids = quiz.Id_dap_an_chons;
+            for(int order = 0; order < selected_answer_ids.Count; order++)
+            {
+                int selected_answer_id = quiz.Id_dap_an_chons[order];
+                quiz.Ket_quas.Add(Is_fill_in_blank_answer_correct(order + 1, selected_answer_id, quiz));
+            }
+        }
+
+        private bool Is_fill_in_blank_answer_correct(int order, int selected_answer_id, Quiz quiz)
+        {
+            if(selected_answer_id == -1)
+            {
+                return false;
+            }
+            // One fill in blank answer is correct when TinhChat = 1 and same order
+            var answer = quiz.Cau_hoi.DAPANs.First(p => p.IDDapAn == selected_answer_id);
+            if(answer.TinhChat 
+                && order == answer.ThuTu)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void Mark_one_correct_answer_quiz(Quiz quiz)
@@ -142,13 +172,17 @@ namespace DoAn_WebNangCao.Models
             {
                 DANHSACHDAPANCHON dap_an_chon = new DANHSACHDAPANCHON();
                 int answer_id = quiz.Id_dap_an_chons[idx];
+                if(answer_id == -1)
+                {
+                    continue;
+                }
                 bool answer_result = quiz.Ket_quas[idx];
                 int answer_order;
-                if(quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+                if(quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU ||
+                    quiz.Cau_hoi.IDLoaiCauHoi == Constant.ID_CAU_HOI_DIEN_VAO_CHO_TRONG)
                 {
                     answer_order = idx + 1;
                     dap_an_chon.ThuTu = answer_order;
-
                 }
                 dap_an_chon.IDDethi = id_de_thi;
                 dap_an_chon.IDDapAn = answer_id;

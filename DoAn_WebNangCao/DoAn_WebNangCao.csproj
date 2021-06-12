@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CheckAnswerController.cs" />
+    <Compile Include="Controllers\Fill_In_Blank_QuizController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Multi_Correct_Answer_QuizController.cs" />
@@ -193,6 +194,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\btn_quiz_selected.css" />
     <Content Include="Content\checkanswer.css" />
+    <Content Include="Content\fill_in_blank_quiz.css" />
+    <Content Include="Content\fill_in_blank_quiz_check_answer.css" />
     <Content Include="Content\list_quiz.css" />
     <Content Include="Content\multi_correct_answer_quiz.css" />
     <Content Include="Content\question.css" />
@@ -227,6 +230,7 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\custom_script\multi_correct_answer_quiz.js" />
     <Content Include="Scripts\custom_script\sorted_quiz.js" />
+    <Content Include="Scripts\fill_in_blank_quiz.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -2087,6 +2091,9 @@
     <Content Include="Views\Multi_Correct_Answer_Quiz\Index.cshtml" />
     <Content Include="Views\Multi_Correct_Answer_Quiz\Render_quiz.cshtml" />
     <Content Include="Views\Multi_Correct_Answer_Quiz\Check_answer.cshtml" />
+    <Content Include="Views\Fill_In_Blank_Quiz\Index.cshtml" />
+    <Content Include="Views\Fill_In_Blank_Quiz\Render_quiz.cshtml" />
+    <Content Include="Views\Fill_In_Blank_Quiz\Check_answer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

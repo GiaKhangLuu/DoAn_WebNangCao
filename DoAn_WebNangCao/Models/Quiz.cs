@@ -58,6 +58,12 @@ namespace DoAn_WebNangCao.Models
             id_dap_an_chons.AddRange(selected_answer_ids);
         }
 
+        public void Save_answer_of_fill_in_blank_quiz(int[] answer_ids)
+        {
+            id_dap_an_chons.Clear();
+            id_dap_an_chons.AddRange(answer_ids);
+        }
+
         public bool Is_correct_quiz()
         {
             // One quiz is correct when num of correct answer is equal and doesnt contain any wrong answer

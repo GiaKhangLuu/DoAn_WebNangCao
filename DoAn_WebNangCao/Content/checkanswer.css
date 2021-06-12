@@ -4,6 +4,8 @@
     margin-bottom: 1px;
     background-color: #f1f1f1;
     font-size: 18px;
+    width: 448px;
+    height: 47px;
 }
 
 .radiocontainer.wrong {

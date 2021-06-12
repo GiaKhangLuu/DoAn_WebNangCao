@@ -1,0 +1,10 @@
+﻿.blank {
+    border: 1px solid black;
+    width: 100px;
+    height: 1px;
+    display: inline-block
+}
+
+.radiocontainer {
+    height: 47px;
+}

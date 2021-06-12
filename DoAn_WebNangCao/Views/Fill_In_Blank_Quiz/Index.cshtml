@@ -1,22 +1,22 @@
-﻿@model IEnumerable<DoAn_WebNangCao.Models.Quiz>
+﻿@model DoAn_WebNangCao.Models.Quiz
 
 @{
     Layout = null;
-    int ID_CAU_HOI_1_DAP_AN = 1;
-    int ID_CAU_HOI_NHIEU_DAP_AN = 2;
-    int ID_CAU_HOI_SAP_XEP_THEO_THU_TU = 3;
-    int ID_CAU_HOI_DIEN_VAO_CHO_TRONG = 4;
 }
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Check answer</title>
+
+    <title>Thi trắc nghiệm</title>
+
     <!-- Custom fonts for this template-->
     <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -24,9 +24,11 @@
 
     <!-- Custom styles for this template-->
     <link href="~/Content/sb-admin-2.min.css" rel="stylesheet">
-    <link href="~/Content/checkanswer.css" rel="stylesheet" />
-    <link href="~/Content/sorted_quiz_check_answer.css" rel="stylesheet" />
-    <link href="~/Content/fill_in_blank_quiz_check_answer.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/Content/question.css">
+    <link rel="stylesheet" href="~/Content/fill_in_blank_quiz.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="~/Content/list_quiz.css" rel="stylesheet" />
+    <link href="~/Content/btn_quiz_selected.css" rel="stylesheet" />
 </head>
 <body id="page-top">
 
@@ -45,13 +47,11 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <span class="title">HULFIT QUIZ</span>
                         </div>
                     </form>
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -88,37 +88,27 @@
                                 </a>
                             </div>
                         </li>
+
                     </ul>
+
                 </nav>
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
-
-                    <div class="container-fluid">
-                        @foreach(var quiz in Model)
-                        {
-                            var quiz_type_id = quiz.Cau_hoi.IDLoaiCauHoi;
-                            if (quiz_type_id == ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
-                            {
-                                Html.RenderAction("Check_answer", "Sorted_Quiz", new { quiz = quiz });
-                            }
-                            else if(quiz_type_id == ID_CAU_HOI_1_DAP_AN) 
-                            {
-                                Html.RenderAction("Check_answer", "One_Correct_Answer_Quiz", new { quiz = quiz });
-                            }
-                            else if(quiz_type_id == ID_CAU_HOI_NHIEU_DAP_AN) 
-                            {
-                                Html.RenderAction("Check_answer", "Multi_Correct_Answer_Quiz", new { quiz = quiz });
-                            }
-                            else if(quiz_type_id == ID_CAU_HOI_DIEN_VAO_CHO_TRONG) 
-                            {
-                                Html.RenderAction("Check_answer", "Fill_In_Blank_Quiz", new { quiz = quiz });
-                            }
-                        }
-                    </div>
+                    @using (Html.BeginForm("Go", "Fill_In_Blank_Quiz", FormMethod.Get)) 
+                    {
+                        <div class="row">
+                            <div class="col-8">
+                                @{ Html.RenderPartial("Render_quiz"); }
+                            </div>
+                            <div class="col-4 list-quiz-container">
+                                @{ Html.RenderAction("Render_list_button_quiz", "Test"); }
+                            </div>
+                        </div>
+                    }                   
                 </div>
+
                 <!-- /.container-fluid -->
 
             </div>
@@ -169,8 +159,11 @@
 
     <!-- Core plugin JavaScript-->
     <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="~/Scripts/sb-admin-2.min.js"></script>
+    <script src="~/Scripts/fill_in_blank_quiz.js"></script>
 </body>
 </html>

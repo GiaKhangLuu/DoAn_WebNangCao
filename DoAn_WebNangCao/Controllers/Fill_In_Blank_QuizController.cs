@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Text.RegularExpressions;
 using DoAn_WebNangCao.Models;
 
 namespace DoAn_WebNangCao.Controllers
 {
-    public class Sorted_QuizController : Controller
+    public class Fill_In_Blank_QuizController : Controller
     {
         public ActionResult Index(int quiz_idx)
         {
@@ -21,29 +22,30 @@ namespace DoAn_WebNangCao.Controllers
             return PartialView(quiz);
         }
 
-        private void Add_answer_for_sorted_quiz(int quiz_idx)
+        private int Get_Num_Of_Blanks(Quiz quiz)
         {
-            string raw_answer = Request["raw_answer"];
-            if (raw_answer != null && raw_answer.Length != 0)
-            {
-                Exam exam = Session["Exam"] as Exam;
-                Quiz quiz = exam.Quizs[quiz_idx];
-                //(Session["Exam"] as Exam).Add_answer_by_id_quiz(quiz_idx, raw_answer);
-                int[] answer_ids = Convert_raw_answer_to_list_answer(raw_answer);
-                quiz.Save_answer_of_sorted_answer_quiz(answer_ids);
-            }
+            string quiz_title = quiz.Cau_hoi.NoiDung;
+            string pattern = "{'blank'}";
+            return Regex.Matches(quiz_title, pattern).Count;
         }
 
-        private int[] Convert_raw_answer_to_list_answer(string raw_answer)
+        private void Add_answer_to_session(int quiz_idx)
         {
-            string[] string_answer_ids = raw_answer.Split(',');
-            int[] answer_ids = Array.ConvertAll(string_answer_ids, id => Int32.Parse(id));
-            return answer_ids;
+            Exam exam = Session["Exam"] as Exam;
+            Quiz quiz = exam.Quizs[quiz_idx];
+            int num_Of_Blanks = Get_Num_Of_Blanks(quiz);
+            int[] answer_ids = new int[num_Of_Blanks];
+            for (int i = 0; i < num_Of_Blanks; i++)
+            {
+                string param_name = "answer-blank-" + (i + 1);
+                answer_ids[i] = Int32.Parse(Request[param_name]);
+            }
+            quiz.Save_answer_of_fill_in_blank_quiz(answer_ids);
         }
 
         public ActionResult Go(int quiz_idx)
         {
-            Add_answer_for_sorted_quiz(quiz_idx);
+            Add_answer_to_session(quiz_idx);
             int new_quiz_idx;
             // User click on next pre done btn
             if (Request["type"] != null)
@@ -80,6 +82,5 @@ namespace DoAn_WebNangCao.Controllers
         {
             return PartialView(quiz);
         }
-
     }
 }

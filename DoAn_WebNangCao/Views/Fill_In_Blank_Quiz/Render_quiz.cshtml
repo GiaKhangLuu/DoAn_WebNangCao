@@ -1,0 +1,83 @@
+﻿@model DoAn_WebNangCao.Models.Quiz
+
+@{
+    string quiz_title = Model.Cau_hoi.NoiDung;
+    string temp = quiz_title.Replace("{'blank'}", "");
+    int numOfBlanks = (quiz_title.Length - temp.Length) / "{'blank'}".Length;
+    // encode quiz title
+    quiz_title = quiz_title.Replace("{'blank'}", "<div class=\"blank\"></div>");
+    var list_answers = Model.Cau_hoi.DAPANs;
+    int quiz_idx = Model.Quiz_idx;
+    var list_selected_answers = Model.Id_dap_an_chons;
+}
+
+<!--Quiz title-->
+<div class="row">
+    <div class="col-12">
+        <div class="quiz-title">
+            @Html.Raw(quiz_title)
+        </div>
+    </div>
+</div>
+
+<!--Quiz body-->
+<div class="row">
+
+    <!--List answers-->
+    <div class="col-6 answer-region">
+        <p style="color: black;">Danh sách đáp án:</p>
+        <ul class="draggable" id="list-answers">
+            @foreach (var answer in list_answers)
+            {
+                int answer_id = answer.IDDapAn;
+                // If answer was selected => dont render that answer
+                if (!list_selected_answers.Contains(answer_id))
+                {
+                    <li id="@answer_id">@answer.NoiDung</li>
+                }
+            }
+        </ul>
+    </div>
+
+    <!--List selected answers-->
+    <div class="col-6">
+        <p style="color: black;">Khu vực chọn đáp án:</p>
+        <div id="selected-container">
+            @for (int i = 1; i <= numOfBlanks; i++)
+            {
+                int blank_value = -1;
+                string selected_answer_content = "";
+                if(list_selected_answers.Count > 0)
+                {
+                    int selected_answer_id = list_selected_answers[i - 1];
+                    if(selected_answer_id != -1)
+                    {
+                        blank_value = selected_answer_id;
+                        selected_answer_content = list_answers.First(p => p.IDDapAn == selected_answer_id).NoiDung;
+                    }
+                }
+                <div class="selected-region">
+                    <div class="selected-title">
+                        <p>Đáp án ô trống @i</p>
+                    </div>
+                    <ul class="draggable selected-answer-list">
+                        @if(blank_value != -1) 
+                        {
+                            <li style="width:100%;height:100%;color:#4e73df" class="ui-draggable ui-draggable-handle" id="@blank_value">
+                                @selected_answer_content
+                            </li>
+                        }
+                    </ul>
+                    <input type="hidden" name="answer-blank-@i" value="@blank_value">
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!--Button-->
+<input type="hidden" value="@quiz_idx" name="quiz_idx" />
+<input type="submit" value="Pre" name="type" />
+<input type="submit" value="Done" name="type" />
+<input type="submit" value="Next" name="type" />
+
