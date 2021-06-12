@@ -197,6 +197,7 @@
     <Content Include="Content\fill_in_blank_quiz.css" />
     <Content Include="Content\fill_in_blank_quiz_check_answer.css" />
     <Content Include="Content\list_quiz.css" />
+    <Content Include="Content\list_quiz_grid.css" />
     <Content Include="Content\multi_correct_answer_quiz.css" />
     <Content Include="Content\question.css" />
     <Content Include="Content\quiz_category.css" />
