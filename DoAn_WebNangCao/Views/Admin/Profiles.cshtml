@@ -1,0 +1,111 @@
+﻿@model DoAn_WebNangCao.Models.TAIKHOAN
+
+@{
+    ViewBag.Title = "Cập nhật tài Khoản";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (ViewBag.ThanhCong == "true")
+{
+    <div class="alert bg-success text-white fade show mb-0" role="alert">
+        <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">x</span>
+        </button>
+        <i class="fa fa-check mx-2"></i>
+        <strong>Thành công!</strong> Thông tin tài khoản đã được cập nhật!
+    </div>
+}
+else if(ViewBag.ThanhCong == "false")
+{
+    <div class="alert bg-danger text-white fade show mb-0" role="alert">
+        <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">x</span>
+        </button>
+        <i class="fa fa-exclamation-triangle mx-2"></i>
+        <strong>Thất bại!</strong> Cập nhật thất bại!
+    </div>
+}
+<div class="main-content-container container-fluid px-4">
+    <!-- Page Header -->
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+            <h3 class="page-title text-primary ">Thông tin tài khoản</h3>
+        </div>
+    </div>
+    <!-- End Page Header -->
+    <!-- Default Light Table -->
+    @using (Html.BeginForm("Profiles", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "user" }))
+    {
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="card shadow mb-4">
+                    <div class="card-header text-center">
+                        <div class="mb-3 mx-auto">
+                            <img class="rounded-circle img-responsive" id="previewImg" src="@Url.Content(Session["AnhDaiDien"].ToString())" alt="User Avatar" width="150">
+                        </div>
+                        <div>
+                            <h4 class="mb-0">@Session["HoTen"].ToString()</h4>
+                            <span class="text-muted d-block mb-2">@Session["Quyen"]</span>
+                            <input type="file" id="UploadImg" style="display:none;" name="UploadImage" onchange="ChangeImage(this, document.getElementById('previewImg'))" />
+                            <label for="UploadImg" class="btn btn-primary btn-user">Thay đổi ảnh đại diện</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Thông tin</h6>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                            <div class="row">
+                                <div class="col">
+                                    @Html.ValidationSummary(true)
+                                    @Html.HiddenFor(model => model.IDUser)
+                                    <div class="form-group">
+                                        <div class="col mb-3 mb-sm-0">
+
+                                            @Html.LabelFor(model => model.UserName)
+                                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control form-control-user", disabled = true, placeholder = "Tên đăng nhập", @Value = Session["UserName"].ToString() } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col mb-3 mb-sm-0">
+                                            @Html.LabelFor(model => model.MatKhau)
+                                            @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control form-control-user password", disabled = true, placeholder = "Mật khẩu", @Value = Session["MatKhau"].ToString() } })
+                                        </div>
+                                        <div class=" text-right">
+                                            @Html.ActionLink("Đổi mật khẩu", "Index")
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col mb-3 mb-sm-0">
+                                            @Html.LabelFor(model => model.HoTen)
+                                            @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Họ tên", @Value = Session["HoTen"].ToString() } })
+                                            @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col mb-3 mb-sm-0">
+                                            @Html.LabelFor(model => model.Email)
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Địa chỉ Email", @Value = Session["Email"].ToString() } })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary btn-user">Cập nhật tài khoản</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<!-- End Default Light Table -->
+<style>
+</style>
+

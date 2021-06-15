@@ -4,6 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+
       <Diagram DiagramId="f7b6b957f1c043d0bf3dfbed8c7ccd4b" Name="Diagram1">
         <EntityTypeShape EntityType="THITRACNGHIEMModel.CAUHOI" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="THITRACNGHIEMModel.DANHSACHDAPANCHON" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />

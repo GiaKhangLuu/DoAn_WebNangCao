@@ -1,0 +1,58 @@
+﻿@model DoAn_WebNangCao.Models.TAIKHOAN
+
+@{
+    ViewBag.Title = "LoginUser";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<!-- Nested Row within Card Body -->
+<div class="row">
+    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+    <div class="col-lg-6">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Chào Mừng trở lại!</h1>
+                @if (ViewBag.ErrorInfo != null)
+                {
+                    <p>@ViewBag.ErrorInfo</p>
+                }
+            </div>
+            @using (Html.BeginForm("LoginUser", "Login", FormMethod.Post, new { @class = "user" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Tên Đăng Nhập", id = "exampleUserName", @Value = ViewBag.UserName } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Mật khẩu", id = "exampleInputPassword", @Value = ViewBag.MatKhau } })
+                    @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox small">
+                        <input data-val="true" data-val-required="The RememberMe field is required." name="RememberMe" value="true" type="checkbox" class="custom-control-input" id="RememberMe">
+                        <label class="custom-control-label" for="RememberMe">
+                            Nhớ mật khẩu
+                        </label>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary btn-user btn-block" value="Đăng nhập" />
+                <hr>
+                <a href="index.html" class="btn btn-google btn-user btn-block">
+                    <i class="fab fa-google fa-fw"></i> Đăng nhập với Google
+                </a>
+                <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                    <i class="fab fa-facebook-f fa-fw"></i> Đăng nhập với Facebook
+                </a>
+            }
+            <hr>
+            <div class="text-center">
+                <a class="small" href="forgot-password.html">Quên mật khẩu?</a>
+            </div>
+            <div class="text-center">
+                <a class="small" href=@Url.Action("RegisterUser","Login")>Đăng ký!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
