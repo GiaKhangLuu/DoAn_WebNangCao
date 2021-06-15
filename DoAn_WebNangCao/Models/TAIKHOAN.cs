@@ -23,20 +23,20 @@ namespace DoAn_WebNangCao.Models
         {
             this.DETHIs = new HashSet<DETHI>();
         }
-    
+
         public int IDUser { get; set; }
-        [Required(ErrorMessage ="Vui lòng nhập tên đăng nhập!")]
+        [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập!")]
         [StringLength(25)]
         [DisplayName("Tên Đăng Nhập")]
         public string UserName { get; set; }
-        [Required(ErrorMessage ="Vui lòng nhập mật khẩu!")]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu!")]
         [DataType(DataType.Password)]
         [StringLength(25)]
         [DisplayName("Mật Khẩu")]
 
         public string MatKhau { get; set; }
         [NotMapped]
-        [Required(ErrorMessage ="Vui lòng nhập lại mật khẩu!")]
+        [Required(ErrorMessage = "Vui lòng nhập lại mật khẩu!")]
         [Compare("MatKhau")]
         [DataType(DataType.Password)]
         public string ConfirmPass { get; set; }

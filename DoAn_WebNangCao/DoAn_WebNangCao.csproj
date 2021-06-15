@@ -129,7 +129,6 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CheckAnswerController.cs" />
     <Compile Include="Controllers\Fill_In_Blank_QuizController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Multi_Correct_Answer_QuizController.cs" />
     <Compile Include="Controllers\One_Correct_Answer_QuizController.cs" />
@@ -157,7 +156,6 @@
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Encryption.cs" />
-
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\LINHVUC.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
@@ -165,7 +163,6 @@
     <Compile Include="Models\LOAICAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
-
     <Compile Include="Models\Quiz.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\TAIKHOAN.cs">
