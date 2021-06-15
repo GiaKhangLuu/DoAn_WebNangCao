@@ -127,13 +127,23 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CheckAnswerController.cs" />
+    <Compile Include="Controllers\Fill_In_Blank_QuizController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\Multi_Correct_Answer_QuizController.cs" />
+    <Compile Include="Controllers\One_Correct_Answer_QuizController.cs" />
+    <Compile Include="Controllers\QuizCategoryController.cs" />
+    <Compile Include="Controllers\ResultController.cs" />
+    <Compile Include="Controllers\Sorted_QuizController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\DANHSACHCAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
@@ -147,12 +157,17 @@
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Encryption.cs" />
+
+    <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\LINHVUC.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LOAICAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
+
+    <Compile Include="Models\Quiz.cs" />
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\TAIKHOAN.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
@@ -179,8 +194,19 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\avatardefault.png" />
+    <Content Include="Content\btn_quiz_selected.css" />
+    <Content Include="Content\checkanswer.css" />
+    <Content Include="Content\fill_in_blank_quiz.css" />
+    <Content Include="Content\fill_in_blank_quiz_check_answer.css" />
+    <Content Include="Content\list_quiz.css" />
+    <Content Include="Content\list_quiz_grid.css" />
+    <Content Include="Content\multi_correct_answer_quiz.css" />
+    <Content Include="Content\question.css" />
+    <Content Include="Content\quiz_category.css" />
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="Content\sb-admin-2.min.css" />
+    <Content Include="Content\sorted_quiz.css" />
+    <Content Include="Content\sorted_quiz_check_answer.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -206,6 +232,9 @@
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\image-change.js" />
+    <Content Include="Scripts\custom_script\multi_correct_answer_quiz.js" />
+    <Content Include="Scripts\custom_script\sorted_quiz.js" />
+    <Content Include="Scripts\fill_in_blank_quiz.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -2053,6 +2082,24 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Profiles.cshtml" />
+    <Content Include="Views\Result\Index.cshtml" />
+    <Content Include="Views\Result\Render_result.cshtml" />
+    <Content Include="Views\CheckAnswer\Index.cshtml" />
+    <Content Include="Views\QuizCategory\Index.cshtml" />
+    <Content Include="Views\QuizCategory\Render_quiz_category.cshtml" />
+    <Content Include="Views\Test\Render_list_button_quiz.cshtml" />
+    <Content Include="Views\Sorted_Quiz\Index.cshtml" />
+    <Content Include="Views\Sorted_Quiz\Render_quiz.cshtml" />
+    <Content Include="Views\One_Correct_Answer_Quiz\Index.cshtml" />
+    <Content Include="Views\One_Correct_Answer_Quiz\Render_quiz.cshtml" />
+    <Content Include="Views\One_Correct_Answer_Quiz\Check_answer.cshtml" />
+    <Content Include="Views\Sorted_Quiz\Check_answer.cshtml" />
+    <Content Include="Views\Multi_Correct_Answer_Quiz\Index.cshtml" />
+    <Content Include="Views\Multi_Correct_Answer_Quiz\Render_quiz.cshtml" />
+    <Content Include="Views\Multi_Correct_Answer_Quiz\Check_answer.cshtml" />
+    <Content Include="Views\Fill_In_Blank_Quiz\Index.cshtml" />
+    <Content Include="Views\Fill_In_Blank_Quiz\Render_quiz.cshtml" />
+    <Content Include="Views\Fill_In_Blank_Quiz\Check_answer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

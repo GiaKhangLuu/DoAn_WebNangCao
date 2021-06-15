@@ -18,6 +18,18 @@ namespace DoAn_WebNangCao
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Login", action = "LoginUser", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "CreateExam",
+                url: "{controller}/{action}/{idLinhVuc}",
+                defaults: new { controller = "Test", action = "CreateExam", idLinhVuc = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "NewQuiz",
+                url: "{controller}/{action}/{type}/{quiz_idx}",
+                defaults: new { controller = "Test", action = "NewQuiz", type = UrlParameter.Optional, quiz_idx = UrlParameter.Optional }
+           );
         }
     }
 }

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DoAn_WebNangCao.Models.LINHVUC>
+
+@{ 
+    int idx = 0;
+    string open_div_row = "";
+    string close_div_row = "";
+}
+@foreach(var linh_vuc in Model)
+{
+    if(idx == 0) // 1 row 4 linh_vuc
+    {
+        open_div_row = "<div class='row'>";
+        close_div_row = "";
+    }
+    else if(idx % 4 == 0)
+    {
+        open_div_row = "<div class='row'>";
+        close_div_row = "</div>";
+    }
+    else
+    {
+        open_div_row = "";
+        close_div_row = "";
+    }
+    @Html.Raw(close_div_row);
+    @Html.Raw(open_div_row);
+    <div class="col-3 quiz-category-container">
+        <div class="quiz-category">
+            <div class="quizheader">
+                <h2>@linh_vuc.TenLinhVuc</h2>
+                <hr>
+            </div>
+            <div class="quizbody">
+                <p>@linh_vuc.GhiChu</p>
+            </div>
+            <div class="quizfooter">
+                @Html.ActionLink("Start Quiz",
+                     "CreateExam",
+                     "Test",
+                     new { idLinhVuc = linh_vuc.IDLinhVuc },
+                     new { @class = "w3-btn w3-round ws-blue" })
+            </div>
+        </div>
+    </div>
+    ++idx;
+}

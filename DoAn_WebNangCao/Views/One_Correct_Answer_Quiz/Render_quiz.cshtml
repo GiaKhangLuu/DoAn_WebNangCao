@@ -1,0 +1,47 @@
+﻿@model DoAn_WebNangCao.Models.Quiz
+
+@{
+    var quiz = Model.Cau_hoi;
+    string quiz_title = quiz.NoiDung;
+    int id_cau_hoi = quiz.IDCauHoi;
+    int quiz_idx = Model.Quiz_idx;
+    var quiz_type_id = Model.Cau_hoi.IDLoaiCauHoi;
+    int selected_answer_id = -1;
+    if (Model.Id_dap_an_chons.Count > 0)
+    {
+        selected_answer_id = Model.Id_dap_an_chons.ElementAt(0);
+    }
+}
+
+<table class="table-quiz">
+    <tr class="quiz-title-container">
+
+        <th id="@id_cau_hoi" class="quiz-title">@quiz_title</th>
+    </tr>
+    @foreach (var dap_an in quiz.DAPANs)
+    {
+        <tr>
+            <th class="answer-row">
+                <label class="answer-container">
+                    @dap_an.NoiDung
+                    @{
+                        var radio_name = "answer_id";
+                        var radio_value = dap_an.IDDapAn;
+                        bool isChecked = false;
+                        if (dap_an.IDDapAn == selected_answer_id)
+                        {
+                            isChecked = true;
+                        }
+                    }
+                    @Html.RadioButton(radio_name, radio_value, isChecked)
+                    <span class="checkmark"></span>
+                </label>
+            </th>
+        </tr>
+    }
+
+</table>
+<input type="hidden" value="@quiz_idx" name="quiz_idx" />
+<input type="submit" value="Pre" name="type" />
+<input type="submit" value="Done" name="type" />
+<input type="submit" value="Next" name="type" />    

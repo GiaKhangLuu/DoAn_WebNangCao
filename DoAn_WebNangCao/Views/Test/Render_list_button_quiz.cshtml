@@ -1,0 +1,30 @@
+﻿@model DoAn_WebNangCao.Models.Exam
+
+@{
+    var quizs = Model.Quizs;
+    int num_of_quizs = quizs.Count;
+    string btn_class = "";
+}
+<div class="row">
+    <div class="col-6 offset-3">
+        <span>Danh sách câu hỏi</span>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div id="list-quizs" class="col-10">
+        @for (int i = 0; i < num_of_quizs; i++)
+        {
+            if (quizs[i].Id_dap_an_chons.Count > 0)
+            {
+                btn_class = "btn-quiz-selected";
+            }
+            else
+            {
+                btn_class = "btn-quiz";
+            }
+            <input type="submit" class="btn btn-outline-primary @btn_class" name="new_quiz_idx" value="@(i + 1)" />
+        }
+    </div>
+</div>
+
+

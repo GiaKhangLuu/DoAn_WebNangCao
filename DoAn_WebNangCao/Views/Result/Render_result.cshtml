@@ -1,0 +1,6 @@
+﻿@model DoAn_WebNangCao.Models.Result
+
+<p><span>Number of quizs: @Model.Num_of_quizs</span></p>
+<p><span>Number of correct answers: @Model.Num_of_correct_answers</span></p>
+<p><span>Score: </span></p>
+<button onclick="location.href='@Url.Action("Index", "CheckAnswer")';">Check Answer</button>

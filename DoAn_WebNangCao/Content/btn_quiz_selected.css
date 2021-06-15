@@ -1,0 +1,8 @@
+﻿.btn-quiz-selected {
+    width: 60px;
+    height: 50px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: #4e73df;
+    color: white;
+}

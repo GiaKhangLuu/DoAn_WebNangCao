@@ -33,6 +33,7 @@ namespace DoAn_WebNangCao.Models
         [DataType(DataType.Password)]
         [StringLength(25)]
         [DisplayName("Mật Khẩu")]
+
         public string MatKhau { get; set; }
         [NotMapped]
         [Required(ErrorMessage ="Vui lòng nhập lại mật khẩu!")]
@@ -50,6 +51,7 @@ namespace DoAn_WebNangCao.Models
         public bool Quyen { get; set; }
         public string AnhDaiDien { get; set; }
         public HttpPostedFileBase UploadImage { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DETHI> DETHIs { get; set; }
     }
