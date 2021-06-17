@@ -65,7 +65,14 @@ namespace DoAn_WebNangCao.Controllers
                     HttpContext.Response.Cookies.Add(cookie);// thông tin cookie và lưu.
                     Session["Remember"] = "true";
                 }
-                return RedirectToAction("Index", "Admin");
+                if(check.Quyen)
+                {
+                    return Direct_To_Admin_Page();
+                }
+                else
+                {
+                    return Direct_To_Client_Home_Page();
+                }
             }
         }
         public ActionResult RegisterUser()
@@ -106,5 +113,14 @@ namespace DoAn_WebNangCao.Controllers
             return RedirectToAction("LoginUser","Login");
         }
 
+        public ActionResult Direct_To_Client_Home_Page()
+        {
+            return RedirectToAction("Index", "HomePage");
+        }
+
+        public ActionResult Direct_To_Admin_Page()
+        {
+            return RedirectToAction("Index", "Admin");
+        }
     }
 }

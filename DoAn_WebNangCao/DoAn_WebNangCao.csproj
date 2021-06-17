@@ -129,6 +129,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CheckAnswerController.cs" />
     <Compile Include="Controllers\Fill_In_Blank_QuizController.cs" />
+    <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Multi_Correct_Answer_QuizController.cs" />
     <Compile Include="Controllers\One_Correct_Answer_QuizController.cs" />
@@ -190,11 +191,17 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\homepage.css" />
     <Content Include="Content\images\avatardefault.png" />
     <Content Include="Content\btn_quiz_selected.css" />
     <Content Include="Content\checkanswer.css" />
     <Content Include="Content\fill_in_blank_quiz.css" />
     <Content Include="Content\fill_in_blank_quiz_check_answer.css" />
+    <Content Include="Content\images\fill_in_blank_quiz.gif" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\logo_banner.png" />
+    <Content Include="Content\images\quiz_category.png" />
+    <Content Include="Content\images\sorted_quiz.gif" />
     <Content Include="Content\list_quiz.css" />
     <Content Include="Content\list_quiz_grid.css" />
     <Content Include="Content\multi_correct_answer_quiz.css" />
@@ -204,6 +211,7 @@
     <Content Include="Content\sb-admin-2.min.css" />
     <Content Include="Content\sorted_quiz.css" />
     <Content Include="Content\sorted_quiz_check_answer.css" />
+    <Content Include="Content\sorted_quiz_shadow.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2097,6 +2105,7 @@
     <Content Include="Views\Fill_In_Blank_Quiz\Index.cshtml" />
     <Content Include="Views\Fill_In_Blank_Quiz\Render_quiz.cshtml" />
     <Content Include="Views\Fill_In_Blank_Quiz\Check_answer.cshtml" />
+    <Content Include="Views\HomePage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

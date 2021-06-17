@@ -1,0 +1,47 @@
+﻿.website-name {
+    font-family: 'Nunito', sans-serif;
+    color: #4e73df;
+    font-weight: 700;
+}
+
+.banner h5 {
+    font-size: 50px;
+}
+
+.logo {
+    margin-bottom: -20px;
+}
+
+.intro {
+    margin-left: 70px;
+    margin-top: 50px;
+}
+
+.fa-terminal {
+    color: #198754;
+}
+
+.intro h3 {
+    color: black;
+    margin-top: 7px;
+}
+
+.fa-sort {
+    color: #7952b3;
+}
+
+.intro .sorted_quiz {
+    margin-left: 20px;
+}
+
+.fa-arrows-alt {
+    color: #dc3545;
+}
+
+.intro .fill_in_blank_quiz {
+    margin-left: 20px;
+}
+
+footer {
+    margin-top: 20px;
+}
