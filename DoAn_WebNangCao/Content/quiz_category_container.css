@@ -1,0 +1,10 @@
+﻿.quiz-category-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 20px
+}
+
+.quiz-category {
+    width: 252px;
+    height: 226px;
+}

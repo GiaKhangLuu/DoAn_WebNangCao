@@ -54,7 +54,7 @@
                                 <a style="color: #858796;" class="nav-link active" aria-current="page" href="#">Trang chủ</a>
                             </li>
                             <li class="nav-item">
-                                <a style="color: #858796;" class="nav-link" href="#">Thi</a>
+                                <a style="color: #858796;" class="nav-link" href="/QuizCategory/Index">Thi</a>
                             </li>
                             <li class="nav-item">
                                 <a style="color: #858796;" class="nav-link" href="#">Lịch sử thi</a>
@@ -116,7 +116,10 @@
                             </p>
                             <div class="row justify-content-center">
                                 <div class="col-4">
-                                    <button type="button" class="btn btn-primary btn-lg">Bắt đầu thi</button>
+                                    <button onclick="location.href = '@Url.Action("Index", "QuizCategory")'" 
+                                            type="button" class="btn btn-primary btn-lg">
+                                        Bắt đầu thi
+                                    </button>
                                 </div>
                             </div>
                         </div>
