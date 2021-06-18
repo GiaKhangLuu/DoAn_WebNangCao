@@ -11,3 +11,43 @@
     width: 150px;
     border: 1px solid black;        
 }
+
+.quiz-title {
+    color: black;
+    font-size: 20px;
+}
+
+.quiz-title-container {
+    height: 60px;
+    width: 750px;
+}
+
+.navbar-brand {
+    margin-right: 0px;
+}
+
+.website-name {
+    font-family: 'Nunito', sans-serif;
+    color: #6e717a;
+    font-weight: 700;
+}
+
+html {
+    height: 100%;
+}
+
+#wrapper {
+    height: 100%;
+}
+
+#sortable li {
+    width: 800px;
+    height: 53px;
+    text-align: center;
+    padding-top: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ui-state-highlight {
+    background-color: rgb(214, 214, 214);
+}
