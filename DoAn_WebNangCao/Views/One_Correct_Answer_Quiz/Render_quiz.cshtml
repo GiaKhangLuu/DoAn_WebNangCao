@@ -13,11 +13,12 @@
     }
 }
 
+<div class="quiz-title-container">
+    <span class="quiz-title">
+        Câu @(quiz_idx + 1): @quiz_title
+    </span>
+</div>
 <table class="table-quiz">
-    <tr class="quiz-title-container">
-
-        <th id="@id_cau_hoi" class="quiz-title">@quiz_title</th>
-    </tr>
     @foreach (var dap_an in quiz.DAPANs)
     {
         <tr>
@@ -39,9 +40,5 @@
             </th>
         </tr>
     }
-
 </table>
 <input type="hidden" value="@quiz_idx" name="quiz_idx" />
-<input type="submit" value="Pre" name="type" />
-<input type="submit" value="Done" name="type" />
-<input type="submit" value="Next" name="type" />    
