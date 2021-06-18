@@ -1,6 +1,11 @@
 ﻿.quiz-title {
 	color: black;
-	font-size: 24px;
+	font-size: 20px;
+}
+
+.quiz-title-container {
+	height: 60px;
+	width: 750px;
 }
 
 .navbar-brand {

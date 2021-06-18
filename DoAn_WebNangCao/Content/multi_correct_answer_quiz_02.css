@@ -1,0 +1,32 @@
+﻿.quiz-title {
+    color: black;
+    font-size: 20px;
+}
+
+.quiz-title-container {
+    height: 60px;
+    width: 750px;
+}
+
+.navbar-brand {
+    margin-right: 0px;
+}
+
+.website-name {
+    font-family: 'Nunito', sans-serif;
+    color: #6e717a;
+    font-weight: 700;
+}
+
+.answer-row {
+    height: 50px;
+    padding-top: 12px;
+}
+
+html {
+    height: 100%;
+}
+
+#wrapper {
+    height: 100%;
+}

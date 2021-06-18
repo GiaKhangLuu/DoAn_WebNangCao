@@ -9,39 +9,37 @@
     var selected_answer_ids = Model.Id_dap_an_chons;
 }
 
-@using (Html.BeginForm("Go", "Multi_Correct_Answer_Quiz"))
-{
-    <table class="table-quiz">
-        <tr class="quiz-title-container">
+<!--Quiz title-->
+<div class="quiz-title-container">
+    <span class="quiz-title">
+        Câu @(quiz_idx + 1): @quiz_title
+    </span>
+</div>
 
-            <th id="@id_cau_hoi" class="quiz-title">@quiz_title</th>
-        </tr>
-        @foreach (var dap_an in quiz.DAPANs)
-        {
-            <tr>
-                <th class="answer-row">
-                    <label class="container">
-                        @dap_an.NoiDung
-                        @{
-                            var answer_id = dap_an.IDDapAn;
-                            var cb_name = answer_id;
-                            var isChecked = "";
-                            var value = false;
-                            if (selected_answer_ids.Contains(answer_id))
-                            {
-                                isChecked = "checked";
-                                value = true;
-                            }
+<!--List answers-->
+<table class="table-quiz">
+    @foreach (var dap_an in quiz.DAPANs)
+    {
+        <tr>
+            <th class="answer-row">
+                <label class="container">
+                    @dap_an.NoiDung
+                    @{
+                        var answer_id = dap_an.IDDapAn;
+                        var cb_name = answer_id;
+                        var isChecked = "";
+                        var value = false;
+                        if (selected_answer_ids.Contains(answer_id))
+                        {
+                            isChecked = "checked";
+                            value = true;
                         }
-                        <input type="checkbox" value=@value name="@cb_name.ToString()" @isChecked/>
-                        <span class="checkmark"></span>
-                    </label>
-                </th>
-            </tr>
-        }
-    </table>
-    <input type="hidden" value="@quiz_idx" name="quiz_idx" />
-    <input type="submit" value="Pre" name="type" />
-    <input type="submit" value="Done" name="type" />
-    <input type="submit" value="Next" name="type" />
-}
+                    }
+                    <input type="checkbox" value=@value name="@cb_name.ToString()" @isChecked />
+                    <span class="checkmark"></span>
+                </label>
+            </th>
+        </tr>
+    }
+</table>
+<input type="hidden" value="@quiz_idx" name="quiz_idx" />
