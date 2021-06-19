@@ -1,0 +1,106 @@
+﻿.navbar-brand {
+    margin-right: 0px;
+}
+
+.website-name {
+    font-family: 'Nunito', sans-serif;
+    color: #6e717a;
+    font-weight: 700;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+#content-wrapper {
+    height: 100%;
+}
+
+.intro {
+    text-align: center;
+    padding: 40px;
+}
+
+h5 {
+    color: black;
+    font-size: 34px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.intro p {
+    color: black;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.intro button {
+    width: 135px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.result-card-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.result-card {
+    width: 270px;
+    height: 250px;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.fa-question-circle {
+    background-color: white;
+    color: #4e73df;
+}
+
+.result-card-icon-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.result-card {
+    margin-left: 18px;
+}
+
+.result-card-title {
+    color: black;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.result-card-info {
+    color: #4e73df;
+    font-size: 70px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.fa-check-circle {
+    background-color: white;
+    color: #28a745;
+}
+
+.fa-medal {
+    background-color: white;
+    color: #ffc107;
+}
+
+.list-btn {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+

@@ -209,6 +209,7 @@
     <Content Include="Content\question.css" />
     <Content Include="Content\quiz_category.css" />
     <Content Include="Content\quiz_category_container.css" />
+    <Content Include="Content\result.css" />
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="Content\sb-admin-2.min.css" />
     <Content Include="Content\sorted_quiz.css" />

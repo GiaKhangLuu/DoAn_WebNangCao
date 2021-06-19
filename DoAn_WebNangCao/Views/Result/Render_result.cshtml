@@ -1,6 +1,51 @@
 ﻿@model DoAn_WebNangCao.Models.Result
 
-<p><span>Number of quizs: @Model.Num_of_quizs</span></p>
-<p><span>Number of correct answers: @Model.Num_of_correct_answers</span></p>
-<p><span>Score: </span></p>
-<button onclick="location.href='@Url.Action("Index", "CheckAnswer")';">Check Answer</button>
+@{
+    int num_of_quizs = Model.Num_of_quizs;
+    int num_of_correct_answer = Model.Num_of_correct_answers;
+    int total = 9;
+}
+
+<div class="row justify-content-center">
+    <div class="col-8 result-card-container">
+
+        <!--Card-->
+        <div class="result-card">
+            <div class="result-card-icon-container">
+                <i class="fas fa-question-circle fa-4x"></i>
+            </div>
+            <div class="result-card-title">
+                <p>Số câu hỏi</p>
+            </div>
+            <div class="result-card-info">
+                <p>@num_of_quizs</p>
+            </div>
+        </div>
+
+        <!--Card-->
+        <div class="result-card">
+            <div class="result-card-icon-container">
+                <i class="fas fa-check-circle fa-4x"></i>
+            </div>
+            <div class="result-card-title">
+                <p>Số câu đúng</p>
+            </div>
+            <div class="result-card-info">
+                <p>@num_of_correct_answer</p>
+            </div>
+        </div>
+
+        <!--Card-->
+        <div class="result-card">
+            <div class="result-card-icon-container">
+                <i class="fas fa-medal fa-4x"></i>
+            </div>
+            <div class="result-card-title">
+                <p>Tổng điểm</p>
+            </div>
+            <div class="result-card-info">
+                <p>@total</p>
+            </div>
+        </div>
+    </div>
+</div>
