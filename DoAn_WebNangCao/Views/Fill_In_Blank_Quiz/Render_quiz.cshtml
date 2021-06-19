@@ -14,8 +14,10 @@
 <!--Quiz title-->
 <div class="row">
     <div class="col-12">
-        <div class="quiz-title">
-            @Html.Raw(quiz_title)
+        <div class="quiz-title-container">
+            <span class="quiz-title">
+                Câu @(quiz_idx + 1): @Html.Raw(quiz_title)
+            </span>
         </div>
     </div>
 </div>

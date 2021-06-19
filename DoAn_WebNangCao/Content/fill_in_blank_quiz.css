@@ -73,3 +73,31 @@
     background-color: #4e73df;
     color: white;
 }
+
+html {
+    height: 100%;
+}
+
+#wrapper {
+    height: 100%;
+}
+
+.quiz-title {
+    color: black;
+    font-size: 20px;
+}
+
+.quiz-title-container {
+    height: 100px;
+    width: 750px;
+}
+
+.navbar-brand {
+    margin-right: 0px;
+}
+
+.website-name {
+    font-family: 'Nunito', sans-serif;
+    color: #6e717a;
+    font-weight: 700;
+}
