@@ -5,13 +5,25 @@
     var list_user_answer_ids = Model.Id_dap_an_chons;
     string class_name = "";
     string mark_container = "";
+
+    int quiz_idx = Model.Quiz_idx;
+    string quiz_title = Model.Cau_hoi.NoiDung;
 }
 
-<div class="row">
+<div class="row quiz-container">
     <div class="col-8 offset-2">
-        <div class="row">
+
+        <!--Quiz title-->
+        <div class="quiz-title-container">
+            <span class="quiz-title">
+                Câu @(quiz_idx + 1): @quiz_title
+            </span>
+        </div>
+
+        <!--Answers-->
+        <div class="row" style="margin-top: 20px">
             <div class="col-6 correct-answer">
-                <p>Correct answer</p>
+                <p style="color:black; font-weight: bold">Đáp án đúng</p>
                 <ul class="sorted_quiz">
                     @foreach (var crt_answer in list_correct_answers)
                     {
@@ -20,7 +32,7 @@
                 </ul>
             </div>
             <div class="col-6">
-                <p>Your answer</p>
+                <p style="color: black; font-weight: bold">Đáp án của bạn</p>
                 <ul class="sorted_quiz">
                     @for (int idx = 0; idx < Model.Id_dap_an_chons.Count; idx++)
                     {

@@ -9,27 +9,29 @@
 
     var ground_truth_answers = Model.Cau_hoi.DAPANs.Where(p => p.TinhChat).OrderBy(p => p.ThuTu);
     var selected_answer_ids = Model.Id_dap_an_chons;
+
+    int quiz_idx = Model.Quiz_idx;
 }
 
-<div class="row">
+<div class="row quiz-container">
     <div class="col-8 offset-2">
 
         <!--Quiz title-->
-        <div class="row">
-            <div class="col-12">
-                @Html.Raw(quiz_title)
-            </div>
+        <div class="quiz-title-container">
+            <span class="quiz-title">
+                Câu @(quiz_idx + 1): @Html.Raw(quiz_title)
+            </span>
         </div>
 
         <!--Body-->
-        <div class="row">
+        <div class="row" style="margin-top: 20px">
 
             <!--Ground truth answer-->
             <div class="col-6 correct-answer">
-                <p>Đáp án đúng</p>
+                <p style="color: black; font-weight: bold">Đáp án đúng</p>
                 <ul class="sorted_quiz">
                     @{ int count = 0; }
-                    @foreach(var gt_answer in ground_truth_answers) 
+                    @foreach (var gt_answer in ground_truth_answers)
                     {
                         <li>Đáp án ô trống thứ @(++count)</li>
                         <li class="radiocontainer">@gt_answer.NoiDung</li>
@@ -39,7 +41,7 @@
 
             <!--Selected answer-->
             <div class="col-6">
-                <p>Đáp án của bạn</p>
+                <p style="color: black; font-weight: bold">Đáp án của bạn</p>
                 <ul class="sorted_quiz">
                     @for (int idx = 0; idx < numOfBlanks; idx++)
                     {
@@ -53,19 +55,19 @@
                             </li>
                         }
                         // Case user selected
-                        else 
+                        else
                         {
                             var answer = Model.Cau_hoi.DAPANs.FirstOrDefault(p => p.IDDapAn == selected_answer_id);
                             bool rs = Model.Ket_quas[idx];
                             // True answer
-                            if(rs) 
+                            if (rs)
                             {
                                 <li class="radiocontainer correct selected">
                                     <div class='markcontainer'><i class='fa fa-check'></i></div>
                                     @answer.NoiDung
                                 </li>
                             }
-                            else 
+                            else
                             {
                                 <li class="radiocontainer wrong">
                                     <div class='markcontainer'><i class='fa fa-times'></i></div>

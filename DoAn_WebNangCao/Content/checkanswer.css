@@ -4,7 +4,6 @@
     margin-bottom: 1px;
     background-color: #f1f1f1;
     font-size: 18px;
-    width: 448px;
     height: 47px;
 }
 
@@ -42,8 +41,26 @@ i.fa-check {
     top: 10px;
 }
 
-.title {
-    font-size: 35px;
+.quiz-title {
+    font-size: 20px;
     font-weight: bold;
-    color: #4e73df;
+    color: black;
+}
+
+.navbar-brand {
+    margin-right: 0px;
+}
+
+.website-name {
+    font-family: 'Nunito', sans-serif;
+    color: #6e717a;
+    font-weight: 700;
+}
+
+.quiz-container {
+    margin-top: 20px;
+}
+
+th {
+    width: 900px;
 }

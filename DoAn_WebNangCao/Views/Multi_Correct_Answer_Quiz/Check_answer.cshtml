@@ -10,6 +10,7 @@
     var id_cau_hoi = cau_hoi.IDCauHoi;
     var answers = cau_hoi.DAPANs;
     int num_of_answers = answers.Count;
+    int quiz_idx = Model.Quiz_idx;
 
     List<int> selected_answer_ids = Model.Id_dap_an_chons;
     List<bool> selected_answer_results = Model.Ket_quas;
@@ -71,12 +72,18 @@
     }
 }
 
-<div class="row">
+<div class="row quiz-container">
     <div class="col-8 offset-2">
+
+        <!--Quiz title-->
+        <div class="quiz-title-container">
+            <span class="quiz-title">
+                Câu @(quiz_idx + 1): @quiz_title
+            </span>
+        </div>
+
+        <!--Answers-->
         <table class="table-quiz">
-            <tr class="quiz-title-container">
-                <th id="@id_cau_hoi" class="quiz-title">@quiz_title</th>
-            </tr>
             @for (int i = 0; i < num_of_answers; i++)
             {
                 var answer = answers.ElementAt(i);
@@ -89,14 +96,14 @@
                     {
                         mark_container = "";
                         class_name = "radiocontainer correct";
-                        answer_comment = "<span class='answercomment'>&nbsp;&nbsp;Correct answer&nbsp;&nbsp;</span>";
+                        answer_comment = "<span class='answercomment'>&nbsp;&nbsp;Đáp án đúng&nbsp;&nbsp;</span>";
                     }
                     // 1 | 1 => Correct and selected => Green
                     if (selected_answer_feature == 1)
                     {
                         mark_container = "<div class='markcontainer'><i class='fa fa-check'></i></div>";
                         class_name = "radiocontainer correct selected";
-                        answer_comment = "<span class='answercomment'>&nbsp;&nbsp;Your answer&nbsp;&nbsp;</span>";
+                        answer_comment = "<span class='answercomment'>&nbsp;&nbsp;Đáp án bạn chọn&nbsp;&nbsp;</span>";
                     }
                 }
                 else
@@ -113,7 +120,7 @@
                     {
                         mark_container = "<div class='markcontainer'><i class='fa fa-times'></i></div>";
                         class_name = "radiocontainer wrong";
-                        answer_comment = "<span class='answercomment'>&nbsp;&nbsp;Your answer&nbsp;&nbsp;</span>";
+                        answer_comment = "<span class='answercomment'>&nbsp;&nbsp;Đáp án bạn chọn&nbsp;&nbsp;</span>";
                     }
                 }
                 <tr>
