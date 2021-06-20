@@ -15,7 +15,7 @@
         <strong>Thành công!</strong> Thông tin tài khoản đã được cập nhật!
     </div>
 }
-else if(ViewBag.ThanhCong == "false")
+else if (ViewBag.ThanhCong == "false")
 {
     <div class="alert bg-danger text-white fade show mb-0" role="alert">
         <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
@@ -34,20 +34,21 @@ else if(ViewBag.ThanhCong == "false")
     </div>
     <!-- End Page Header -->
     <!-- Default Light Table -->
-    @using (Html.BeginForm("Profiles", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "user" }))
+    @using (Html.BeginForm("Profiles", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "user" }))
     {
+        @Html.AntiForgeryToken()
         <div class="row">
             <div class="col-lg-5">
                 <div class="card shadow mb-4">
                     <div class="card-header text-center">
-                        <div class="mb-3 mx-auto">
-                            <img class="rounded-circle img-responsive" id="previewImg" src="@Url.Content(Session["AnhDaiDien"].ToString())" alt="User Avatar" width="150">
+                        <div style="position:relative">
+                            <img class="rounded-circle mb-3 mx-auto img-responsive" style="height:250px;width:250px;" id="previewImg" src="@Url.Content(Session["AnhDaiDien"].ToString())" alt="User Avatar">
+                            <label for="UploadImg" style="position:absolute;font-size:20px;border-radius:25px;bottom:0%;right:35%;" class="btn btn-primary"><i class="fa fa-camera"></i></label>
                         </div>
                         <div>
-                            <h4 class="mb-0">@Session["HoTen"].ToString()</h4>
+                            <h4 class="mb-0">@Session["HoTen"]</h4>
                             <span class="text-muted d-block mb-2">@Session["Quyen"]</span>
                             <input type="file" id="UploadImg" style="display:none;" name="UploadImage" onchange="ChangeImage(this, document.getElementById('previewImg'))" />
-                            <label for="UploadImg" class="btn btn-primary btn-user">Thay đổi ảnh đại diện</label>
                         </div>
                     </div>
                 </div>
@@ -63,34 +64,43 @@ else if(ViewBag.ThanhCong == "false")
                                 <div class="col">
                                     @Html.ValidationSummary(true)
                                     @Html.HiddenFor(model => model.IDUser)
-                                    <div class="form-group">
-                                        <div class="col mb-3 mb-sm-0">
-
+                                    <div class="form-group row">
+                                        <div class="col-6 mb-3 mb-sm-0">
                                             @Html.LabelFor(model => model.UserName)
-                                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control form-control-user", disabled = true, placeholder = "Tên đăng nhập", @Value = Session["UserName"].ToString() } })
+                                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control form-control-user", @readonly = "readonly", placeholder = "Tên đăng nhập", @Value = Session["UserName"] } })
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col mb-3 mb-sm-0">
+                                        <div class="col-6 mb-3 mb-sm-0" style="position:relative;">
                                             @Html.LabelFor(model => model.MatKhau)
-                                            @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control form-control-user password", disabled = true, placeholder = "Mật khẩu", @Value = Session["MatKhau"].ToString() } })
-                                        </div>
-                                        <div class=" text-right">
-                                            @Html.ActionLink("Đổi mật khẩu", "Index")
+                                            @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control form-control-user password", @readonly = "readonly", placeholder = "Mật khẩu", @Value = Session["MatKhau"] } })
+                                            <div class=" text-right" style="position:absolute;right:7%;bottom:16%;">
+                                                <a href="@Url.Action("ChangePassword","Account")"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col mb-3 mb-sm-0">
+                                    <div class="form-group row">
+                                        <div class="col-6 mb-3 mb-sm-0">
                                             @Html.LabelFor(model => model.HoTen)
-                                            @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Họ tên", @Value = Session["HoTen"].ToString() } })
+                                            @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Họ tên", @Value = Session["HoTen"] } })
                                             @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
                                         </div>
+                                        <div class="col-6 mb-3 mb-sm-0">
+                                            @Html.LabelFor(model => model.SDT)
+                                            @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control form-control-user password", placeholder = "Số điện thoại", @Value = Session["SDT"] } })
+                                            @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <div class="col mb-3 mb-sm-0">
                                             @Html.LabelFor(model => model.Email)
-                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Địa chỉ Email", @Value = Session["Email"].ToString() } })
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Địa chỉ Email", @Value = Session["Email"] } })
                                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col mb-3 mb-sm-0">
+                                            @Html.LabelFor(model => model.DiaChi)
+                                            @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Địa chỉ", @Value = Session["DiaChi"] } })
+                                            @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="text-center">
@@ -106,6 +116,3 @@ else if(ViewBag.ThanhCong == "false")
     }
 </div>
 <!-- End Default Light Table -->
-<style>
-</style>
-

@@ -145,6 +145,7 @@
     <Compile Include="Models\CAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\DANHSACHCAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
@@ -2092,7 +2093,6 @@
     <Content Include="Views\Login\RegisterUser.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Profiles.cshtml" />
     <Content Include="Views\Result\Index.cshtml" />
     <Content Include="Views\Result\Render_result.cshtml" />
     <Content Include="Views\CheckAnswer\Index.cshtml" />
@@ -2113,10 +2113,11 @@
     <Content Include="Views\Fill_In_Blank_Quiz\Check_answer.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\ReSubmit_Error\Index.cshtml" />
+    <Content Include="Views\Account\Profiles.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
