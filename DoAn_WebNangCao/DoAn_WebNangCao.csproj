@@ -126,6 +126,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CheckAnswerController.cs" />
     <Compile Include="Controllers\Fill_In_Blank_QuizController.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Models\CAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\DANHSACHCAUHOI.cs">
       <DependentUpon>ThiTracNghiemEntity.tt</DependentUpon>
@@ -232,6 +234,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\one_correct_answer_quiz.css" />
     <EntityDeploy Include="Models\ThiTracNghiemEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ThiTracNghiemEntity.Designer.cs</LastGenOutput>
@@ -239,7 +242,6 @@
     <Content Include="Models\ThiTracNghiemEntity.edmx.diagram">
       <DependentUpon>ThiTracNghiemEntity.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\one_correct_answer_quiz.css" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\image-change.js" />
     <Content Include="Scripts\custom_script\multi_correct_answer_quiz.js" />
@@ -2091,7 +2093,6 @@
     <Content Include="Views\Login\RegisterUser.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Profiles.cshtml" />
     <Content Include="Views\Result\Index.cshtml" />
     <Content Include="Views\Result\Render_result.cshtml" />
     <Content Include="Views\CheckAnswer\Index.cshtml" />
@@ -2111,7 +2112,12 @@
     <Content Include="Views\Fill_In_Blank_Quiz\Render_quiz.cshtml" />
     <Content Include="Views\Fill_In_Blank_Quiz\Check_answer.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Account\Profiles.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+=======
     <Content Include="Views\ReSubmit_Error\Index.cshtml" />
+>>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

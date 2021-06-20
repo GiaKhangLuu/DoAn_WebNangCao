@@ -26,32 +26,41 @@ namespace DoAn_WebNangCao.Models
 
         public int IDUser { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập!")]
-        [StringLength(25)]
+        [StringLength(25,MinimumLength =5,ErrorMessage ="Độ dài tên đăng nhập không phù hợp!(5 - 25 kí tự)")]
         [DisplayName("Tên Đăng Nhập")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập mật khẩu!")]
         [DataType(DataType.Password)]
-        [StringLength(25)]
         [DisplayName("Mật Khẩu")]
-
+        [StringLength(30, MinimumLength = 5, ErrorMessage = "Độ dài mật khẩu không phù hợp!(5 - 30 kí tự)")]
         public string MatKhau { get; set; }
         [NotMapped]
-        [Required(ErrorMessage = "Vui lòng nhập lại mật khẩu!")]
+        [Required(ErrorMessage = "Vui lòng xác nhận mật khẩu!")]
         [Compare("MatKhau")]
         [DataType(DataType.Password)]
         public string ConfirmPass { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập họ tên!")]
+        [StringLength(30, ErrorMessage = "Độ dài họ tên không phù hợp!(30 kí tự)")]
         [DisplayName("Họ tên")]
+        [RegularExpression(@"^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$", ErrorMessage ="Vui lòng không nhập kí tự đặt biệt!")]
         public string HoTen { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ Email!")]
         [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"^[\w-\._\+%]+@(?:[\w-]+\.)+[a-za-z.]{2,6}$", ErrorMessage = "Vui lòng nhập email phù hợp!")]
         [DisplayName("Địa chỉ Email")]
         public string Email { get; set; }
         public bool RememberMe { get; set; }
         public bool Quyen { get; set; }
         public string AnhDaiDien { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^[\+\d\s]+$", ErrorMessage = "Vui lòng nhập chính xác số điện thoại!")]
+        [DisplayName("Số điện thoại")]
+        [StringLength(16,ErrorMessage ="Độ dài số điện thoại không phù hợp!")]
+        public string SDT { get; set; }
+        [DisplayName("Địa chỉ")]
+        [RegularExpression(@"^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s0-9.]+$", ErrorMessage = "Vui lòng không nhập kí tự đặt biệt!")]
+        public string DiaChi { get; set; }
         public HttpPostedFileBase UploadImage { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DETHI> DETHIs { get; set; }
     }
