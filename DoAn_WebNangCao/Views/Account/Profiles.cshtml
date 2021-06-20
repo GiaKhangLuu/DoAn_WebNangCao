@@ -34,7 +34,7 @@ else if (ViewBag.ThanhCong == "false")
     </div>
     <!-- End Page Header -->
     <!-- Default Light Table -->
-    @using (Html.BeginForm("Profiles", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "user" }))
+    @using (Html.BeginForm("Profiles", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "user" }))
     {
         @Html.AntiForgeryToken()
         <div class="row">
@@ -73,7 +73,7 @@ else if (ViewBag.ThanhCong == "false")
                                             @Html.LabelFor(model => model.MatKhau)
                                             @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control form-control-user password", @readonly = "readonly", placeholder = "Mật khẩu", @Value = Session["MatKhau"] } })
                                             <div class=" text-right" style="position:absolute;right:7%;bottom:16%;">
-                                                @Html.ActionLink("Đổi mật khẩu", "ChangePassword")
+                                                <a href="@Url.Action("ChangePassword","Account")"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -116,6 +116,4 @@ else if (ViewBag.ThanhCong == "false")
     }
 </div>
 <!-- End Default Light Table -->
-<style>
-</style>
 

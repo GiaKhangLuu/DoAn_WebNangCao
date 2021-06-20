@@ -35,7 +35,7 @@ namespace DoAn_WebNangCao.Models
         [StringLength(30, MinimumLength = 5, ErrorMessage = "Độ dài mật khẩu không phù hợp!(5 - 30 kí tự)")]
         public string MatKhau { get; set; }
         [NotMapped]
-        [Required(ErrorMessage = "Vui lòng nhập lại mật khẩu!")]
+        [Required(ErrorMessage = "Vui lòng xác nhận mật khẩu!")]
         [Compare("MatKhau")]
         [DataType(DataType.Password)]
         public string ConfirmPass { get; set; }
