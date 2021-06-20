@@ -231,6 +231,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\one_correct_answer_quiz.css" />
     <EntityDeploy Include="Models\ThiTracNghiemEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ThiTracNghiemEntity.Designer.cs</LastGenOutput>
@@ -238,7 +239,6 @@
     <Content Include="Models\ThiTracNghiemEntity.edmx.diagram">
       <DependentUpon>ThiTracNghiemEntity.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\one_correct_answer_quiz.css" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\image-change.js" />
     <Content Include="Scripts\custom_script\multi_correct_answer_quiz.js" />

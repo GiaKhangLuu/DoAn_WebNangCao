@@ -14,7 +14,7 @@ namespace DoAn_WebNangCao.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            if(Session["UserName"]==null)
+            if (Session["UserName"] == null)
             {
                 return RedirectToAction("LoginUser", "Login");
             }
@@ -27,6 +27,14 @@ namespace DoAn_WebNangCao.Controllers
             {
                 return RedirectToAction("LoginUser", "Login");
             }
+            if (Session["SDT"] == null)
+            {
+                Session["SDT"] = "";
+            }
+            if (Session["DiaChi"] == null)
+            {
+                Session["DiaChi"] = "";
+            }
             return View();
 
         }
@@ -36,63 +44,52 @@ namespace DoAn_WebNangCao.Controllers
             try
             {
                 x.IDUser = Convert.ToInt32(Session["ID"]);
-                x.UserName = Session["UserName"].ToString();
-                x.MatKhau = Session["MatKhau"].ToString();
-                if (Session["Quyen"].ToString() == "Admin")
-                {
-                    x.Quyen = true;
-                }
-                else
-                {
-                    x.Quyen = false;
-                }
+                TAIKHOAN _user = db.TAIKHOANs.Where(s => s.IDUser == x.IDUser).FirstOrDefault();
                 if (x.UploadImage != null)
                 {
                     string filename = Path.GetFileNameWithoutExtension(x.UploadImage.FileName);
                     string extent = Path.GetExtension(x.UploadImage.FileName);
                     filename += extent;
-                    x.AnhDaiDien = "~/Content/images/" + filename;
+                    _user.AnhDaiDien = "~/Content/images/" + filename;
                     x.UploadImage.SaveAs(Path.Combine(Server.MapPath("~/Content/images/"), filename));
+                    _user.UploadImage = x.UploadImage;
+
                 }
                 else
                 {
-                    x.AnhDaiDien = Session["AnhDaiDien"].ToString();
+                    _user.AnhDaiDien = Session["AnhDaiDien"].ToString();
+                    _user.UploadImage = x.UploadImage;
                 }
-                if (x.MatKhau != null)
-                {
-                    x.MatKhau = Encryption.Encrypt(x.MatKhau);
-                }
-                x.ConfirmPass = x.MatKhau;
-                if (Session["Remember"].ToString() == "true")
-                {
-                    x.RememberMe = true;
-                }
-                else
-                    x.RememberMe = false;
-                db.Entry(x).State = System.Data.Entity.EntityState.Modified;
+                _user.HoTen = x.HoTen;
+                _user.SDT = x.SDT;
+                _user.Email = x.Email;
+                _user.DiaChi = x.DiaChi;
+                _user.ConfirmPass = Encryption.Encrypt(x.MatKhau);
+                _user.RememberMe = false;
+                db.Entry(_user).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                Session["UserName"] = x.UserName;
-                Session["HoTen"] = x.HoTen;
-                Session["MatKhau"] = Encryption.Decrypt(x.MatKhau);
-                Session["Email"] = x.Email;
-                Session["AnhDaiDien"] = x.AnhDaiDien;
-                if(x.RememberMe)
-                {
-                    HttpCookie cookie = Request.Cookies["Huflit Quiz"];
-                    cookie["UserName"] = x.UserName;
-                    cookie["MatKhau"] = x.MatKhau.ToString();
-                    cookie.Expires = DateTime.Now.AddDays(365);
-                    HttpContext.Response.Cookies.Add(cookie);
-                }
+                Session["HoTen"] = _user.HoTen;
+                Session["SDT"] = _user.SDT;
+                Session["Email"] = _user.Email;
+                Session["DiaChi"] = _user.DiaChi;
+                Session["AnhDaiDien"] = _user.AnhDaiDien;
                 ViewBag.ThanhCong = "true";
                 return View();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.ThanhCong = "false";
                 Console.WriteLine(e.Message);
                 return View();
             }
+        }
+        public ActionResult ChangePassword()
+        {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+            return View();
         }
     }
 }

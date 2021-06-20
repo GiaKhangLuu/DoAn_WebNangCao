@@ -10,7 +10,7 @@ namespace DoAn_WebNangCao.Controllers
     public class LoginController : Controller
     {
         THITRACNGHIEMEntities db = new THITRACNGHIEMEntities();
-        
+
         // GET: Login
         public ActionResult Index()
         {
@@ -19,20 +19,20 @@ namespace DoAn_WebNangCao.Controllers
         public ActionResult LoginUser()
         {
             HttpCookie cookie = Request.Cookies["Huflit Quiz"];// yêu cầu cookie.
-            if(cookie!=null)
+            if (cookie != null)
             {
                 ViewBag.UserName = cookie["UserName"].ToString();// gán cookie
                 ViewBag.MatKhau = Encryption.Decrypt(cookie["MatKhau"].ToString());
-            }    
+            }
             return View();
-            
+
         }
         [HttpPost]
         public ActionResult LoginUser(TAIKHOAN user)
         {
             var matKhau = Encryption.Encrypt(user.MatKhau);
             var check = db.TAIKHOANs.Where(s => s.UserName == user.UserName && s.MatKhau == matKhau).FirstOrDefault();
-            if(check==null)
+            if (check == null)
             {
                 ViewBag.ErrorInfo = "Tên đăng nhập hoặc mật khẩu không phù hợp!";
                 return View("LoginUser");
@@ -46,6 +46,8 @@ namespace DoAn_WebNangCao.Controllers
                 Session["AnhDaiDien"] = check.AnhDaiDien;
                 Session["HoTen"] = check.HoTen;
                 Session["Email"] = check.Email;
+                Session["SDT"] = check.SDT;
+                Session["DiaChi"] = check.DiaChi;
                 if (check.Quyen)
                 {
                     Session["Quyen"] = "Admin";
@@ -65,14 +67,7 @@ namespace DoAn_WebNangCao.Controllers
                     HttpContext.Response.Cookies.Add(cookie);// thông tin cookie và lưu.
                     Session["Remember"] = "true";
                 }
-                if(check.Quyen)
-                {
-                    return Direct_To_Admin_Page();
-                }
-                else
-                {
-                    return Direct_To_Client_Home_Page();
-                }
+                return RedirectToAction("Index", "Admin");
             }
         }
         public ActionResult RegisterUser()
@@ -87,8 +82,8 @@ namespace DoAn_WebNangCao.Controllers
                 user.AnhDaiDien = "~/Content/images/avatardefault.png";
                 user.Quyen = false;
                 user.MatKhau = Encryption.Encrypt(user.MatKhau);
-                var check_UserName = db.TAIKHOANs.Where(x => x.UserName== user.UserName).FirstOrDefault();
-                if(check_UserName==null)
+                var check_UserName = db.TAIKHOANs.Where(x => x.UserName == user.UserName).FirstOrDefault();
+                if (check_UserName == null)
                 {
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.TAIKHOANs.Add(user);
@@ -110,17 +105,8 @@ namespace DoAn_WebNangCao.Controllers
             cookie.Expires = DateTime.Now.AddDays(-1);//Xóa cookie
             HttpContext.Response.Cookies.Add(cookie);
             Session["Remember"] = "false";
-            return RedirectToAction("LoginUser","Login");
+            return RedirectToAction("LoginUser", "Login");
         }
 
-        public ActionResult Direct_To_Client_Home_Page()
-        {
-            return RedirectToAction("Index", "HomePage");
-        }
-
-        public ActionResult Direct_To_Admin_Page()
-        {
-            return RedirectToAction("Index", "Admin");
-        }
     }
 }
