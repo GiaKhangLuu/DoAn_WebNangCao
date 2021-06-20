@@ -7,72 +7,62 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-
-<!-- Nested Row within Card Body -->
-<div class="row">
-    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-    <div class="col-lg-7">
-        <div class="p-5">
-            <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Đăng ký!</h1>
-                @if (ViewBag.ErrorRegister != null)
+   
+    <!-- Nested Row within Card Body -->
+    <div class="row">
+        <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+        <div class="col-lg-7">
+            <div class="p-5">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Đăng ký!</h1>
+                    @if (ViewBag.ErrorRegister != null)
+                    {
+                        <p>@ViewBag.ErrorRegister</p>
+                    }
+                </div>
+                @using (Html.BeginForm("RegisterUser", "Login", FormMethod.Post, new { enctype = "multipart/form-data", @class = "user" }))
                 {
-                    <p>@ViewBag.ErrorRegister</p>
-                }
-            </div>
-            @using (Html.BeginForm("RegisterUser", "Login", FormMethod.Post, new { enctype = "multipart/form-data", @class = "user" }))
-            {
-                @Html.AntiForgeryToken()
-                <div class="form-group row">
-                    <div class="col-sm-6 mb-3 mb-sm-0">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
                         @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Họ Tên", id = "exampleLastName" } })
                         @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Số điện thoại", id = "exampleLastName" } })
-                        @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Địa chỉ Email", id = "exampleInputEmail" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Địa chỉ Email", id = "exampleInputEmail" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Tên đăng nhập", id = "exampleUserName" } })
-                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Mật khẩu", id = "exampleInputPassword" } })
-                        @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Tên đăng nhập", id = "exampleUserName" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-sm-6">
-                        @Html.EditorFor(model => model.ConfirmPass, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Nhập lại mật khẩu", id = "exampleRepaeatPassword" } })
-                        @Html.ValidationMessageFor(model => model.ConfirmPass, "", new { @class = "text-danger" })
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Mật khẩu", id = "exampleInputPassword" } })
+                            @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.ConfirmPass, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Nhập lại mật khẩu", id = "exampleRepaeatPassword" } })
+                            @Html.ValidationMessageFor(model => model.ConfirmPass, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Địa chỉ", id = "exampleUserName" } })
-                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
-                </div>
-                <input type="submit" class="btn btn-primary btn-user btn-block" value="Đăng ký" />
+                    <input type="submit" class="btn btn-primary btn-user btn-block" value="Đăng ký" />
+                    <hr>
+                    <a href=@Url.Action("LoginUser","Login") class="btn btn-google btn-user btn-block">
+                        <i class="fab fa-google fa-fw"></i> Đăng ký với Google
+                    </a>
+                    <a href=@Url.Action("LoginUser","Login") class="btn btn-facebook btn-user btn-block">
+                        <i class="fab fa-facebook-f fa-fw"></i> Đăng ký với Facebook
+                    </a>
+                }
+
+
                 <hr>
-                <a href=@Url.Action("LoginUser","Login") class="btn btn-google btn-user btn-block">
-                    <i class="fab fa-google fa-fw"></i> Đăng ký với Google
-                </a>
-                <a href=@Url.Action("LoginUser","Login") class="btn btn-facebook btn-user btn-block">
-                    <i class="fab fa-facebook-f fa-fw"></i> Đăng ký với Facebook
-                </a>
-            }
-
-
-            <hr>
-            <div class="text-center">
-                <a class="small" href=@Url.Action("LoginUser", "Login")>Quên mật khẩu?</a>
-            </div>
-            <div class="text-center">
-                <a class="small" href=@Url.Action("LoginUser", "Login")>Bạn đã có tài khoản? Đăng nhập!</a>
+                <div class="text-center">
+                    <a class="small" href=@Url.Action("LoginUser", "Login")>Quên mật khẩu?</a>
+                </div>
+                <div class="text-center">
+                    <a class="small" href=@Url.Action("LoginUser", "Login")>Bạn đã có tài khoản? Đăng nhập!</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
