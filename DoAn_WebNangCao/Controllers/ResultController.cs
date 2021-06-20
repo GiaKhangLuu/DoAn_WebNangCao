@@ -16,6 +16,11 @@ namespace DoAn_WebNangCao.Controllers
         {
             Result rs = new Result();
             Exam exam = Session["Exam"] as Exam;
+            if(!exam.Status)
+            {
+                return RedirectToAction("Index", "ReSubmit_Error");
+            }
+            exam.Status = false;
             rs.Num_of_quizs = exam.Quizs.Count;
             exam.Mark_exam(db);
             rs.Num_of_correct_answers = exam.Count_correct_answers(db);

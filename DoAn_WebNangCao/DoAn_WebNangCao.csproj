@@ -134,6 +134,7 @@
     <Compile Include="Controllers\Multi_Correct_Answer_QuizController.cs" />
     <Compile Include="Controllers\One_Correct_Answer_QuizController.cs" />
     <Compile Include="Controllers\QuizCategoryController.cs" />
+    <Compile Include="Controllers\ReSubmit_ErrorController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Controllers\Sorted_QuizController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -2110,6 +2111,7 @@
     <Content Include="Views\Fill_In_Blank_Quiz\Render_quiz.cshtml" />
     <Content Include="Views\Fill_In_Blank_Quiz\Check_answer.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="Views\ReSubmit_Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
