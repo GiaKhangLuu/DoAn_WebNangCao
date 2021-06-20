@@ -65,12 +65,23 @@ namespace DoAn_WebNangCao.Controllers
 
         private int Get_new_quiz_idx_by_next_pre_done_btn(string type, int quiz_idx)
         {
+            int num_of_quizs = (Session["Exam"] as Exam).Quizs.Count;
             if (type == "Next")
             {
+                // Case user is at the last quiz and press next button
+                if (quiz_idx == num_of_quizs - 1)
+                {
+                    return 0;
+                }
                 return ++quiz_idx;
             }
             else if (type == "Pre")
             {
+                // Case user is at the first quiz and press pre button
+                if (quiz_idx == 0)
+                {
+                    return num_of_quizs - 1;
+                }
                 return --quiz_idx;
             }
             return -1;
