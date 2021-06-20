@@ -11,6 +11,15 @@
     var selected_answer_ids = Model.Id_dap_an_chons;
 
     int quiz_idx = Model.Quiz_idx;
+
+    // Fix bug selected_answer_ids is empty
+    if (selected_answer_ids.Count == 0)
+    {
+        for(int i = 0; i< numOfBlanks; i++) 
+        {
+            selected_answer_ids.Add(-1);
+        }
+    }
 }
 
 <div class="row quiz-container">

@@ -10,23 +10,27 @@ namespace DoAn_WebNangCao.Models
     {
         private int id_de_thi;
         private List<Quiz> quizs = new List<Quiz>();
+        private bool status;
 
         public Exam(int id_de_thi, List<Quiz> quizs)
         {
             this.Id_de_thi = id_de_thi;
             this.Quizs = quizs;
+            this.status = true;
         }
 
         public Exam(int exam_id, IEnumerable<CAUHOI> cau_hois)
         {
             this.id_de_thi = exam_id;
             Add_cau_hoi(cau_hois);
+            this.status = true;
         }
 
         public Exam() { }
 
         public int Id_de_thi { get => id_de_thi; set => id_de_thi = value; }
         public List<Quiz> Quizs { get => quizs; set => quizs = value; }
+        public bool Status { get => status; set => status = value; }
 
         private void Add_cau_hoi(IEnumerable<CAUHOI> cau_hois)
         {
