@@ -126,6 +126,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CheckAnswerController.cs" />
     <Compile Include="Controllers\Fill_In_Blank_QuizController.cs" />
@@ -232,6 +233,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\one_correct_answer_quiz.css" />
     <EntityDeploy Include="Models\ThiTracNghiemEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ThiTracNghiemEntity.Designer.cs</LastGenOutput>
@@ -239,7 +241,6 @@
     <Content Include="Models\ThiTracNghiemEntity.edmx.diagram">
       <DependentUpon>ThiTracNghiemEntity.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\one_correct_answer_quiz.css" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\image-change.js" />
     <Content Include="Scripts\custom_script\multi_correct_answer_quiz.js" />
@@ -2115,6 +2116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f8d7ee9b7f0145edb8ec671cc2bf2399" Name="Diagram1">
+      <Diagram DiagramId="659da22f8ba44e51abf0a8f77084964c" Name="Diagram1">
         <EntityTypeShape EntityType="THITRACNGHIEMModel.CAUHOI" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="THITRACNGHIEMModel.DANHSACHCAUHOI" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="THITRACNGHIEMModel.DANHSACHDAPANCHON" Width="1.5" PointX="7.5" PointY="6.25" IsExpanded="true" />
@@ -12,8 +12,8 @@
         <EntityTypeShape EntityType="THITRACNGHIEMModel.DETHI" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="THITRACNGHIEMModel.LINHVUC" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="THITRACNGHIEMModel.LOAICAUHOI" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="THITRACNGHIEMModel.TAIKHOAN" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <AssociationConnector Association="THITRACNGHIEMModel.FK__CAUHOI__IDLinhVu__398D8EEE" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="THITRACNGHIEMModel.TAIKHOAN" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="THITRACNGHIEMModel.FK__CAUHOI__IDLinhVu__35BCFE0A" ManuallyRouted="false" />
         <AssociationConnector Association="THITRACNGHIEMModel.FK_CAUHOI_IDLOAICAUHOI" ManuallyRouted="false" />
         <AssociationConnector Association="THITRACNGHIEMModel.FK_CAUHOIDA" ManuallyRouted="false" />
         <AssociationConnector Association="THITRACNGHIEMModel.fk_ctdt_idcauhoi" ManuallyRouted="false" />
