@@ -19,7 +19,15 @@ namespace DoAn_WebNangCao.Controllers
             rs.Num_of_quizs = exam.Quizs.Count;
             exam.Mark_exam(db);
             rs.Num_of_correct_answers = exam.Count_correct_answers(db);
+            rs.Score = Get_total_score(rs);
             return RedirectToAction("Index", rs);
+        }
+
+        private double Get_total_score(Result rs)
+        {
+            double one_correct_quiz_score =  10 / (rs.Num_of_quizs * 1.0);
+            double total_score = one_correct_quiz_score * rs.Num_of_correct_answers;
+            return Math.Round(total_score, 2);
         }
         
         public ActionResult Index(Result rs)
