@@ -2112,12 +2112,9 @@
     <Content Include="Views\Fill_In_Blank_Quiz\Render_quiz.cshtml" />
     <Content Include="Views\Fill_In_Blank_Quiz\Check_answer.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Account\Profiles.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-=======
     <Content Include="Views\ReSubmit_Error\Index.cshtml" />
->>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
