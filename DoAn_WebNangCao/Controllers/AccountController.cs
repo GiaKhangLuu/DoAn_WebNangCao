@@ -55,6 +55,10 @@ namespace DoAn_WebNangCao.Controllers
                     _user.AnhDaiDien = Session["AnhDaiDien"].ToString();
                     _user.UploadImage = x.UploadImage;
                 }
+                _user.HoTen = x.HoTen;
+                _user.SDT = x.SDT;
+                _user.DiaChi = x.DiaChi;
+                _user.Email = x.Email;
                 _user.ConfirmPass = Encryption.Encrypt(x.MatKhau);
                 _user.RememberMe = false;
                 db.Entry(_user).State = System.Data.Entity.EntityState.Modified;
@@ -87,11 +91,39 @@ namespace DoAn_WebNangCao.Controllers
         {
             var id = int.Parse(Session["ID"].ToString());
             TAIKHOAN _user = db.TAIKHOANs.Where(s => s.IDUser == id).FirstOrDefault();
-            if (_user.MatKhau == changePass.OldPass)
+            if (Encryption.Decrypt(_user.MatKhau) == changePass.OldPass)
             {
-
+                if (changePass.OldPass != changePass.NewPass)
+                {
+                    Session["MatKhau"] = changePass.NewPass;
+                    _user.MatKhau = Encryption.Encrypt(changePass.NewPass);
+                    _user.ConfirmPass = _user.MatKhau;
+                    db.Entry(_user).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    Session["MatKhau"] = changePass.NewPass;
+                    if (Session["Remember"].ToString() == "true")
+                    {
+                        HttpCookie cookie = Request.Cookies["Huflit Quiz"];
+                        cookie["MatKhau"] = _user.MatKhau;
+                        HttpContext.Response.Cookies.Add(cookie);
+                    }
+                    ViewBag.ThanhCong = "true";
+                    return View();
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Mật khẩu mới phải khác mật khẩu cũ!";
+                    ViewBag.ThanhCong = "false";
+                    return View();
+                }
             }
-            return View();
+            else
+            {
+                ViewBag.ErrorMessage = "Mật khẩu cũ không trùng khớp!";
+                ViewBag.ThanhCong = "false";
+                return View();
+            }
+            
         }
     }
 }

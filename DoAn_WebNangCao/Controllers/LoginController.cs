@@ -106,10 +106,13 @@ namespace DoAn_WebNangCao.Controllers
         public ActionResult LogOutUser()
         {
             Session.Abandon();
-            HttpCookie cookie = Request.Cookies["Huflit Quiz"];
-            cookie.Expires = DateTime.Now.AddDays(-1);//Xóa cookie
-            HttpContext.Response.Cookies.Add(cookie);
-            Session["Remember"] = "false";
+            if(Session["Remember"].ToString()=="true")
+            {
+                HttpCookie cookie = Request.Cookies["Huflit Quiz"];
+                cookie.Expires = DateTime.Now.AddDays(-1);//Xóa cookie
+                HttpContext.Response.Cookies.Add(cookie);
+                Session["Remember"] = "false";
+            }
             return RedirectToAction("LoginUser","Login");
         }
 
