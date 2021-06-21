@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="~/Content/quiz_category.css">
     <link rel="stylesheet" href="~/Content/homepage.css" />
     <link rel="stylesheet" href="~/Content/quiz_category_container.css" />
+    <link rel="stylesheet" href="~/vendor/datatables/dataTables.bootstrap4.css" />
 </head>
 
 <body id="page-top">
@@ -51,7 +52,7 @@
                                 <a style="color: #858796;" class="nav-link" href="@Url.Action("Index","QuizCategory")">Thi</a>
                             </li>
                             <li class="nav-item">
-                                <a style="color: #858796;" class="nav-link" href="">Lịch sử thi</a>
+                                <a style="color: #858796;" class="nav-link" href="@Url.Action("TestLog","HomePage")">Lịch sử thi</a>
                             </li>
                             <li class="nav-item">
                                 <a style="color: #858796;" class="nav-link" href="#">Hướng dẫn thi</a>
@@ -84,7 +85,7 @@
                                     <i class="fas fa-edit fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Đổi mật khẩu
                                 </a>
-                                <a class="dropdown-item" href="">
+                                <a class="dropdown-item" href="@Url.Action("TestLog","HomePage")">
                                     <i class="fas fa-clipboard-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Lịch sử thi
                                 </a>

@@ -35,10 +35,5 @@ namespace DoAn_WebNangCao.Controllers
             ViewData["linhvucLi"] = linhvucLi;
             return View();
         }
-        public ActionResult GetListLV()
-        {
-            var lvLi = db.LINHVUCs.ToList<LINHVUC>();
-            return Json(new { data = lvLi }, JsonRequestBehavior.AllowGet);
-        }
     }
 }

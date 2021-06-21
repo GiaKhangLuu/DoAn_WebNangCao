@@ -41,6 +41,10 @@ namespace DoAn_WebNangCao.Controllers
         
         public ActionResult Index(Result rs)
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
             return View(rs);
         }
 
