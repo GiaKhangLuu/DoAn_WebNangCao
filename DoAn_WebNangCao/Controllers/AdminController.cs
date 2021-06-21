@@ -10,17 +10,15 @@ namespace DoAn_WebNangCao.Controllers
 {
     public class AdminController : Controller
     {
-        THITRACNGHIEMEntities db = new THITRACNGHIEMEntities();
         // GET: Admin
         public ActionResult Index()
         {
-            if (Session["UserName"] == null)
+            if(Session["UserName"]==null)
             {
                 return RedirectToAction("LoginUser", "Login");
             }
             ViewBag.Encrypt = Encryption.Encrypt("admin");
             return View();
         }
-        
     }
 }

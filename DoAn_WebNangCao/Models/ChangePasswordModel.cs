@@ -21,7 +21,7 @@ namespace DoAn_WebNangCao.Models
         public string NewPass { get; set; }
         [NotMapped]
         [Required(ErrorMessage = "Vui lòng xác nhận mật khẩu!")]
-        [Compare(otherProperty:"NewPass")]
+        [Compare(otherProperty: "NewPass")]
         [DataType(DataType.Password)]
         [DisplayName("Nhập lại mật khẩu mới")]
         public string ConfirmPass { get; set; }

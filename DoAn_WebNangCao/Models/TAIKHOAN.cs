@@ -26,7 +26,7 @@ namespace DoAn_WebNangCao.Models
 
         public int IDUser { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập!")]
-        [StringLength(25,MinimumLength =5,ErrorMessage ="Độ dài tên đăng nhập không phù hợp!(5 - 25 kí tự)")]
+        [StringLength(25, MinimumLength = 5, ErrorMessage = "Độ dài tên đăng nhập không phù hợp!(5 - 25 kí tự)")]
         [DisplayName("Tên Đăng Nhập")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập mật khẩu!")]
@@ -42,7 +42,7 @@ namespace DoAn_WebNangCao.Models
         [Required(ErrorMessage = "Vui lòng nhập họ tên!")]
         [StringLength(30, ErrorMessage = "Độ dài họ tên không phù hợp!(30 kí tự)")]
         [DisplayName("Họ tên")]
-        [RegularExpression(@"^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$", ErrorMessage ="Vui lòng không nhập kí tự đặt biệt!")]
+        [RegularExpression(@"^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$", ErrorMessage = "Vui lòng không nhập kí tự đặt biệt!")]
         public string HoTen { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ Email!")]
         [DataType(DataType.EmailAddress)]
@@ -55,7 +55,7 @@ namespace DoAn_WebNangCao.Models
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^[\+\d\s]+$", ErrorMessage = "Vui lòng nhập chính xác số điện thoại!")]
         [DisplayName("Số điện thoại")]
-        [StringLength(16,ErrorMessage ="Độ dài số điện thoại không phù hợp!")]
+        [StringLength(16, ErrorMessage = "Độ dài số điện thoại không phù hợp!")]
         public string SDT { get; set; }
         [DisplayName("Địa chỉ")]
         [RegularExpression(@"^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s0-9.]+$", ErrorMessage = "Vui lòng không nhập kí tự đặt biệt!")]
