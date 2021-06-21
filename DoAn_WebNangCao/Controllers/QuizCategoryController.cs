@@ -13,6 +13,10 @@ namespace DoAn_WebNangCao.Controllers
         
         public ActionResult Index()
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
             var linh_vucs = Get_all_linh_vuc();
             return View(linh_vucs);
         }

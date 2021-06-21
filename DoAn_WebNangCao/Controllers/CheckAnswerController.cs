@@ -13,6 +13,10 @@ namespace DoAn_WebNangCao.Controllers
         // GET: CheckAnswer
         public ActionResult Index()
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
             Exam exam = Session["Exam"] as Exam;
             List<Quiz> quizs = exam.Quizs;
             return View(quizs);

@@ -2,7 +2,14 @@
 
 @{
     ViewBag.Title = "Cập nhật tài Khoản";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    if (Session["Quyen"] == "Admin")
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutClient.cshtml";
+    }
 }
 
 @if (ViewBag.ThanhCong == "true")

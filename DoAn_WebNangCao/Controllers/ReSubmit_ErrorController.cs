@@ -11,6 +11,10 @@ namespace DoAn_WebNangCao.Controllers
         // GET: ReSubmit_Error
         public ActionResult Index()
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
             return View();
         }
     }

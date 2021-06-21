@@ -11,6 +11,10 @@ namespace DoAn_WebNangCao.Controllers
         // GET: HomePage
         public ActionResult Index()
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
             return View();
         }
     }
