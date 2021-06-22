@@ -207,6 +207,7 @@
     <Content Include="Content\images\sorted_quiz.gif" />
     <Content Include="Content\list_quiz.css" />
     <Content Include="Content\list_quiz_grid.css" />
+    <Content Include="Content\modal_add_quiz.css" />
     <Content Include="Content\multi_correct_answer_quiz.css" />
     <Content Include="Content\multi_correct_answer_quiz_02.css" />
     <Content Include="Content\question.css" />
@@ -243,6 +244,11 @@
       <DependentUpon>ThiTracNghiemEntity.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\custom_script\add_fill_in_blank_quiz.js" />
+    <Content Include="Scripts\custom_script\add_multi_correct_quiz.js" />
+    <Content Include="Scripts\custom_script\add_one_correct_quiz.js" />
+    <Content Include="Scripts\custom_script\add_sorted_quiz.js" />
+    <Content Include="Scripts\custom_script\choose_quiz_type_to_add.js" />
     <Content Include="Scripts\image-change.js" />
     <Content Include="Scripts\custom_script\multi_correct_answer_quiz.js" />
     <Content Include="Scripts\custom_script\sorted_quiz.js" />
@@ -2119,6 +2125,7 @@
     <Content Include="Views\Admin\CreateField.cshtml" />
     <Content Include="Views\Shared\_LayoutClient.cshtml" />
     <Content Include="Views\HomePage\TestLog.cshtml" />
+    <Content Include="Views\Admin\ManageQuiz.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,200 @@
+﻿@model DoAn_WebNangCao.Models.CAUHOI
+
+@{
+    ViewBag.Title = "ManageQuiz";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var idLinhVuc = (ViewData["list_cau_hoi"] as List<DoAn_WebNangCao.Models.CAUHOI>)[0].IDLinhVuc;
+}
+
+<link href="~/Content/modal_add_quiz.css" rel="stylesheet" />
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-primary">Câu hỏi</h1>
+    <hr />
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách câu hỏi</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered dataTable" id="dataTable" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nội dụng câu hỏi</th>
+                            <th>Loại câu hỏi</th>
+                            <th>Tình trạng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewData["list_cau_hoi"] as List<DoAn_WebNangCao.Models.CAUHOI>)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IDCauHoi)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NoiDung)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LOAICAUHOI.TenLoaiCauHoi)
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-user" style="font-size:15px"><i class="fa fa-info-circle"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top: 10px">
+                <button id="btn-add-cau-hoi" type="button" class="btn btn-primary">Thêm câu hỏi</button>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    @using (Html.BeginForm("AddQuiz", "Admin"))
+    {
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Thêm câu hỏi</h4>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <input type="hidden" name="idLinhVuc" value="@idLinhVuc">
+                    <input type="hidden" id="quiz-type-id" name="idLoaiCauHoi" value="1" />
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="quiz-type">Loại câu hỏi:</label>
+                            <select id="quiz-type" name="quiz-type">
+                                <option selected value="one_correct">Câu hỏi 1 đáp án</option>
+                                <option value="multi_correct">Câu hỏi nhiều đáp án</option>
+                                <option value="sort">Câu hỏi sắp xếp</option>
+                                <option value="fill">Câu hỏi điền vào chỗ trống</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row one-correct-quiz" style="display: flex;">
+                        <div class="col-9 quiz-info-left">
+                            <input type="hidden" name="one-correct-quiz-num-of-dap-an" value="0" />
+                            <input name="one-correct-quiz-content" class="quiz-content" type="text" style="width: 100%;" placeholder="Nội dung câu hỏi">
+                            <hr>
+                            <div class="answer-container"></div>
+                        </div>
+                        <div class="col-3 quiz-info-right">
+                            <button class="btn btn-success btn-icon-split" id="btn-add-one-correct-quiz">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span class="text">Thêm đáp án</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row multi-correct-quiz" style="display: none;">
+                        <div class="col-9 quiz-info-left">
+                            <input type="hidden" name="multi-correct-quiz-num-of-dap-an" value="0" />
+                            <input name="multi-correct-quiz-content" class="quiz-content" type="text" style="width: 100%;" placeholder="Nội dung câu hỏi">
+                            <hr>
+                            <div class="answer-container"></div>
+                        </div>
+                        <div class="col-3 quiz-info-right">
+                            <button class="btn btn-success btn-icon-split" id="btn-add-multi-correct-quiz">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span class="text">Thêm đáp án</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row sorted-quiz" style="display: none;">
+                        <div class="col-9 quiz-info-left">
+                            <input class="quiz-content" type="text" style="width: 100%;" placeholder="Nội dung câu hỏi">
+                            <hr>
+                            <div class="answer-container">
+                                <div class="answer-row">
+                                    <span>Item 1</span>
+                                    <input type="text" class="sorted-quiz-answer-content" placeholder="Nội dung đáp án">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 quiz-info-right">
+                            <button class="btn btn-success btn-icon-split" id="btn-add-sorted-quiz">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span class="text">Thêm đáp án</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row fill-in-blank-quiz" , style="display: none;">
+                        <div class="col-9 quiz-info-left">
+                            <input class="quiz-content" name="fill-in-blank-quiz-content" type="text" style="width: 100%;" placeholder="Nội dung câu hỏi">
+                            <hr>
+                            <div class="answer-container">
+                            </div>
+                        </div>
+                        <div class="col-3 quiz-info-right">
+                            <button class="btn btn-success btn-icon-split" id="btn-add-blank">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span class="text">Thêm ô trống</span>
+                            </button>
+                            <button class="btn btn-success btn-icon-split" id="btn-add-fill-in-blank-quiz">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span class="text">Thêm đáp án</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Thêm câu hỏi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("btn-add-cau-hoi");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+

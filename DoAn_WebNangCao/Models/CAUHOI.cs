@@ -14,6 +14,8 @@ namespace DoAn_WebNangCao.Models
     
     public partial class CAUHOI
     {
+        THITRACNGHIEMEntities db = new THITRACNGHIEMEntities();
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CAUHOI()
         {
@@ -32,5 +34,17 @@ namespace DoAn_WebNangCao.Models
         public virtual ICollection<DAPAN> DAPANs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DANHSACHCAUHOI> DANHSACHCAUHOIs { get; set; }
+
+        public CAUHOI Add_cau_hoi(string noiDung, int idLinhVuc, int idLoaiCauHoi)
+        {
+            this.NoiDung = noiDung;
+            this.IDLinhVuc = idLinhVuc;
+            this.IDLoaiCauHoi = idLoaiCauHoi;
+            db.CAUHOIs.Add(this);
+            db.SaveChanges();
+            return this;
+        }
+
+        
     }
 }
