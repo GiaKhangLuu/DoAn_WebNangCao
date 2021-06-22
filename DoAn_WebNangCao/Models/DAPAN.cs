@@ -14,6 +14,8 @@ namespace DoAn_WebNangCao.Models
     
     public partial class DAPAN
     {
+        THITRACNGHIEMEntities db = new THITRACNGHIEMEntities();
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DAPAN()
         {
@@ -29,5 +31,19 @@ namespace DoAn_WebNangCao.Models
         public virtual CAUHOI CAUHOI { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DANHSACHDAPANCHON> DANHSACHDAPANCHONs { get; set; }
+
+        public DAPAN Add_dap_an(string noiDung, int idCauHoi, bool tinhChat, int? thuTu)
+        {
+            this.NoiDung = noiDung;
+            this.IDCauHoi = idCauHoi;
+            this.TinhChat = tinhChat;
+            if (thuTu != null)
+            {
+                this.ThuTu = thuTu;
+            }
+            db.DAPANs.Add(this);
+            db.SaveChanges();
+            return this;
+        }
     }
 }

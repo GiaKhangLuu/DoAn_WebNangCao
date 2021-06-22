@@ -43,7 +43,7 @@
                             <th>ID</th>
                             <th>Tên Lĩnh Vực</th>
                             <th>Ghi Chú</th>
-                            <th>Xóa</th>
+                            <th>Chi tiết</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,7 +60,11 @@
                                     @Html.DisplayFor(modelItem => item.GhiChu)
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-user" style="font-size:15px"><i class="fa fa-trash"></i></button>
+                                    <button 
+                                            onclick="location.href='@Url.Action("ManageQuiz", "Admin", new { idLinhVuc = item.IDLinhVuc })';"
+                                            type="button" 
+                                            class="btn btn-info btn-user" 
+                                            style="font-size:15px"><i class="fa fa-info-circle"></i></button>
                                 </td>
                             </tr>
                         }

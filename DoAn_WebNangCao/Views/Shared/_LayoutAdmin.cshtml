@@ -44,17 +44,10 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCauHoi"
-                   aria-expanded="true" aria-controls="collapsePages">
+                <a class="nav-link" href="@Url.Action("CreateField", "Admin")">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>QUẢN LÝ CÂU HỎI</span>
+                    <span>QUẢN LÝ ĐỀ THI</span>
                 </a>
-                <div id="collapseCauHoi" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">Câu hỏi</a>
-                        <a class="collapse-item" href="#">Lĩnh Vực</a>
-                    </div>
-                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Permission","Admin")">
@@ -200,6 +193,11 @@
 
     <!-- Page level custom scripts -->
     <script src="~/Scripts/datatables-demo.js"></script>
+    <script src="~/Scripts/custom_script/add_one_correct_quiz.js"></script>
+    <script src="~/Scripts/custom_script/add_multi_correct_quiz.js"></script>
+    <script src="~/Scripts/custom_script/add_sorted_quiz.js"></script>
+    <script src="~/Scripts/custom_script/add_fill_in_blank_quiz.js"></script>
+    <script src="~/Scripts/custom_script/choose_quiz_type_to_add.js"></script>
 </body>
 @RenderSection("Scripts", required: false)
 </html>

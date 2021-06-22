@@ -9,6 +9,8 @@ namespace DoAn_WebNangCao.Controllers
 {
     public class One_Correct_Answer_QuizController : Controller
     {
+        THITRACNGHIEMEntities db = new THITRACNGHIEMEntities();
+
         // GET: One_Correct_Answer_Quiz
         public ActionResult Index(int quiz_idx)
         {
