@@ -35,13 +35,6 @@ namespace DoAn_WebNangCao.Controllers
             ViewData["linhvucLi"] = linhvucLi;
             return View();
         }
-<<<<<<< HEAD
-=======
-        public ActionResult GetListLV()
-        {
-            var lvLi = db.LINHVUCs.ToList<LINHVUC>();
-            return Json(new { data = lvLi }, JsonRequestBehavior.AllowGet);
-        }
 
         [HttpGet]
         public ActionResult ManageQuiz(int idLinhVuc)
@@ -126,6 +119,5 @@ namespace DoAn_WebNangCao.Controllers
             }
             return RedirectToAction("ManageQuiz", "Admin", new { idLinhVuc = idLinhVuc });
         }
->>>>>>> 4fb463b41a35c33e5c8f725994978cb25b4a8073
     }
 }
