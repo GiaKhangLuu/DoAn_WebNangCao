@@ -5,20 +5,18 @@
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
 
-<!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Lịch Sử Thi</h1>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách Đề thi</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Lịch sử Thi</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Mã Đề thi</th>
+                        <th>Lĩnh Vực</th>
                         <th>Họ Tên</th>
                         <th>Ngày Thi</th>
                         <th>Điểm</th>
@@ -29,7 +27,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.IDDeThi)
+                                @Html.DisplayFor(modelItem => item.DANHSACHCAUHOIs.Where(x => x.IDDeThi == item.IDDeThi).FirstOrDefault().CAUHOI.LINHVUC.TenLinhVuc)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.TAIKHOAN.HoTen)

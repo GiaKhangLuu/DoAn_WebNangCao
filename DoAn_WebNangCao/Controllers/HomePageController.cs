@@ -28,6 +28,13 @@ namespace DoAn_WebNangCao.Controllers
             }
             int idUser = int.Parse(Session["ID"].ToString());
             List<DETHI> dethiLi = db.DETHIs.Where(x => x.IDUser == idUser).OrderBy(x=>x.NgayThi).ToList();
+            foreach (var i in dethiLi)
+            {
+                if(i.TongDiem==null)
+                {
+                    i.TongDiem = 0;
+                }
+            }
             return View(dethiLi);
         }
     }
