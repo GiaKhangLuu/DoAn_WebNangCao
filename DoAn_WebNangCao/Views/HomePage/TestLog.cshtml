@@ -16,6 +16,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>Mã Đề Thi</th>
                         <th>Lĩnh Vực</th>
                         <th>Họ Tên</th>
                         <th>Ngày Thi</th>
@@ -25,20 +26,23 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DANHSACHCAUHOIs.Where(x => x.IDDeThi == item.IDDeThi).FirstOrDefault().CAUHOI.LINHVUC.TenLinhVuc)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TAIKHOAN.HoTen)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NgayThi)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TongDiem)
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IDDeThi)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DANHSACHCAUHOIs.Where(x => x.IDDeThi == item.IDDeThi).FirstOrDefault().CAUHOI.LINHVUC.TenLinhVuc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TAIKHOAN.HoTen)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgayThi)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TongDiem)
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
