@@ -29,6 +29,7 @@ namespace DoAn_WebNangCao.Controllers
             exam.Mark_exam(db);
             rs.Num_of_correct_answers = exam.Count_correct_answers(db);
             rs.Score = Get_total_score(rs);
+            Save_total_score_to_db(exam.Id_de_thi, rs.Score);
             return RedirectToAction("Index", rs);
         }
 
@@ -51,6 +52,14 @@ namespace DoAn_WebNangCao.Controllers
         public PartialViewResult Render_result(Result rs)
         {
             return PartialView(rs);
+        }
+
+        private DETHI Save_total_score_to_db(int idDeThi, double score)
+        {
+            DETHI dETHI = db.DETHIs.Find(idDeThi);
+            dETHI.TongDiem = (decimal?)score;
+            db.SaveChanges();
+            return dETHI;
         }
     }
 }
