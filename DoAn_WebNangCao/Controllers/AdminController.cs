@@ -52,13 +52,14 @@ namespace DoAn_WebNangCao.Controllers
         [HttpPost]
         public ActionResult AddQuiz(int idLinhVuc, int idLoaiCauHoi)
         {
-            if(idLoaiCauHoi == Constant.ID_CAU_HOI_1_DAP_AN)
+            List<string> noiDungDapAns = new List<string>();
+            List<bool> tinhChats = new List<bool>();
+            if (idLoaiCauHoi == Constant.ID_CAU_HOI_1_DAP_AN)
             {
                 string noiDungCauHoi = Request["one-correct-quiz-content"];
                 int num_of_dap_an = Int32.Parse(Request["one-correct-quiz-num-of-dap-an"]);
                 int true_answer_position = Int32.Parse(Request["one-correct-quiz-radio"]);
-                List<string> noiDungDapAns = new List<string>();
-                List<bool> tinhChats = new List<bool>();
+                
                 for(int idx = 0; idx < num_of_dap_an; idx++)
                 {
                     int order = idx + 1;
@@ -66,14 +67,12 @@ namespace DoAn_WebNangCao.Controllers
                     noiDungDapAns.Add(Request[dapan_content_name]);
                     tinhChats.Add(order == true_answer_position ? true : false);
                 }
-                return Add_one_correct_answer_quiz_to_db(idLinhVuc, idLoaiCauHoi, noiDungCauHoi, noiDungDapAns, tinhChats);
+                return Add_quiz_to_db(idLinhVuc, idLoaiCauHoi, noiDungCauHoi, noiDungDapAns, tinhChats);
             }
             else if(idLoaiCauHoi == Constant.ID_CAU_HOI_NHIEU_DAP_AN)
             {
                 string noiDungCauHoi = Request["multi-correct-quiz-content"];
                 int num_of_dap_an = Int32.Parse(Request["multi-correct-quiz-num-of-dap-an"]);
-                List<string> noiDungDapAns = new List<string>();
-                List<bool> tinhChats = new List<bool>();
                 for (int idx = 0; idx < num_of_dap_an; idx++)
                 {
                     int order = idx + 1;
@@ -82,12 +81,28 @@ namespace DoAn_WebNangCao.Controllers
                     noiDungDapAns.Add(Request[dapan_content_name]);
                     tinhChats.Add(Request[checkbox_name] != null ? true : false);
                 }
-                return Add_multi_correct_answer_quiz_to_db(idLinhVuc, idLoaiCauHoi, noiDungCauHoi, noiDungDapAns, tinhChats);
+                return Add_quiz_to_db(idLinhVuc, idLoaiCauHoi, noiDungCauHoi, noiDungDapAns, tinhChats);
+            }
+            else if(idLoaiCauHoi == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)
+            {
+                string noiDungCauHoi = Request["sorted-quiz-content"];
+                int num_of_dap_an = Int32.Parse(Request["sorted-quiz-num-of-dap-an"]);
+                List<int> thuTus = new List<int>();
+                for(int idx = 0; idx < num_of_dap_an; idx++)
+                {
+                    int order = idx + 1;
+                    string dapan_content_name = "sorted-quiz-noidung-" + order;
+                    noiDungDapAns.Add(Request[dapan_content_name]);
+                    tinhChats.Add(true);
+                    thuTus.Add(order);
+                }
+                return Add_quiz_to_db(idLinhVuc, idLoaiCauHoi, noiDungCauHoi, noiDungDapAns, tinhChats, thuTus);
+
             }
             return null;
         }
 
-        private ActionResult Add_one_correct_answer_quiz_to_db(int idLinhVuc,
+        private ActionResult Add_quiz_to_db(int idLinhVuc,
                                            int idLoaiCauHoi,
                                            string noiDungCauHoi,
                                            List<string> noiDungDapAns,
@@ -106,11 +121,12 @@ namespace DoAn_WebNangCao.Controllers
             return RedirectToAction("ManageQuiz", "Admin", new { idLinhVuc = idLinhVuc });
         }
 
-        private ActionResult Add_multi_correct_answer_quiz_to_db(int idLinhVuc, 
-                                                                 int idLoaiCauHoi,
-                                                                 string noiDungCauHoi,
-                                                                 List<string> noiDungDapAns,
-                                                                 List<bool> tinhChats)
+        private ActionResult Add_quiz_to_db(int idLinhVuc,
+                                           int idLoaiCauHoi,
+                                           string noiDungCauHoi,
+                                           List<string> noiDungDapAns,
+                                           List<bool> tinhChats,
+                                           List<int> thuTus)
         {
             CAUHOI cauhoi = new CAUHOI();
             cauhoi = cauhoi.Add_cau_hoi(noiDungCauHoi, idLinhVuc, idLoaiCauHoi);
@@ -118,11 +134,13 @@ namespace DoAn_WebNangCao.Controllers
             {
                 string noiDungDapAn = noiDungDapAns[idx];
                 bool tinhChat = tinhChats[idx];
+                int thuTu = thuTus[idx];
                 int idCauHoi = cauhoi.IDCauHoi;
                 DAPAN dapan = new DAPAN();
-                dapan.Add_dap_an(noiDungDapAn, idCauHoi, tinhChat, null);
+                dapan.Add_dap_an(noiDungDapAn, idCauHoi, tinhChat, thuTu);
             }
             return RedirectToAction("ManageQuiz", "Admin", new { idLinhVuc = idLinhVuc });
         }
+
     }
 }
