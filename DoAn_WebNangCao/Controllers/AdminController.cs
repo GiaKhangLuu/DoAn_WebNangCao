@@ -14,16 +14,8 @@ namespace DoAn_WebNangCao.Controllers
         THITRACNGHIEMEntities db = new THITRACNGHIEMEntities();
         public ActionResult Index()
         {
-            if(Session["UserName"]==null)
-            {
-                return RedirectToAction("LoginUser", "Login");
-            }
-            if(Session["Quyen"]!="Admin")
-            {
-                return RedirectToAction("Index", "HomePage");
-            }
-            ViewBag.Encrypt = Encryption.Encrypt("admin");
-            return View();
+
+            return RedirectToAction("CreateField", "Admin");
         }
         public ActionResult Permission(string _name)
         {
@@ -43,6 +35,19 @@ namespace DoAn_WebNangCao.Controllers
             {
                 return RedirectToAction("Index", "HomePage");
             }
+            List<LINHVUC> linhvucLi = db.LINHVUCs.OrderBy(x => x.IDLinhVuc).ToList();
+            ViewData["linhvucLi"] = linhvucLi;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateField(LINHVUC lv)//Lĩnh vực
+        {
+            if (Session["Quyen"] != "Admin")
+            {
+                return RedirectToAction("Index", "HomePage");
+            }
+            db.LINHVUCs.Add(lv);
+            db.SaveChanges();
             List<LINHVUC> linhvucLi = db.LINHVUCs.OrderBy(x => x.IDLinhVuc).ToList();
             ViewData["linhvucLi"] = linhvucLi;
             return View();

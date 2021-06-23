@@ -14,10 +14,22 @@ namespace DoAn_WebNangCao.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("LoginUser","Admin");
         }
+
         public ActionResult LoginUser()
         {
+            if(Session["UserName"]!=null)
+            {
+                if(Session["Quyen"]=="Admin")
+                {
+                    return Direct_To_Admin_Page();
+                }
+                else
+                {
+                    return Direct_To_Client_Home_Page();
+                }
+            }
             HttpCookie cookie = Request.Cookies["Huflit Quiz"];// yêu cầu cookie.
             if(cookie!=null)
             {
@@ -30,6 +42,17 @@ namespace DoAn_WebNangCao.Controllers
         [HttpPost]
         public ActionResult LoginUser(TAIKHOAN user)
         {
+            if (Session["UserName"] != null)
+            {
+                if (Session["Quyen"] == "Admin")
+                {
+                    return Direct_To_Admin_Page();
+                }
+                else
+                {
+                    return Direct_To_Client_Home_Page();
+                }
+            }
             var matKhau = Encryption.Encrypt(user.MatKhau);
             var check = db.TAIKHOANs.Where(s => s.UserName == user.UserName && s.MatKhau == matKhau).FirstOrDefault();
             if(check==null)
@@ -77,11 +100,33 @@ namespace DoAn_WebNangCao.Controllers
         }
         public ActionResult RegisterUser()
         {
+            if (Session["UserName"] != null)
+            {
+                if (Session["Quyen"] == "Admin")
+                {
+                    return Direct_To_Admin_Page();
+                }
+                else
+                {
+                    return Direct_To_Client_Home_Page();
+                }
+            }
             return View();
         }
         [HttpPost]
         public ActionResult RegisterUser(TAIKHOAN user)
         {
+            if (Session["UserName"] != null)
+            {
+                if (Session["Quyen"] == "Admin")
+                {
+                    return Direct_To_Admin_Page();
+                }
+                else
+                {
+                    return Direct_To_Client_Home_Page();
+                }
+            }
             if (ModelState.IsValid)
             {
                 user.AnhDaiDien = "~/Content/images/avatardefault.png";
