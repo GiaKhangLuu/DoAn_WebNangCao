@@ -18,11 +18,19 @@ namespace DoAn_WebNangCao.Controllers
             {
                 return RedirectToAction("LoginUser", "Login");
             }
+            if(Session["Quyen"]!="Admin")
+            {
+                return RedirectToAction("Index", "HomePage");
+            }
             ViewBag.Encrypt = Encryption.Encrypt("admin");
             return View();
         }
         public ActionResult Permission(string _name)
         {
+            if(Session["Quyen"]!="Admin")
+            {
+                return RedirectToAction("Index", "HomePage");
+            }
             if (_name == null)
                 return View(db.TAIKHOANs.ToList());
             else
@@ -31,19 +39,22 @@ namespace DoAn_WebNangCao.Controllers
         [HttpGet]
         public ActionResult CreateField()//Lĩnh vực
         {
+            if (Session["Quyen"] != "Admin")
+            {
+                return RedirectToAction("Index", "HomePage");
+            }
             List<LINHVUC> linhvucLi = db.LINHVUCs.OrderBy(x => x.IDLinhVuc).ToList();
             ViewData["linhvucLi"] = linhvucLi;
             return View();
-        }
-        public ActionResult GetListLV()
-        {
-            var lvLi = db.LINHVUCs.ToList<LINHVUC>();
-            return Json(new { data = lvLi }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult ManageQuiz(int idLinhVuc)
         {
+            if (Session["Quyen"] != "Admin")
+            {
+                return RedirectToAction("Index", "HomePage");
+            }
             List<CAUHOI> cAUHOIs = db.CAUHOIs.Where(p => p.IDLinhVuc == idLinhVuc).ToList();
             ViewData["list_cau_hoi"] = cAUHOIs;
             return View();
@@ -52,6 +63,10 @@ namespace DoAn_WebNangCao.Controllers
         [HttpPost]
         public ActionResult AddQuiz(int idLinhVuc, int idLoaiCauHoi)
         {
+            if (Session["Quyen"] != "Admin")
+            {
+                return RedirectToAction("Index", "HomePage");
+            }
             List<string> noiDungDapAns = new List<string>();
             List<bool> tinhChats = new List<bool>();
             if (idLoaiCauHoi == Constant.ID_CAU_HOI_1_DAP_AN)
@@ -108,6 +123,10 @@ namespace DoAn_WebNangCao.Controllers
                                            List<string> noiDungDapAns,
                                            List<bool> tinhChats)
         {
+            if (Session["Quyen"] != "Admin")
+            {
+                return RedirectToAction("Index", "HomePage");
+            }
             CAUHOI cauhoi = new CAUHOI();
             cauhoi = cauhoi.Add_cau_hoi(noiDungCauHoi, idLinhVuc, idLoaiCauHoi);        
             for(int idx = 0; idx < noiDungDapAns.Count; idx++)
@@ -128,6 +147,10 @@ namespace DoAn_WebNangCao.Controllers
                                            List<bool> tinhChats,
                                            List<int> thuTus)
         {
+            if (Session["Quyen"] != "Admin")
+            {
+                return RedirectToAction("Index", "HomePage");
+            }
             CAUHOI cauhoi = new CAUHOI();
             cauhoi = cauhoi.Add_cau_hoi(noiDungCauHoi, idLinhVuc, idLoaiCauHoi);
             for (int idx = 0; idx < noiDungDapAns.Count; idx++)

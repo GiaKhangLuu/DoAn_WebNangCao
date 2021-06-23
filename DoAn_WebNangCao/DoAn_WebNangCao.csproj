@@ -2123,6 +2123,8 @@
     <Content Include="Views\ReSubmit_Error\Index.cshtml" />
     <Content Include="Views\Admin\Permission.cshtml" />
     <Content Include="Views\Admin\CreateField.cshtml" />
+    <Content Include="Views\Shared\_LayoutClient.cshtml" />
+    <Content Include="Views\HomePage\TestLog.cshtml" />
     <Content Include="Views\Admin\ManageQuiz.cshtml" />
   </ItemGroup>
   <ItemGroup>

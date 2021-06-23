@@ -11,6 +11,10 @@ namespace DoAn_WebNangCao.Controllers
     {
         public ActionResult Index(int quiz_idx)
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
             Exam exam = Session["Exam"] as Exam;
             Quiz quiz = exam.Quizs[quiz_idx];
             return View(quiz);
@@ -43,6 +47,10 @@ namespace DoAn_WebNangCao.Controllers
 
         public ActionResult Go(int quiz_idx)
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
             Add_answer_for_sorted_quiz(quiz_idx);
             int new_quiz_idx;
             // User click on next pre done btn

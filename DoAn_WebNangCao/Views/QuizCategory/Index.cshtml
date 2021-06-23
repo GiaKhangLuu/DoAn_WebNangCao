@@ -1,180 +1,29 @@
 ﻿@model IEnumerable<DoAn_WebNangCao.Models.LINHVUC>
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Quiz Category</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="~/Content/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="~/Content/quiz_category.css">
-    <link rel="stylesheet" href="~/Content/homepage.css" />
-    <link rel="stylesheet" href="~/Content/quiz_category_container.css" />
-</head>
-
-<body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-        
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!--Nav bar-->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!--Nav logo-->
-                    <a class="navbar-brand" href="#">
-                        <img src="~/Content/images/logo_banner.png" alt="" width="60" height="50" class="d-inline-block align-text-top">
-                    </a>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a style="color: #858796;" class="nav-link active" aria-current="page" href="/HomePage/Index">Trang chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a style="color: #858796;" class="nav-link" href="#">Thi</a>
-                            </li>
-                            <li class="nav-item">
-                                <a style="color: #858796;" class="nav-link" href="#">Lịch sử thi</a>
-                            </li>
-                            <li class="nav-item">
-                                <a style="color: #858796;" class="nav-link" href="#">Hướng dẫn thi</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Gia Khang</span>
-                                <img class="img-profile rounded-circle"
-                                     src="../img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Tài khoản
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Lịch sử thi
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Đăng xuất
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!--Description-->
-                    <div class="row text-header">
-                        <div class="col">
-                            <h1 class="website-name">HUFLIT Quiz</h1>
-                            <hr>
-                            <h2>Chọn lĩnh vực</h2>
-                            <p>
-                                Mỗi lĩnh vực bao gồm 25-40 câu hỏi,
-                                ban sẽ được 1 điểm cho mỗi câu trả lời đúng.
-                            </p>
-                            <p>
-                                Sau khi hoàn tất bài thi, bạn có thể xem lại
-                                tất cả câu hỏi cùng với đáp án bạn đã chọn và đáp án đúng.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!--Quiz category container-->
-                    <div class="row justify-content-center">
-                        <div class="col-10 quiz-category-container">
-                            @{ Html.RenderPartial("Render_quiz_category", Model); }
-                        </div>
-                    </div>
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
+<!--Description-->
+<div class="row text-header">
+    <div class="col">
+        <h1 class="website-name">HUFLIT Quiz</h1>
+        <hr>
+        <h2>Chọn lĩnh vực</h2>
+        <p>
+            Mỗi lĩnh vực bao gồm 25-40 câu hỏi,
+            ban sẽ được 1 điểm cho mỗi câu trả lời đúng.
+        </p>
+        <p>
+            Sau khi hoàn tất bài thi, bạn có thể xem lại
+            tất cả câu hỏi cùng với đáp án bạn đã chọn và đáp án đúng.
+        </p>
     </div>
-    <!-- End of Page Wrapper -->
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+</div>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
+<!--Quiz category container-->
+<div class="row justify-content-center">
+    <div class="col-10 quiz-category-container">
+        @{ Html.RenderPartial("Render_quiz_category", Model); }
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="~/vendor/jquery/jquery.min.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="~/Scripts/sb-admin-2.min.js"></script>
-</body>
-</html>
+</div>

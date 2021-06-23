@@ -14,8 +14,13 @@ namespace DoAn_WebNangCao.Controllers
 
         public ActionResult CreateExam(int idLinhVuc)
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+            
             string mucDo = "1";
-            int id_tai_khoan = 1;
+            int id_tai_khoan = int.Parse(Session["ID"].ToString());
             //int id_linh_vuc = Int32.Parse(idLinhVuc);
             IEnumerable<CAUHOI> cau_hois = Get_cau_hoi_by_linh_vuc(idLinhVuc);
             // Create DETHI and danh sach cau hoi
@@ -28,6 +33,10 @@ namespace DoAn_WebNangCao.Controllers
 
         public ActionResult Index(int quiz_idx)
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
             Exam exam = Session["Exam"] as Exam;
             var quiz_type_id = exam.Quizs[quiz_idx].Cau_hoi.IDLoaiCauHoi;
             if (quiz_type_id == Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU)

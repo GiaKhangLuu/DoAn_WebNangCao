@@ -14,6 +14,10 @@ namespace DoAn_WebNangCao.Controllers
 
         public ActionResult MarkExam()
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
             Result rs = new Result();
             Exam exam = Session["Exam"] as Exam;
             if(!exam.Status)
@@ -37,6 +41,10 @@ namespace DoAn_WebNangCao.Controllers
         
         public ActionResult Index(Result rs)
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
             return View(rs);
         }
 

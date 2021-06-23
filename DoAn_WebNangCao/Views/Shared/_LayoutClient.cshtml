@@ -1,0 +1,186 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>HUFLIT Quiz</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,800&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/Content/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="~/Content/list_quiz.css" rel="stylesheet" />
+    <link href="~/Content/btn_quiz_selected.css" rel="stylesheet" />
+    <link href="~/Content/list_quiz_grid.css" rel="stylesheet" />
+    <link href="~/Content/one_correct_answer_quiz.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/quiz_category.css">
+    <link rel="stylesheet" href="~/Content/homepage.css" />
+    <link rel="stylesheet" href="~/Content/quiz_category_container.css" />
+    <link rel="stylesheet" href="~/vendor/datatables/dataTables.bootstrap4.css" />
+</head>
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!--Nav bar-->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!--Nav logo-->
+                <a class="navbar-brand" href="#">
+                    <img src="~/Content/images/logo_banner.png" alt="" width="60" height="50" class="d-inline-block align-text-top">
+                </a>
+
+                <div class="container-fluid">
+                    <span class="navbar-brand mb-0 h1 website-name">HUFLIT Quiz</span>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a style="color: #858796;" class="nav-link active" aria-current="page" href="@Url.Action("Index","HomePage")">Trang chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a style="color: #858796;" class="nav-link" href="@Url.Action("Index","QuizCategory")">Thi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a style="color: #858796;" class="nav-link" href="@Url.Action("TestLog","HomePage")">Lịch sử thi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a style="color: #858796;" class="nav-link" href="#">Hướng dẫn thi</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <ul class="navbar-nav ml-auto">
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">@Session["HoTen"]</span>
+                            @if (Session["AnhDaiDien"] != null)
+                            {
+                                <img class="img-profile rounded-circle"
+                                     src="@Url.Content(Session["AnhDaiDien"].ToString())">
+                            }
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="@Url.Action("Profiles","Account")">
+                                <i class="fas fa-address-card fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Tài khoản
+                            </a>
+                            <a class="dropdown-item" href="@Url.Action("ChangePassword","Account")">
+                                <i class="fas fa-edit fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Đổi mật khẩu
+                            </a>
+                            <a class="dropdown-item" href="@Url.Action("TestLog","HomePage")">
+                                <i class="fas fa-clipboard-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Lịch sử thi
+                            </a>
+                            @if (Session["Quyen"] == "Admin")
+                            {
+                                <a class="dropdown-item" href="@Url.Action("Index","Admin")">
+                                    <i class="fas fa-user-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Quản lý
+                                </a>
+                            }
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Đăng xuất
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Huflit Quiz Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bạn có muốn đăng xuất?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Chọn "Đăng Xuất" nếu bạn muốn thoát.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
+                    <a class="btn btn-primary" href="@Url.Action("LogOutUser","Login")">Đăng Xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Scripts/sb-admin-2.min.js"></script>
+    <script src="~/Scripts/custom_script/sorted_quiz.js"></script>
+
+    <!--Change Image-->
+    <script src="~/Scripts/image-change.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Scripts/datatables-demo.js"></script>
+</body>
+@RenderSection("Scripts", required: false)
+</html>
