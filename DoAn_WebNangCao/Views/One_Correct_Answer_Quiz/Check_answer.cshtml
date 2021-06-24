@@ -36,7 +36,7 @@
 
         <!--Quiz body-->
         <table class="table-quiz">
-            @foreach (var dap_an in cau_hoi.DAPANs)
+            @foreach (var dap_an in Model.Random_dapans)
             {
                 // selected correct answer && answer selected = dap_an.IDDapAn
                 if (ket_qua && dap_an.IDDapAn == id_selected_answer)

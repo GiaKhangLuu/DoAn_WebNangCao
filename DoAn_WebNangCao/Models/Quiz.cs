@@ -11,6 +11,7 @@ namespace DoAn_WebNangCao.Models
         private List<int> id_dap_an_chons;
         private List<bool> ket_quas;
         private int quiz_idx;
+        private List<DAPAN> random_dapans;
 
         public Quiz(CAUHOI cau_hoi, int quiz_idx)
         {
@@ -18,6 +19,7 @@ namespace DoAn_WebNangCao.Models
             Id_dap_an_chons = new List<int>();
             this.quiz_idx = quiz_idx;
             ket_quas = new List<bool>();
+            random_dapans = Get_random_dapans();
         }
 
         public Quiz(CAUHOI cau_hoi) {
@@ -30,6 +32,7 @@ namespace DoAn_WebNangCao.Models
         public int Quiz_idx { get => quiz_idx; set => quiz_idx = value; }
         public List<int> Id_dap_an_chons { get => id_dap_an_chons; set => id_dap_an_chons = value; }
         public List<bool> Ket_quas { get => ket_quas; set => ket_quas = value; }
+        public List<DAPAN> Random_dapans { get => random_dapans; set => random_dapans = value; }
 
         public void Save_answer_of_sorted_answer_quiz(int[] answer_ids)
         {
@@ -86,6 +89,20 @@ namespace DoAn_WebNangCao.Models
                 return true;
             }
             return false;
+        }
+
+        private List<DAPAN> Get_random_dapans()
+        {
+            Random random = new Random();
+            List<DAPAN> random_dapans = new List<DAPAN>();
+            var raw_dapans = cau_hoi.DAPANs.ToList();
+            while(raw_dapans.Count > 0)
+            {
+                int idx = random.Next(raw_dapans.Count);
+                random_dapans.Add(raw_dapans[idx]);
+                raw_dapans.RemoveAt(idx);
+            }
+            return random_dapans;
         }
 
     }
