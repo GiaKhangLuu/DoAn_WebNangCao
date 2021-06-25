@@ -71,8 +71,26 @@ namespace DoAn_WebNangCao.Controllers
 
         public IEnumerable<CAUHOI> Get_cau_hoi_by_linh_vuc(int idLinhVuc)
         {
-            var cau_hois = db.CAUHOIs.Where(ch => ch.IDLinhVuc == idLinhVuc);
-            return cau_hois.AsEnumerable<CAUHOI>();
+            List<CAUHOI> quizs = new List<CAUHOI>();
+            quizs.AddRange(Get_random_quizs(idLinhVuc, Constant.ID_CAU_HOI_1_DAP_AN, 5));
+            quizs.AddRange(Get_random_quizs(idLinhVuc, Constant.ID_CAU_HOI_NHIEU_DAP_AN, 5));
+            quizs.AddRange(Get_random_quizs(idLinhVuc, Constant.ID_CAU_HOI_SAP_XEP_THEO_THU_TU, 5));
+            quizs.AddRange(Get_random_quizs(idLinhVuc, Constant.ID_CAU_HOI_DIEN_VAO_CHO_TRONG, 5));
+            return quizs;
+        }
+
+        public List<CAUHOI> Get_random_quizs(int idLinhVuc, int idLoaiCauHoi, int num_of_quizs)
+        {
+            List<CAUHOI> random_list = new List<CAUHOI>();
+            var raw_quizs = db.CAUHOIs.Where(p => p.IDLinhVuc == idLinhVuc &&
+                                                        p.IDLoaiCauHoi == idLoaiCauHoi).ToList();
+            for(int i = 0; i < num_of_quizs; i++)
+            {
+                int random_idx = new Random().Next(raw_quizs.Count());
+                random_list.Add(raw_quizs[random_idx]);
+                raw_quizs.RemoveAt(random_idx);
+            }
+            return random_list;
         }
        
         private DETHI CreateDeThi(string mucDo, int idTaiKhoan)
