@@ -1,21 +1,38 @@
 ﻿@model IEnumerable<DoAn_WebNangCao.Models.LINHVUC>
 
-@foreach(var linh_vuc in Model)
+@{ 
+    int ID_CAU_HOI_1_DAP_AN = 1;
+    int ID_CAU_HOI_NHIEU_DAP_AN = 2;
+    int ID_CAU_HOI_SAP_XEP_THEO_THU_TU = 3;
+    int ID_CAU_HOI_DIEN_VAO_CHO_TRONG = 4;
+}
+
+@foreach (var linh_vuc in Model)
 {
-    <div class="quiz-category">
-        <div class="quizheader">
-            <h4>@linh_vuc.TenLinhVuc</h4>
-            <hr>
+    int num_of_one_correct_quizs = linh_vuc.CAUHOIs.Where(p => p.IDLoaiCauHoi == ID_CAU_HOI_1_DAP_AN).Count();
+    int num_of_multi_correct_quizs = linh_vuc.CAUHOIs.Where(p => p.IDLoaiCauHoi == ID_CAU_HOI_NHIEU_DAP_AN).Count();
+    int num_of_sorted_quizs = linh_vuc.CAUHOIs.Where(p => p.IDLoaiCauHoi == ID_CAU_HOI_SAP_XEP_THEO_THU_TU).Count();
+    int num_of_fill_in_blank_quizs = linh_vuc.CAUHOIs.Where(p => p.IDLoaiCauHoi == ID_CAU_HOI_DIEN_VAO_CHO_TRONG).Count();
+    if(num_of_one_correct_quizs >= 5 &&
+        num_of_multi_correct_quizs >= 5 &&
+        num_of_sorted_quizs >= 5 &&
+        num_of_fill_in_blank_quizs >= 5) 
+    {
+        <div class="quiz-category">
+            <div class="quizheader">
+                <h4>@linh_vuc.TenLinhVuc</h4>
+                <hr>
+            </div>
+            <div class="quizbody">
+                <p>@linh_vuc.GhiChu</p>
+            </div>
+            <div class="quizfooter">
+                @Html.ActionLink("Start Quiz",
+                    "CreateExam",
+                    "Test",
+                    new { idLinhVuc = linh_vuc.IDLinhVuc },
+                    new { @class = "w3-btn w3-round ws-blue" })
+            </div>
         </div>
-        <div class="quizbody">
-            <p>@linh_vuc.GhiChu</p>
-        </div>
-        <div class="quizfooter">
-            @Html.ActionLink("Start Quiz",
-                "CreateExam",
-                "Test",
-                new { idLinhVuc = linh_vuc.IDLinhVuc },
-                new { @class = "w3-btn w3-round ws-blue" })
-        </div>
-    </div>
+    }
 }
