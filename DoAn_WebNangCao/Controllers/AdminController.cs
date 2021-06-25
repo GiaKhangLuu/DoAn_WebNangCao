@@ -60,9 +60,9 @@ namespace DoAn_WebNangCao.Controllers
             {
                 return RedirectToAction("Index", "HomePage");
             }
-            List<CAUHOI> cAUHOIs = db.CAUHOIs.Where(p => p.IDLinhVuc == idLinhVuc).ToList();
-            ViewData["list_cau_hoi"] = cAUHOIs;
-            return View();
+            //List<CAUHOI> cAUHOIs = db.CAUHOIs.Where(p => p.IDLinhVuc == idLinhVuc).ToList();
+            LINHVUC linhvuc = db.LINHVUCs.Find(idLinhVuc);
+            return View(linhvuc);
         }
 
         [HttpPost]
