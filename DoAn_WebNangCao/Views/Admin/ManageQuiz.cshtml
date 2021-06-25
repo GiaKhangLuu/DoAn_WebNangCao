@@ -1,9 +1,10 @@
-﻿@model DoAn_WebNangCao.Models.CAUHOI
+﻿@model DoAn_WebNangCao.Models.LINHVUC
 
 @{
     ViewBag.Title = "ManageQuiz";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    var idLinhVuc = (ViewData["list_cau_hoi"] as List<DoAn_WebNangCao.Models.CAUHOI>)[0].IDLinhVuc;
+    int idLinhVuc = Model.IDLinhVuc;
+    var cauhois = Model.CAUHOIs.Where(p => p.IDLinhVuc == idLinhVuc);
 }
 
 <link href="~/Content/modal_add_quiz.css" rel="stylesheet" />
@@ -30,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in ViewData["list_cau_hoi"] as List<DoAn_WebNangCao.Models.CAUHOI>)
+                        @foreach (var item in cauhois)
                         {
                             <tr>
                                 <td>
