@@ -6,7 +6,7 @@
     int numOfBlanks = (quiz_title.Length - temp.Length) / "{'blank'}".Length;
     // encode quiz title
     quiz_title = quiz_title.Replace("{'blank'}", "<div class=\"blank\"></div>");
-    var list_answers = Model.Cau_hoi.DAPANs;
+    var list_answers = Model.Random_dapans;
     int quiz_idx = Model.Quiz_idx;
     var list_selected_answers = Model.Id_dap_an_chons;
 }
