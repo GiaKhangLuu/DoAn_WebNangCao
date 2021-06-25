@@ -13,7 +13,7 @@
     @using (Html.BeginForm("CreateField", "Admin", FormMethod.Post, new { @class = "user" }))
     {
         @Html.AntiForgeryToken()
-
+        <p>Mỗi lĩnh vực phải từ 20 câu hỏi trở lên mới có thể hiển thị lên cho người dùng!</p>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group row">
             <div class="col-sm-3 mb-3 mb-sm-0">
@@ -28,6 +28,10 @@
                 <button type="submit" class="btn btn-success btn-user" style="font-size:15px"><i class="fa fa-check"></i></button>
             </div>
         </div>
+        if (ViewBag.ErrorLV != null)
+        {
+            <p class="text-danger">@ViewBag.ErrorLV</p>
+        }
     }
     <hr />
     <!-- DataTales Example -->
@@ -60,11 +64,12 @@
                                     @Html.DisplayFor(modelItem => item.GhiChu)
                                 </td>
                                 <td>
-                                    <button 
-                                            onclick="location.href='@Url.Action("ManageQuiz", "Admin", new { idLinhVuc = item.IDLinhVuc })';"
-                                            type="button" 
-                                            class="btn btn-info btn-user" 
-                                            style="font-size:15px"><i class="fa fa-info-circle"></i></button>
+                                    <button onclick="location.href='@Url.Action("ManageQuiz", "Admin", new { idLinhVuc = item.IDLinhVuc })';"
+                                            type="button"
+                                            class="btn btn-info btn-user"
+                                            style="font-size:15px">
+                                        <i class="fa fa-info-circle"></i>
+                                    </button>
                                 </td>
                             </tr>
                         }

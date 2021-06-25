@@ -17,17 +17,7 @@ namespace DoAn_WebNangCao.Controllers
 
             return RedirectToAction("CreateField", "Admin");
         }
-        public ActionResult Permission(string _name)
-        {
-            if(Session["Quyen"]!="Admin")
-            {
-                return RedirectToAction("Index", "HomePage");
-            }
-            if (_name == null)
-                return View(db.TAIKHOANs.ToList());
-            else
-                return View(db.TAIKHOANs.Where(s => s.UserName.Contains(_name)).ToList());
-        }
+
         [HttpGet]
         public ActionResult CreateField()//Lĩnh vực
         {
@@ -46,9 +36,22 @@ namespace DoAn_WebNangCao.Controllers
             {
                 return RedirectToAction("Index", "HomePage");
             }
-            db.LINHVUCs.Add(lv);
-            db.SaveChanges();
-            List<LINHVUC> linhvucLi = db.LINHVUCs.OrderBy(x => x.IDLinhVuc).ToList();
+            List<LINHVUC> linhvucLi;
+            var check_lv = db.LINHVUCs.Where(x => x.TenLinhVuc == lv.TenLinhVuc).FirstOrDefault();
+            if (check_lv == null)
+            {
+                if (ModelState.IsValid)
+                {
+                    db.LINHVUCs.Add(lv);
+                    db.SaveChanges();
+                    linhvucLi = db.LINHVUCs.OrderBy(x => x.IDLinhVuc).ToList();
+                    ViewData["linhvucLi"] = linhvucLi;
+                    return View();
+                }
+            }
+            else
+                ViewBag.ErrorLV = "Trùng tên lĩnh vực!";
+            linhvucLi = db.LINHVUCs.OrderBy(x => x.IDLinhVuc).ToList();
             ViewData["linhvucLi"] = linhvucLi;
             return View();
         }
