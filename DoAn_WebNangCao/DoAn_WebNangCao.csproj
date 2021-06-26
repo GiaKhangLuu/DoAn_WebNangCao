@@ -2125,6 +2125,7 @@
     <Content Include="Views\Shared\_LayoutClient.cshtml" />
     <Content Include="Views\HomePage\TestLog.cshtml" />
     <Content Include="Views\Admin\ManageQuiz.cshtml" />
+    <Content Include="Views\Admin\ManageDapAn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

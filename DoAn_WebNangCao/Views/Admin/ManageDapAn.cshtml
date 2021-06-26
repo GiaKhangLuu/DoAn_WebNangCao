@@ -1,0 +1,59 @@
+﻿@model DoAn_WebNangCao.Models.CAUHOI
+
+@{
+    ViewBag.Title = "ManageDapAn";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int idCauHoi = Model.IDCauHoi;
+    var dapans = Model.DAPANs.Where(p => p.IDCauHoi == idCauHoi);
+}
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-primary">Câu hỏi</h1>
+    <hr />
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách câu hỏi</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered dataTable" id="dataTable" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nội dụng câu hỏi</th>
+                            <th>Tính chất</th>
+                            <th>Thứ tự</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in dapans)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IDDapAn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NoiDung)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TinhChat)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ThuTu)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top: 10px">
+                <button id="btn-add-cau-hoi" type="button" class="btn btn-primary">Thêm câu hỏi</button>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>

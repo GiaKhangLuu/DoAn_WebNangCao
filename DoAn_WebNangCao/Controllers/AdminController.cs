@@ -68,6 +68,18 @@ namespace DoAn_WebNangCao.Controllers
             return View(linhvuc);
         }
 
+        [HttpGet]
+        public ActionResult ManageDapAn(int idCauHoi)
+        {
+            if (Session["Quyen"] != "Admin")
+            {
+                return RedirectToAction("Index", "HomePage");
+            }
+            //List<CAUHOI> cAUHOIs = db.CAUHOIs.Where(p => p.IDLinhVuc == idLinhVuc).ToList();
+            CAUHOI cAUHOI = db.CAUHOIs.Find(idCauHoi);
+            return View(cAUHOI);
+        }
+
         [HttpPost]
         public ActionResult AddQuiz(int idLinhVuc, int idLoaiCauHoi)
         {

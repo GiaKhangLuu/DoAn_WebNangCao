@@ -27,26 +27,31 @@
                             <th>ID</th>
                             <th>Nội dụng câu hỏi</th>
                             <th>Loại câu hỏi</th>
-                            <th>Tình trạng</th>
+                            <th>đáp án</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in cauhois)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IDCauHoi)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NoiDung)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.LOAICAUHOI.TenLoaiCauHoi)
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-info btn-user" style="font-size:15px"><i class="fa fa-info-circle"></i></button>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IDCauHoi)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NoiDung)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LOAICAUHOI.TenLoaiCauHoi)
+                            </td>
+                            <td>
+                                <button onclick="location.href='@Url.Action("ManageDapAn", "Admin", new { idCauHoi = item.IDCauHoi })';"
+                                        type="button"
+                                        class="btn btn-info btn-user"
+                                        style="font-size:15px">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
