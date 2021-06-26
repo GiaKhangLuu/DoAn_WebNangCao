@@ -201,5 +201,15 @@ namespace DoAn_WebNangCao.Controllers
             return cauhoi;
         }
 
+        [HttpPost]
+        public ActionResult UpdateField(int idLinhVuc, string tenLinhVuc, string ghiChu)
+        {
+            LINHVUC lINHVUC = db.LINHVUCs.Find(idLinhVuc);
+            lINHVUC.TenLinhVuc = tenLinhVuc;
+            lINHVUC.GhiChu = ghiChu;
+            db.SaveChanges();
+            return RedirectToAction("CreateField");
+        }
+
     }
 }
